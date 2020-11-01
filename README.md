@@ -1,2 +1,2 @@
-# Mayor-of-Kanaka
+# Mayor of Kanaka
 A city council management game
