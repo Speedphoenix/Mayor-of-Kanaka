@@ -1,45 +1,30 @@
 extends CanvasLayer
 
-export var eventID = 0
+signal close
+
+export var currentEventID = 0
 
 var previousEventID
 var currentEvent
 var events
 
 func _ready():
-	randomize()
 	previousEventID = -1
-	events = getEventsData()
+	var Global = get_node("/root/Global")
+	events = Global.events
 	
-func _process(delta):
-	currentEvent = getCurrentEvent(events, eventID)
-	var currentEventID = currentEvent["id"]
+func _process(_delta):
+	currentEvent = getCurrentEvent(events, currentEventID)
 	# Refresh only if there is a new event to print
 	if (currentEventID != previousEventID):
 		printEventData()
 	
-	# Once the processing for an event is done, the previous event is now equal
-	# the current one
 	previousEventID = currentEventID 
-
-func getEventsData():
-	var data_file = File.new()
-	if data_file.open("res://assets/events/events.json", File.READ) != OK:
-		print("Error while loading the events file...")
-		return
-	var data_text = data_file.get_as_text()
-	data_file.close()
-	var data_parse = JSON.parse(data_text)
-	if data_parse.error != OK:
-		return
-	var data = data_parse.result
-	return data
 	
-	
-func getCurrentEvent(events, eventID):
-	for eventKey in events:
-		if (events[eventKey]["id"] == eventID):
-			var event = events[eventKey]
+func getCurrentEvent(allEvents, eventID):
+	for eventKey in allEvents:
+		if (allEvents[eventKey]["id"] == eventID):
+			var event = allEvents[eventKey]
 			return event
 	
 	# if we did not find the event, return the default event
@@ -55,3 +40,13 @@ func _on_AcceptButton_pressed():
 
 func _on_RefuseButton_pressed():
 	print("You refused the event : ", currentEvent["title"])
+
+func _on_HoldButton_pressed():
+	print("You put on hold the event : ", currentEvent["title"])
+
+func _on_CloseButton_pressed():
+	print("You closed the event : ", currentEvent["title"])
+	emit_signal("close")
+	
+func _on_eventChanged(eventID):
+	currentEventID = eventID

@@ -16,7 +16,11 @@ _global_script_class_icons={
 [application]
 
 config/name="Mayor of Kanaka"
-run/main_scene="res://scenes/EventsUI.tscn"
+run/main_scene="res://scenes/MainScene.tscn"
+
+[autoload]
+
+Global="*res://scripts/Global.gd"
 
 [display]
 
