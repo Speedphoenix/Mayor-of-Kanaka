@@ -26,20 +26,16 @@ font_data = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="SingleEventController" type="Control" parent="."]
-margin_left = 199.179
-margin_top = 47.6758
-margin_right = 691.179
-margin_bottom = 425.676
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Background" type="ColorRect" parent="SingleEventController"]
-margin_left = 19.0703
-margin_top = 14.8325
-margin_right = 476.07
-margin_bottom = 351.832
-color = Color( 0.371094, 0.14362, 0.0753784, 0.721569 )
+margin_left = 211.0
+margin_top = 136.0
+margin_right = 608.0
+margin_bottom = 427.0
+color = Color( 0.372549, 0.145098, 0.0745098, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -56,10 +52,10 @@ __meta__ = {
 [node name="TitleLabel" type="Label" parent="SingleEventController/TitleController"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 53.128
-margin_top = 53.8775
-margin_right = 136.128
-margin_bottom = 81.8775
+margin_left = 220.128
+margin_top = 174.878
+margin_right = 303.128
+margin_bottom = 202.878
 rect_pivot_offset = Vector2( -700.5, -123 )
 custom_fonts/font = SubResource( 1 )
 text = "Event :"
@@ -68,10 +64,10 @@ __meta__ = {
 }
 
 [node name="TitleBackground" type="ColorRect" parent="SingleEventController/TitleController"]
-margin_left = 169.291
-margin_top = 38.0
-margin_right = 407.291
-margin_bottom = 105.0
+margin_left = 328.0
+margin_top = 158.0
+margin_right = 546.0
+margin_bottom = 213.0
 rect_pivot_offset = Vector2( 82.183, 114.337 )
 color = Color( 0.501961, 0.203922, 0.113725, 0.721569 )
 __meta__ = {
@@ -81,10 +77,10 @@ __meta__ = {
 [node name="Title" type="Label" parent="SingleEventController/TitleController"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 190.964
-margin_top = 51.1091
-margin_right = 391.964
-margin_bottom = 100.109
+margin_left = 341.0
+margin_top = 168.0
+margin_right = 535.0
+margin_bottom = 213.0
 rect_pivot_offset = Vector2( -700.5, -123 )
 custom_fonts/font = SubResource( 2 )
 text = "This is where title
@@ -106,10 +102,10 @@ __meta__ = {
 [node name="DescriptionLabel" type="Label" parent="SingleEventController/DescriptionController"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 50.4439
-margin_top = 132.701
-margin_right = 157.444
-margin_bottom = 152.701
+margin_left = 210.444
+margin_top = 247.701
+margin_right = 317.444
+margin_bottom = 267.701
 rect_pivot_offset = Vector2( -700.5, -123 )
 custom_fonts/font = SubResource( 3 )
 text = "Description :"
@@ -118,10 +114,10 @@ __meta__ = {
 }
 
 [node name="DescriptionBackground2" type="ColorRect" parent="SingleEventController/DescriptionController"]
-margin_left = 166.568
-margin_top = 123.61
-margin_right = 405.568
-margin_bottom = 261.61
+margin_left = 334.0
+margin_top = 235.0
+margin_right = 546.0
+margin_bottom = 356.0
 rect_pivot_offset = Vector2( 82.183, 114.337 )
 color = Color( 0.501961, 0.203922, 0.113725, 0.721569 )
 __meta__ = {
@@ -131,10 +127,10 @@ __meta__ = {
 [node name="Description" type="Label" parent="SingleEventController/DescriptionController"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 181.286
-margin_top = 139.173
-margin_right = 370.286
-margin_bottom = 216.173
+margin_left = 342.286
+margin_top = 250.173
+margin_right = 531.286
+margin_bottom = 327.173
 rect_pivot_offset = Vector2( -700.5, -123 )
 custom_fonts/font = SubResource( 4 )
 text = "This is where description goes."
@@ -144,10 +140,10 @@ __meta__ = {
 }
 
 [node name="AcceptButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 410.07
-margin_top = 304.832
-margin_right = 438.07
-margin_bottom = 331.832
+margin_left = 562.07
+margin_top = 388.832
+margin_right = 590.07
+margin_bottom = 415.832
 texture_normal = ExtResource( 4 )
 expand = true
 __meta__ = {
@@ -155,10 +151,10 @@ __meta__ = {
 }
 
 [node name="RefuseButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 52.0703
-margin_top = 307.832
-margin_right = 79.0703
-margin_bottom = 334.832
+margin_left = 228.07
+margin_top = 390.832
+margin_right = 255.07
+margin_bottom = 417.832
 texture_normal = ExtResource( 3 )
 expand = true
 __meta__ = {
@@ -166,10 +162,10 @@ __meta__ = {
 }
 
 [node name="HoldButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 236.07
-margin_top = 310.832
-margin_right = 263.07
-margin_bottom = 335.832
+margin_left = 396.07
+margin_top = 392.832
+margin_right = 423.07
+margin_bottom = 417.832
 texture_normal = ExtResource( 5 )
 expand = true
 __meta__ = {
@@ -177,10 +173,10 @@ __meta__ = {
 }
 
 [node name="CloseButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 433.655
-margin_top = 26.5636
-margin_right = 461.655
-margin_bottom = 55.5636
+margin_left = 570.655
+margin_top = 147.564
+margin_right = 598.655
+margin_bottom = 176.564
 texture_normal = ExtResource( 6 )
 expand = true
 __meta__ = {

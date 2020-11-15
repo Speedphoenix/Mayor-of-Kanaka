@@ -1,9 +1,15 @@
 extends Node
 
 var events
+var devmode
+
+var currentTurn
 
 func _ready():
 	events = getEventsData()
+	# disable if you do not want to display dev tools
+	devmode = true
+	currentTurn = 0
 
 func _process(_delta):
 	pass

@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://assets/bars/progression_bar_empty_default.png" type="Texture" id=1]
-[ext_resource path="res://assets/bars/progression_bar_full_default.png" type="Texture" id=2]
+[ext_resource path="res://assets/bars/progression_bar_empty_blue.png" type="Texture" id=1]
+[ext_resource path="res://assets/bars/progression_bar_full_blue.png" type="Texture" id=2]
+[ext_resource path="res://assets/bars/economy.png" type="Texture" id=3]
+[ext_resource path="res://assets/bars/progression_bar_full_red.png" type="Texture" id=4]
+[ext_resource path="res://assets/bars/progression_bar_empty_red.png" type="Texture" id=5]
+[ext_resource path="res://assets/bars/satisfaction.png" type="Texture" id=6]
+[ext_resource path="res://assets/bars/progression_bar_full_green.png" type="Texture" id=7]
+[ext_resource path="res://assets/bars/nature.png" type="Texture" id=8]
+[ext_resource path="res://assets/bars/progression_bar_empty_green.png" type="Texture" id=9]
+[ext_resource path="res://assets/bars/progression_bar_empty_yellow.png" type="Texture" id=10]
+[ext_resource path="res://assets/bars/health.png" type="Texture" id=11]
+[ext_resource path="res://assets/bars/progression_bar_full_yellow.png" type="Texture" id=12]
 
 [node name="BarsUI" type="CanvasLayer"]
 
@@ -10,12 +20,159 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureProgress" type="TextureProgress" parent="BarsController"]
-margin_left = 50.0
-margin_top = 27.0
-margin_right = 278.0
+[node name="Economy" type="Control" parent="BarsController"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="BarsController/Economy"]
+margin_left = 18.0
+margin_top = 20.0
+margin_right = 306.0
+margin_bottom = 53.0
+color = Color( 0, 0, 0, 0.156863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EconomyBar" type="TextureProgress" parent="BarsController/Economy"]
+margin_left = 61.0
+margin_top = 28.0
+margin_right = 311.0
 margin_bottom = 46.0
-value = 50.0
+value = 70.0
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 12 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EconomyIcon" type="TextureRect" parent="BarsController/Economy"]
+margin_left = 20.2407
+margin_top = 23.2475
+margin_right = 50.2407
+margin_bottom = 51.2475
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="Control" parent="BarsController"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="BarsController/Health"]
+margin_left = 477.553
+margin_top = 19.8036
+margin_right = 765.553
+margin_bottom = 52.8036
+color = Color( 0, 0, 0, 0.156863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="TextureProgress" parent="BarsController/Health"]
+margin_left = 519.138
+margin_top = 26.7838
+margin_right = 769.138
+margin_bottom = 44.7838
+rect_pivot_offset = Vector2( 133.543, 33.8617 )
+value = 60.0
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 7 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthIcon" type="TextureRect" parent="BarsController/Health"]
+margin_left = 478.723
+margin_top = 21.4637
+margin_right = 508.723
+margin_bottom = 49.4637
+texture = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Satisfation" type="Control" parent="BarsController"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="BarsController/Satisfation"]
+margin_left = 18.3968
+margin_top = 61.6693
+margin_right = 306.397
+margin_bottom = 94.6693
+color = Color( 0, 0, 0, 0.156863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SatisfactionBar" type="TextureProgress" parent="BarsController/Satisfation"]
+margin_left = 60.9966
+margin_top = 70.2441
+margin_right = 310.997
+margin_bottom = 88.2441
+rect_pivot_offset = Vector2( 133.543, 33.8617 )
+value = 65.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 4 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SatisfactionIcon" type="TextureRect" parent="BarsController/Satisfation"]
+margin_left = 20.0
+margin_top = 64.0
+margin_right = 52.0
+margin_bottom = 94.0
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Nature" type="Control" parent="BarsController"]
+margin_left = -1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="BarsController/Nature"]
+margin_left = 478.752
+margin_top = 60.6562
+margin_right = 766.752
+margin_bottom = 93.6562
+color = Color( 0, 0, 0, 0.156863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NatureIcon" type="TextureRect" parent="BarsController/Nature"]
+margin_left = 480.019
+margin_top = 62.414
+margin_right = 510.019
+margin_bottom = 90.414
+texture = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NatureBar" type="TextureProgress" parent="BarsController/Nature"]
+margin_left = 519.656
+margin_top = 65.8724
+margin_right = 769.656
+margin_bottom = 83.8724
+rect_pivot_offset = Vector2( 133.543, 33.8617 )
+value = 33.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 2 )
 nine_patch_stretch = true
