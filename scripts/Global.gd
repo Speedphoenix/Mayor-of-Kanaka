@@ -5,11 +5,17 @@ var devmode
 
 var currentTurn
 
+enum Bars {ECONOMY, HEALTH, SATISFACTION, NATURE}
+
 func _ready():
 	events = getEventsData()
 	# disable if you do not want to display dev tools
 	devmode = true
 	currentTurn = 0
+	Bars.ECONOMY = 50
+	Bars.HEALTH = 50
+	Bars.SATISFACTION = 50
+	Bars.NATURE = 50
 
 func _process(_delta):
 	pass
@@ -26,3 +32,4 @@ func getEventsData():
 		return
 	var data = data_parse.result
 	return data
+

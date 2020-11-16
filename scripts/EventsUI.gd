@@ -1,12 +1,15 @@
 extends CanvasLayer
 
 signal close
+signal accepted(event)
+signal refused(event)
+signal onHold(event)
 
 export var currentEventID = 0
 
 var previousEventID
 var currentEvent
-var events
+onready var events
 
 func _ready():
 	previousEventID = -1
@@ -37,12 +40,18 @@ func printEventData():
 
 func _on_AcceptButton_pressed():
 	print("You accepted the event : ", currentEvent["title"])
+	emit_signal("accepted", currentEvent)
+	emit_signal("close")
 
 func _on_RefuseButton_pressed():
 	print("You refused the event : ", currentEvent["title"])
+	emit_signal("refused", currentEvent)
+	emit_signal("close")
 
 func _on_HoldButton_pressed():
 	print("You put on hold the event : ", currentEvent["title"])
+	emit_signal("onHold", currentEvent)
+	emit_signal("close")
 
 func _on_CloseButton_pressed():
 	print("You closed the event : ", currentEvent["title"])
@@ -50,3 +59,4 @@ func _on_CloseButton_pressed():
 	
 func _on_eventChanged(eventID):
 	currentEventID = eventID
+

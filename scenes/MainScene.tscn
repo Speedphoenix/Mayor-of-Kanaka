@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/BarsUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/UnderUI.tscn" type="PackedScene" id=5]
 
-[node name="Main" type="Node2D"]
+[node name="Game" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Background" type="ColorRect" parent="."]
@@ -73,4 +73,8 @@ __meta__ = {
 [node name="UnderUI" parent="UnderUIController" instance=ExtResource( 5 )]
 [connection signal="eventChanged" from="EventsController" to="EventsController/EventsUIController/EventsUI" method="_on_eventChanged"]
 [connection signal="pressed" from="EventsController/CreateEventButton" to="EventsController" method="_on_CreateEventButton_pressed"]
+[connection signal="accepted" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_accepted"]
 [connection signal="close" from="EventsController/EventsUIController/EventsUI" to="EventsController" method="_on_EventsUI_close"]
+[connection signal="onHold" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_onHold"]
+[connection signal="refused" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_refused"]
+[connection signal="nextTurn" from="UnderUIController/UnderUI" to="BarsController/BarsUI" method="_on_nextTurn"]
