@@ -57,7 +57,7 @@ func _on_event_refused(event):
 				bars.NATURE += effect["value"]
 
 
-func _on_event_onHold(event):
+func _on_event_onHold(_event):
 	pass # Replace with function body.
 
 

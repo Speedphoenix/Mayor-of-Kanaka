@@ -13,24 +13,12 @@ font_data = ExtResource( 4 )
 [node name="UnderUI" type="CanvasLayer"]
 script = ExtResource( 3 )
 
-[node name="Background" type="ColorRect" parent="."]
-margin_left = -17.0
-margin_top = 441.0
-margin_right = 808.0
-margin_bottom = 510.0
+[node name="UnderBar" type="ColorRect" parent="."]
+margin_left = -14.7551
+margin_top = 452.225
+margin_right = 810.245
+margin_bottom = 521.225
 color = Color( 0.32549, 0.0980392, 0.0980392, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CurrentTurnLabel" type="Label" parent="."]
-margin_left = 650.0
-margin_top = 448.0
-margin_right = 692.0
-margin_bottom = 471.0
-custom_fonts/font = SubResource( 1 )
-text = "0"
-align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -47,6 +35,18 @@ margin_right = 813.0
 margin_bottom = 498.0
 texture = ExtResource( 2 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CurrentTurnLabel" type="Label" parent="NextTurnController"]
+margin_left = 671.449
+margin_top = 453.98
+margin_right = 713.449
+margin_bottom = 476.98
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -68,6 +68,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DetailsMenuController" type="Control" parent="EventDetailsController"]
+visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="EventDetailsController/DetailsMenuController"]
+margin_top = 97.0
+margin_right = 249.0
+margin_bottom = 451.0
+color = Color( 0.32549, 0.0980392, 0.0980392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroundBorder" type="ColorRect" parent="EventDetailsController/DetailsMenuController"]
+margin_left = 9.0
+margin_top = 107.0
+margin_right = 240.0
+margin_bottom = 451.0
+color = Color( 0.439216, 0.133333, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CircleBackground2" type="TextureRect" parent="EventDetailsController"]
 margin_left = -19.0
 margin_top = 383.0
@@ -84,6 +109,7 @@ margin_left = 0.881073
 margin_top = 389.595
 margin_right = 85.8811
 margin_bottom = 478.595
+toggle_mode = true
 icon = ExtResource( 5 )
 flat = true
 expand_icon = true
@@ -91,3 +117,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="NextTurnController/NextTurnButton" to="." method="_on_NextTurnButton_pressed"]
+[connection signal="toggled" from="EventDetailsController/EventDetailsButton" to="." method="_on_EventDetailsButton_toggled"]

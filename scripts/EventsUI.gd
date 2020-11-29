@@ -11,20 +11,21 @@ var previousEventID
 var currentEvent
 onready var events
 
+
 func _ready():
 	previousEventID = -1
 	var Global = get_node("/root/Global")
 	events = Global.events
 	
 func _process(_delta):
-	currentEvent = getCurrentEvent(events, currentEventID)
+	currentEvent = getEvent(events, currentEventID)
 	# Refresh only if there is a new event to print
 	if (currentEventID != previousEventID):
 		printEventData()
 	
 	previousEventID = currentEventID 
 	
-func getCurrentEvent(allEvents, eventID):
+func getEvent(allEvents, eventID):
 	for eventKey in allEvents:
 		if (allEvents[eventKey]["id"] == eventID):
 			var event = allEvents[eventKey]

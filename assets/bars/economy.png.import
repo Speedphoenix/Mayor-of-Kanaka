@@ -2,24 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-<<<<<<< HEAD:assets/bars/economy.png.import
 path="res://.import/economy.png-5cad025bddd3caff007bba39cf6685f3.stex"
-=======
-path="res://.import/dummy_kanaka.png-27f034cc86f4e8c08d521f2874079186.stex"
->>>>>>> dev-citybase:assets/dummyassets/dummy_kanaka.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<< HEAD:assets/bars/economy.png.import
 source_file="res://assets/bars/economy.png"
 dest_files=[ "res://.import/economy.png-5cad025bddd3caff007bba39cf6685f3.stex" ]
-=======
-source_file="res://assets/dummyassets/dummy_kanaka.png"
-dest_files=[ "res://.import/dummy_kanaka.png-27f034cc86f4e8c08d521f2874079186.stex" ]
->>>>>>> dev-citybase:assets/dummyassets/dummy_kanaka.png.import
 
 [params]
 

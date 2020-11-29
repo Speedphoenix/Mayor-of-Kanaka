@@ -26,25 +26,29 @@ font_data = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="SingleEventController" type="Control" parent="."]
+margin_left = 29.2601
+margin_top = 2.83162
+margin_right = 29.2601
+margin_bottom = 2.83162
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Background" type="ColorRect" parent="SingleEventController"]
-margin_left = 211.0
-margin_top = 136.0
-margin_right = 608.0
-margin_bottom = 427.0
+margin_left = 248.683
+margin_top = 116.088
+margin_right = 645.683
+margin_bottom = 407.088
 color = Color( 0.372549, 0.145098, 0.0745098, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TitleController" type="Control" parent="SingleEventController"]
-margin_left = 19.0703
-margin_top = 14.8325
-margin_right = 19.0703
-margin_bottom = 14.8325
+margin_left = 56.7529
+margin_top = -4.44941
+margin_right = 56.7529
+margin_bottom = -4.44941
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -91,10 +95,10 @@ __meta__ = {
 }
 
 [node name="DescriptionController" type="Control" parent="SingleEventController"]
-margin_left = 19.0703
-margin_top = 14.8325
-margin_right = 19.0703
-margin_bottom = 14.8325
+margin_left = 56.7529
+margin_top = -4.44941
+margin_right = 56.7529
+margin_bottom = -4.44941
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -140,10 +144,10 @@ __meta__ = {
 }
 
 [node name="AcceptButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 562.07
-margin_top = 388.832
-margin_right = 590.07
-margin_bottom = 415.832
+margin_left = 599.753
+margin_top = 369.55
+margin_right = 627.753
+margin_bottom = 396.55
 texture_normal = ExtResource( 4 )
 expand = true
 __meta__ = {
@@ -151,10 +155,10 @@ __meta__ = {
 }
 
 [node name="RefuseButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 228.07
-margin_top = 390.832
-margin_right = 255.07
-margin_bottom = 417.832
+margin_left = 265.753
+margin_top = 371.55
+margin_right = 292.753
+margin_bottom = 398.55
 texture_normal = ExtResource( 3 )
 expand = true
 __meta__ = {
@@ -162,10 +166,10 @@ __meta__ = {
 }
 
 [node name="HoldButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 396.07
-margin_top = 392.832
-margin_right = 423.07
-margin_bottom = 417.832
+margin_left = 433.753
+margin_top = 373.55
+margin_right = 460.753
+margin_bottom = 398.55
 texture_normal = ExtResource( 5 )
 expand = true
 __meta__ = {
@@ -173,10 +177,10 @@ __meta__ = {
 }
 
 [node name="CloseButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 570.655
-margin_top = 147.564
-margin_right = 598.655
-margin_bottom = 176.564
+margin_left = 608.338
+margin_top = 128.282
+margin_right = 636.338
+margin_bottom = 157.282
 texture_normal = ExtResource( 6 )
 expand = true
 __meta__ = {
