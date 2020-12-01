@@ -7,6 +7,10 @@ func _ready():
 	var Global = get_node("/root/Global")
 	bars = Global.Bars
 	
+	var turnController = get_node("/root/TurnController")
+	#turnController.connect("miniturn_changed", self, "_on_anyturn_changed")
+	turnController.connect("turn_changed", self, "_on_turn_changed")
+	
 	# Setting the bars initial values
 	$BarsController/Economy/EconomyBar.value = bars.ECONOMY
 	$BarsController/Health/HealthBar.value = bars.HEALTH
@@ -62,6 +66,13 @@ func _on_event_onHold(_event):
 
 
 func _on_nextTurn():
+	pass
+#	$BarsController/Economy/EconomyBar.value = bars.ECONOMY
+#	$BarsController/Health/HealthBar.value = bars.HEALTH
+#	$BarsController/Nature/NatureBar.value = bars.NATURE
+#	$BarsController/Satisfation/SatisfactionBar.value = bars.SATISFACTION
+	
+func _on_turn_changed(turn_number, miniturn_number):
 	$BarsController/Economy/EconomyBar.value = bars.ECONOMY
 	$BarsController/Health/HealthBar.value = bars.HEALTH
 	$BarsController/Nature/NatureBar.value = bars.NATURE

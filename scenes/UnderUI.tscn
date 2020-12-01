@@ -29,9 +29,9 @@ __meta__ = {
 }
 
 [node name="CircleBackground" type="TextureRect" parent="NextTurnController"]
-margin_left = 697.0
-margin_top = 382.0
-margin_right = 813.0
+margin_left = 688.0
+margin_top = 370.0
+margin_right = 814.0
 margin_bottom = 498.0
 texture = ExtResource( 2 )
 expand = true
@@ -40,22 +40,23 @@ __meta__ = {
 }
 
 [node name="CurrentTurnLabel" type="Label" parent="NextTurnController"]
-margin_left = 671.449
-margin_top = 453.98
-margin_right = 713.449
-margin_bottom = 476.98
+margin_left = 702.0
+margin_top = 393.878
+margin_right = 801.0
+margin_bottom = 430.878
 custom_fonts/font = SubResource( 1 )
 text = "0"
-align = 2
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NextTurnButton" type="Button" parent="NextTurnController"]
-margin_left = 709.119
-margin_top = 392.059
-margin_right = 797.119
-margin_bottom = 478.059
+margin_left = 722.898
+margin_top = 420.265
+margin_right = 782.898
+margin_bottom = 471.265
 icon = ExtResource( 1 )
 flat = true
 expand_icon = true
@@ -95,8 +96,8 @@ __meta__ = {
 
 [node name="CircleBackground2" type="TextureRect" parent="EventDetailsController"]
 margin_left = -19.0
-margin_top = 383.0
-margin_right = 99.0
+margin_top = 374.0
+margin_right = 108.0
 margin_bottom = 507.0
 texture = ExtResource( 2 )
 expand = true

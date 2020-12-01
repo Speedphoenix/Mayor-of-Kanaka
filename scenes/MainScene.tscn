@@ -84,5 +84,4 @@ __meta__ = {
 [connection signal="refused" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_refused"]
 [connection signal="refused" from="EventsController/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_refused"]
 [connection signal="eventToDisplay" from="UnderUIController/UnderUI" to="EventsController" method="_on_eventToDisplay"]
-[connection signal="nextTurn" from="UnderUIController/UnderUI" to="BarsController/BarsUI" method="_on_nextTurn"]
 [connection signal="nextTurn" from="UnderUIController/UnderUI" to="EventsController" method="_on_nextTurn"]

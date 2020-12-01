@@ -21,6 +21,7 @@ run/main_scene="res://scenes/MainScene.tscn"
 [autoload]
 
 Global="*res://scripts/Global.gd"
+TurnController="*res://scripts/TurnController.gd"
 
 [display]
 

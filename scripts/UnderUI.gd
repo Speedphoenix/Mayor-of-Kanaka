@@ -3,24 +3,30 @@ extends CanvasLayer
 signal nextTurn
 signal eventToDisplay(eventID)
 
-onready var currentTurn
-onready var eventsList
+var currentTurn
+var eventsList
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var Global = get_node("/root/Global")
+	var turnController = get_node("/root/TurnController")
+	turnController.connect("miniturn_changed", self, "_on_anyturn_changed")
+	turnController.connect("turn_changed", self, "_on_anyturn_changed")
 	currentTurn = Global.currentTurn
-	$NextTurnController/CurrentTurnLabel.text =  String(currentTurn)
+	$NextTurnController/CurrentTurnLabel.text =  str(currentTurn)
 
 func _on_NextTurnButton_pressed():
-	var currentTurnText = int($NextTurnController/CurrentTurnLabel.text)
-	var newCurrentTurn = currentTurnText + 1
-	$NextTurnController/CurrentTurnLabel.text =  String(newCurrentTurn)
-	$EventDetailsController/DetailsMenuController.hide()
-	var Global = get_node("/root/Global")
-	Global.currentTurn += 1
-	emit_signal("nextTurn")
+	pass
+#	var currentTurnText = int($NextTurnController/CurrentTurnLabel.text)
+#	var newCurrentTurn = currentTurnText + 1
+#	$NextTurnController/CurrentTurnLabel.text =  String(newCurrentTurn)
+#	$EventDetailsController/DetailsMenuController.hide()
+#	var Global = get_node("/root/Global")
+#	Global.currentTurn += 1
+#	emit_signal("nextTurn")
 
+func _on_anyturn_changed(turn_number, miniturn_number):
+	$NextTurnController/CurrentTurnLabel.text =  str(turn_number) + "m " +  str(miniturn_number) + "d" 
 
 func _on_EventDetailsButton_toggled(button_pressed):
 	if(button_pressed):
@@ -35,18 +41,18 @@ func _on_EventDetailsButton_toggled(button_pressed):
 				var detailMenuController = $EventDetailsController/DetailsMenuController
 				
 				var controller = Control.new()
-				controller.name = "Controller" + String(eventCounter)
+				controller.name = "Controller" + str(eventCounter)
 				controller.margin_left = 40
 				controller.margin_top = 100 + (eventCounter * 45)
 				
 				var background = ColorRect.new()
-				background.name = "background" + String(eventCounter)
+				background.name = "background" + str(eventCounter)
 				background.margin_right = 175
 				background.margin_bottom = 35
 				background.color = Color("531919")
 				
 				var button = Button.new()
-				background.name = "button" + String(eventCounter)
+				background.name = "button" + str(eventCounter)
 				button.flat = true
 				button.text = eventTitle
 				button.margin_right = 175
