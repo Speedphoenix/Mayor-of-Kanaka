@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://dummytests/TestLabel.gd" type="Script" id=1]
+[ext_resource path="res://scenes/TurnController.tscn" type="PackedScene" id=2]
+
+[node name="TestScene" type="Node"]
+
+[node name="TestLabel" type="Label" parent="."]
+margin_left = 489.946
+margin_top = 261.454
+margin_right = 556.946
+margin_bottom = 275.454
+text = "I'm a label"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 98.1391
+margin_top = 98.8882
+margin_right = 208.139
+margin_bottom = 154.888
+text = "pause me"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 95.1425
+margin_top = 254.712
+margin_right = 205.143
+margin_bottom = 310.712
+text = "resume me"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurnController" parent="." instance=ExtResource( 2 )]
+days_in_a_month = 5
+[connection signal="pressed" from="Button" to="TestLabel" method="pauseit"]
+[connection signal="pressed" from="Button2" to="TestLabel" method="resumeit"]
+[connection signal="miniturn_changed" from="TurnController" to="TestLabel" method="showmachin"]
+[connection signal="turn_changed" from="TurnController" to="TestLabel" method="showmachin"]
