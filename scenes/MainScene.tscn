@@ -14,7 +14,6 @@ script = ExtResource( 2 )
 visible = false
 
 [node name="Background" type="ColorRect" parent="."]
-visible = false
 margin_left = -667.528
 margin_top = -651.964
 margin_right = 1622.47
@@ -79,9 +78,11 @@ __meta__ = {
 [connection signal="eventChanged" from="EventsController" to="EventsController/EventsUIController/EventsUI" method="_on_eventChanged"]
 [connection signal="pressed" from="EventsController/CreateEventButton" to="EventsController" method="_on_CreateEventButton_pressed"]
 [connection signal="accepted" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_accepted"]
+[connection signal="accepted" from="EventsController/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_accepted"]
 [connection signal="close" from="EventsController/EventsUIController/EventsUI" to="EventsController" method="_on_EventsUI_close"]
 [connection signal="onHold" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_onHold"]
 [connection signal="refused" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_refused"]
+[connection signal="refused" from="EventsController/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_refused"]
 [connection signal="eventToDisplay" from="UnderUIController/UnderUI" to="EventsController" method="_on_eventToDisplay"]
 [connection signal="nextTurn" from="UnderUIController/UnderUI" to="BarsController/BarsUI" method="_on_nextTurn"]
 [connection signal="nextTurn" from="UnderUIController/UnderUI" to="EventsController" method="_on_nextTurn"]
