@@ -15,4 +15,4 @@ _global_script_class_icons={
 
 [application]
 
-run/main_scene="res://scenes/MainScene.tscn"
+run/main_scene="res://dummytests/TestScene.tscn"
