@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dummy_kanaka.png-e1b046dec6d1b821a13c64fe38836a6d.stex"
+path="res://.import/progression_bar_empty_green.png-5165ec896e0a6141ab41120cfec00b05.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dummy_kanaka.png"
-dest_files=[ "res://.import/dummy_kanaka.png-e1b046dec6d1b821a13c64fe38836a6d.stex" ]
+source_file="res://assets/bars/progression_bar_empty_green.png"
+dest_files=[ "res://.import/progression_bar_empty_green.png-5165ec896e0a6141ab41120cfec00b05.stex" ]
 
 [params]
 

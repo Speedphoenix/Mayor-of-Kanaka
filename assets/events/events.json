@@ -1,0 +1,105 @@
+{
+    "0":{
+        "id" : 0,
+        "title": "default title",
+        "description": "default description", 
+        "effects": {
+            "onAccepted":{
+
+            },
+            "onRefused":{
+
+            }
+        } 
+    },
+    "1":{
+        "id" : 1,
+        "title": "Earthquake",
+        "description": "Take earthquake prevention mesures", 
+        "effects": {
+            "onAccepted":{
+                "1" : {
+                    "onBar" : "ECONOMY",
+                    "value": -15,
+                    "turnsBeforeEffect": 1
+                },
+                "2" : {
+                    "onBar" : "SATISFACTION",
+                    "value": 10,
+                    "turnsBeforeEffect": 2
+                }
+               
+            },
+            "onRefused":{
+                "1" : {
+                    "onBar" : "SATISFACTION",
+                    "value": -10,
+                    "turnsBeforeEffect": 1
+                },
+                "2" : {
+                    "onBar" : "HEALTH",
+                    "value": -20,
+                    "turnsBeforeEffect": 1
+                }
+
+            }
+        } 
+    },
+    "2":{
+        "id" : 2,
+        "title": "School",
+        "description": "Build a school", 
+        "effects": {
+            "onAccepted": {
+                "1" : {
+                    "onBar" : "SATISFACTION",
+                    "value": 30,
+                    "turnsBeforeEffect": 2
+                },
+                "2" : {
+                    "onBar" : "ECONOMY",
+                    "value": -10,
+                    "turnsBeforeEffect": 1
+                }
+            },
+            "onRefused":{
+                "1" : {
+                    "onBar" : "SATISFACTION",
+                    "value": -10,
+                    "turnsBeforeEffect": 1
+                }
+            }
+        } 
+    },
+    "3":{
+        "id" : 3,
+        "title": "Chaos",
+        "description": "Approve the Army of Chaos registration", 
+        "effects": {
+            "onAccepted":{
+                "1" : {
+                    "onBar" : "ECONOMY",
+                    "value": 30,
+                    "turnsBeforeEffect": 1
+                },
+                "2" : {
+                    "onBar" : "ECONOMY",
+                    "value": 10,
+                    "turnsBeforeEffect": 2
+                },
+                "3" : {
+                    "onBar" : "SATISFACTION",
+                    "value": -30,
+                    "turnsBeforeEffect": 1
+                }
+            },
+            "onRefused":{
+                "1" : {
+                    "onBar" : "SATISFACTION",
+                    "value": 10,
+                    "turnsBeforeEffect": 1
+                },
+            }
+        } 
+    }
+}

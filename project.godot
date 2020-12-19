@@ -15,4 +15,18 @@ _global_script_class_icons={
 
 [application]
 
+config/name="Mayor of Kanaka"
 run/main_scene="res://scenes/MainScene.tscn"
+
+[autoload]
+
+Global="*res://scripts/Global.gd"
+TurnController="*res://scripts/TurnController.gd"
+
+[display]
+
+window/size/width=800
+window/size/height=480
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="keep"

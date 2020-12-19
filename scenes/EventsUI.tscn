@@ -1,0 +1,192 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/EventsUI.gd" type="Script" id=2]
+[ext_resource path="res://assets/events/refused.png" type="Texture" id=3]
+[ext_resource path="res://assets/events/accepted.png" type="Texture" id=4]
+[ext_resource path="res://assets/events/hold.png" type="Texture" id=5]
+[ext_resource path="res://assets/events/close.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 15
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 12
+font_data = ExtResource( 1 )
+
+[node name="EventsUI" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="SingleEventController" type="Control" parent="."]
+margin_left = 29.2601
+margin_top = 2.83162
+margin_right = 29.2601
+margin_bottom = 2.83162
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="SingleEventController"]
+margin_left = 248.683
+margin_top = 116.088
+margin_right = 645.683
+margin_bottom = 407.088
+color = Color( 0.372549, 0.145098, 0.0745098, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleController" type="Control" parent="SingleEventController"]
+margin_left = 56.7529
+margin_top = -4.44941
+margin_right = 56.7529
+margin_bottom = -4.44941
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="SingleEventController/TitleController"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 220.128
+margin_top = 174.878
+margin_right = 303.128
+margin_bottom = 202.878
+rect_pivot_offset = Vector2( -700.5, -123 )
+custom_fonts/font = SubResource( 1 )
+text = "Event :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleBackground" type="ColorRect" parent="SingleEventController/TitleController"]
+margin_left = 328.0
+margin_top = 158.0
+margin_right = 546.0
+margin_bottom = 213.0
+rect_pivot_offset = Vector2( 82.183, 114.337 )
+color = Color( 0.501961, 0.203922, 0.113725, 0.721569 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="SingleEventController/TitleController"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 341.0
+margin_top = 168.0
+margin_right = 535.0
+margin_bottom = 213.0
+rect_pivot_offset = Vector2( -700.5, -123 )
+custom_fonts/font = SubResource( 2 )
+text = "This is where title
+goes."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescriptionController" type="Control" parent="SingleEventController"]
+margin_left = 56.7529
+margin_top = -4.44941
+margin_right = 56.7529
+margin_bottom = -4.44941
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescriptionLabel" type="Label" parent="SingleEventController/DescriptionController"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 210.444
+margin_top = 247.701
+margin_right = 317.444
+margin_bottom = 267.701
+rect_pivot_offset = Vector2( -700.5, -123 )
+custom_fonts/font = SubResource( 3 )
+text = "Description :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescriptionBackground2" type="ColorRect" parent="SingleEventController/DescriptionController"]
+margin_left = 334.0
+margin_top = 235.0
+margin_right = 546.0
+margin_bottom = 356.0
+rect_pivot_offset = Vector2( 82.183, 114.337 )
+color = Color( 0.501961, 0.203922, 0.113725, 0.721569 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="SingleEventController/DescriptionController"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 342.286
+margin_top = 250.173
+margin_right = 531.286
+margin_bottom = 327.173
+rect_pivot_offset = Vector2( -700.5, -123 )
+custom_fonts/font = SubResource( 4 )
+text = "This is where description goes."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AcceptButton" type="TextureButton" parent="SingleEventController"]
+margin_left = 599.753
+margin_top = 369.55
+margin_right = 627.753
+margin_bottom = 396.55
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RefuseButton" type="TextureButton" parent="SingleEventController"]
+margin_left = 265.753
+margin_top = 371.55
+margin_right = 292.753
+margin_bottom = 398.55
+texture_normal = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HoldButton" type="TextureButton" parent="SingleEventController"]
+margin_left = 433.753
+margin_top = 373.55
+margin_right = 460.753
+margin_bottom = 398.55
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="TextureButton" parent="SingleEventController"]
+margin_left = 608.338
+margin_top = 128.282
+margin_right = 636.338
+margin_bottom = 157.282
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="SingleEventController/AcceptButton" to="." method="_on_AcceptButton_pressed"]
+[connection signal="pressed" from="SingleEventController/RefuseButton" to="." method="_on_RefuseButton_pressed"]
+[connection signal="pressed" from="SingleEventController/HoldButton" to="." method="_on_HoldButton_pressed"]
+[connection signal="pressed" from="SingleEventController/CloseButton" to="." method="_on_CloseButton_pressed"]
