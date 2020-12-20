@@ -15,7 +15,7 @@ func _ready():
 	events = getEventsData()
 	# disable if you do not want to display dev tools
 	devmode = false
-	currentTurn = 0
+	currentTurn = 0		
 	eventsList = []
 	Bars.ECONOMY = 50
 	Bars.HEALTH = 50

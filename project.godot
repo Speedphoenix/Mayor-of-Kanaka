@@ -8,9 +8,32 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "BaseEvent",
+"class": "BaseDecision",
+"language": "GDScript",
+"path": "res://scripts/events/BaseDecision.gd"
+}, {
+"base": "Reference",
+"class": "BaseEvent",
+"language": "GDScript",
+"path": "res://scripts/events/BaseEvent.gd"
+}, {
+"base": "BaseEvent",
+"class": "BasicDecision",
+"language": "GDScript",
+"path": "res://scripts/events/DecisionBasic.gd"
+}, {
+"base": "BaseEvent",
+"class": "EventNonInterractive",
+"language": "GDScript",
+"path": "res://scripts/events/EventNonInterractive.gd"
+} ]
 _global_script_class_icons={
-
+"BaseDecision": "",
+"BaseEvent": "",
+"BasicDecision": "",
+"EventNonInterractive": ""
 }
 
 [application]
