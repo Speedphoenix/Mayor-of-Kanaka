@@ -1,18 +1,16 @@
 extends CanvasLayer
 
-onready var bars
+onready var global = get_tree().get_current_scene().get_node("GlobalObject")
+onready var bars = global.bars
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var Global = get_node("/root/Global")
-	bars = Global.Bars
-	
-	var turnController = get_node("/root/TurnController")
+	var turnController = global.get_node("TurnController")
 	#turnController.connect("miniturn_changed", self, "_on_anyturn_changed")
 	turnController.connect("turn_changed", self, "_on_turn_changed")
 	
 	# Setting the bars initial values
-	$BarsController/Economy/EconomyBar.value = bars.ECONOMY
+	$BarsController/Budget/BudgetBar.value = bars.BUDGET
 	$BarsController/Health/HealthBar.value = bars.HEALTH
 	$BarsController/Nature/NatureBar.value = bars.NATURE
 	$BarsController/Satisfation/SatisfactionBar.value = bars.SATISFACTION
@@ -28,9 +26,9 @@ func _on_event_accepted(event):
 		var effect = effects[String(effectIndex+1)]
 		var onBar = effect["onBar"]
 		match onBar:
-			"ECONOMY":
-				print("Economy affected")
-				bars.ECONOMY += effect["value"]
+			"BUDGET":
+				print("Budget affected")
+				bars.BUDGET += effect["value"]
 			"HEALTH":
 				print("Health affected")
 				bars.HEALTH += effect["value"]
@@ -47,9 +45,9 @@ func _on_event_refused(event):
 		var effect = effects[String(effectIndex+1)]
 		var onBar = effect["onBar"]
 		match onBar:
-			"ECONOMY":
-				print("Economy affected")
-				bars.ECONOMY += effect["value"]
+			"BUDGET":
+				print("Budget affected")
+				bars.BUDGET += effect["value"]
 			"HEALTH":
 				print("Health affected")
 				bars.HEALTH += effect["value"]
@@ -67,13 +65,13 @@ func _on_event_onHold(_event):
 
 func _on_nextTurn():
 	pass
-#	$BarsController/Economy/EconomyBar.value = bars.ECONOMY
+#	$BarsController/Budget/BudgetBar.value = bars.BUDGET
 #	$BarsController/Health/HealthBar.value = bars.HEALTH
 #	$BarsController/Nature/NatureBar.value = bars.NATURE
 #	$BarsController/Satisfation/SatisfactionBar.value = bars.SATISFACTION
 	
 func _on_turn_changed(turn_number, miniturn_number):
-	$BarsController/Economy/EconomyBar.value = bars.ECONOMY
+	$BarsController/Budget/BudgetBar.value = bars.BUDGET
 	$BarsController/Health/HealthBar.value = bars.HEALTH
 	$BarsController/Nature/NatureBar.value = bars.NATURE
 	$BarsController/Satisfation/SatisfactionBar.value = bars.SATISFACTION

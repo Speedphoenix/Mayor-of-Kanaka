@@ -14,8 +14,8 @@ onready var events
 
 func _ready():
 	previousEventID = -1
-	var Global = get_node("/root/Global")
-	events = Global.events
+	var global = get_tree().get_current_scene().get_node("GlobalObject")
+	events = global.events
 	
 func _process(_delta):
 	currentEvent = getEvent(events, currentEventID)

@@ -1,5 +1,8 @@
 extends Node
 
+# TODO: rename the script to GlobalObject.gd
+class_name GlobalObject
+
 var events
 
 # List of events for the current turn
@@ -9,7 +12,15 @@ var devmode
 
 var currentTurn
 
-enum Bars {ECONOMY, HEALTH, SATISFACTION, NATURE}
+enum Bars {HEALTH, SATISFACTION, NATURE, STRESS, BUDGET}
+
+var bars = {
+	Bars.HEALTH: 50,
+	Bars.SATISFACTION: 50,
+	Bars.NATURE: 50,
+	Bars.STRESS: 50,
+	Bars.BUDGET: 50,
+}
 
 func _ready():
 	events = getEventsData()
@@ -17,10 +28,6 @@ func _ready():
 	devmode = false
 	currentTurn = 0		
 	eventsList = []
-	Bars.ECONOMY = 50
-	Bars.HEALTH = 50
-	Bars.SATISFACTION = 50
-	Bars.NATURE = 50
 
 func _process(_delta):
 	pass

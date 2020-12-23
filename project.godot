@@ -9,42 +9,49 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "BarEffect",
+"language": "GDScript",
+"path": "res://scripts/events/BarEffect.gd"
+}, {
 "base": "BaseEvent",
 "class": "BaseDecision",
 "language": "GDScript",
 "path": "res://scripts/events/BaseDecision.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "BaseEvent",
 "language": "GDScript",
 "path": "res://scripts/events/BaseEvent.gd"
 }, {
-"base": "BaseEvent",
-"class": "BasicDecision",
+"base": "BaseDecision",
+"class": "DecisionSimple",
 "language": "GDScript",
-"path": "res://scripts/events/DecisionBasic.gd"
+"path": "res://scripts/events/DecisionSimple.gd"
 }, {
 "base": "BaseEvent",
-"class": "EventNonInterractive",
+"class": "EventNonInteractive",
 "language": "GDScript",
-"path": "res://scripts/events/EventNonInterractive.gd"
+"path": "res://scripts/events/EventNonInteractive.gd"
+}, {
+"base": "Node",
+"class": "GlobalObject",
+"language": "GDScript",
+"path": "res://scripts/GlobalObject.gd"
 } ]
 _global_script_class_icons={
+"BarEffect": "",
 "BaseDecision": "",
 "BaseEvent": "",
-"BasicDecision": "",
-"EventNonInterractive": ""
+"DecisionSimple": "",
+"EventNonInteractive": "",
+"GlobalObject": ""
 }
 
 [application]
 
 config/name="Mayor of Kanaka"
 run/main_scene="res://scenes/MainScene.tscn"
-
-[autoload]
-
-Global="*res://scripts/Global.gd"
-TurnController="*res://scripts/TurnController.gd"
 
 [display]
 
