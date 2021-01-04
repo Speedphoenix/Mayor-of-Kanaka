@@ -1,7 +1,6 @@
+class_name GlobalObject
 extends Node
 
-# TODO: rename the script to GlobalObject.gd
-class_name GlobalObject
 
 var events
 

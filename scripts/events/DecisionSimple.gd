@@ -1,8 +1,8 @@
+class_name DecisionSimple
 extends BaseDecision
-
 # This has the basic functionality of an event, and is customizable
 # should have an effect on the various gauges 
-class_name DecisionSimple
+
 
 # BarEffect needs to inherit Resource
 # will nee to test to see how this works out

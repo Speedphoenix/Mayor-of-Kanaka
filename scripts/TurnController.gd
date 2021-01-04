@@ -1,3 +1,4 @@
+class_name TurnController
 extends Node
 
 # Note that if it gets paused, on resume it will wait the whole time, not just what was remaining
