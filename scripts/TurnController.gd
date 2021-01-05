@@ -1,7 +1,7 @@
 class_name TurnController
 extends Node
 
-# Note that if it gets paused, on resume it will wait the whole time, not just what was remaining
+# Note that if it gets paused, on resume will wait the whole time, not just what was remaining
 
 signal miniturn_changed(turn_number, miniturn_number)
 

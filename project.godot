@@ -9,22 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
-"class": "BarEffect",
-"language": "GDScript",
-"path": "res://scripts/events/BarEffect.gd"
-}, {
-"base": "BaseEvent",
-"class": "BaseDecision",
-"language": "GDScript",
-"path": "res://scripts/events/BaseDecision.gd"
-}, {
 "base": "Resource",
 "class": "BaseEvent",
 "language": "GDScript",
 "path": "res://scripts/events/BaseEvent.gd"
 }, {
-"base": "BaseDecision",
+"base": "BaseEvent",
 "class": "DecisionSimple",
 "language": "GDScript",
 "path": "res://scripts/events/DecisionSimple.gd"
@@ -50,8 +40,6 @@ _global_script_classes=[ {
 "path": "res://scripts/TurnController.gd"
 } ]
 _global_script_class_icons={
-"BarEffect": "",
-"BaseDecision": "",
 "BaseEvent": "",
 "DecisionSimple": "",
 "EventController": "",

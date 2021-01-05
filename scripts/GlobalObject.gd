@@ -14,14 +14,16 @@ var currentTurn
 enum Bars {HEALTH, SATISFACTION, NATURE, STRESS, BUDGET}
 
 var bars = {
-	Bars.HEALTH: 50,
-	Bars.SATISFACTION: 50,
-	Bars.NATURE: 50,
-	Bars.STRESS: 50,
-	Bars.BUDGET: 50,
+	"HEALTH": 50,
+	"SATISFACTION": 50,
+	"NATURE": 50,
+	"STRESS": 50,
+	"BUDGET": 50,
 }
 
 func _ready():
+	randomize()
+	add_events_to_controller()
 	events = getEventsData()
 	# disable if you do not want to display dev tools
 	devmode = false
@@ -30,6 +32,9 @@ func _ready():
 
 func _process(_delta):
 	pass
+
+func add_events_to_controller():
+	$EventController.add_possible_event(preload("res://assets/events/SimpleEvent.tres"))
 
 func getEventsData():
 	var data_file = File.new()

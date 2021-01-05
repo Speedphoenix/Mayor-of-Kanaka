@@ -13,9 +13,6 @@ script = ExtResource( 2 )
 
 [node name="GlobalObject" parent="." instance=ExtResource( 7 )]
 
-[node name="CityMap" parent="." instance=ExtResource( 6 )]
-visible = false
-
 [node name="Background" type="ColorRect" parent="."]
 margin_left = -667.528
 margin_top = -651.964
@@ -25,6 +22,8 @@ color = Color( 0.0313726, 0.34902, 0.027451, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CityMap" parent="." instance=ExtResource( 6 )]
 
 [node name="EventsDisplayer" type="Control" parent="."]
 margin_bottom = 2.0

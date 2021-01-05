@@ -1,19 +1,52 @@
 class_name DecisionSimple
-extends BaseDecision
+extends BaseEvent
 # This has the basic functionality of an event, and is customizable
 # should have an effect on the various gauges 
 
+var accept_effects := [
+	{
+		"on_bar" : "BUDGET",
+		"value": -15,
+	},
+	{
+		"on_bar" : "SATISFACTION",
+		"value": 10,
+	},
+]
 
-# BarEffect needs to inherit Resource
-# will nee to test to see how this works out
-# export(Array, BarEffect) effects = []
-export var effects: Array = []
+var refuse_or_expire_effects := [
+	{
+		"on_bar" : "SATISFACTION",
+		"value": -10,
+	},
+	{
+		"on_bar" : "HEALTH",
+		"value": -20,
+	},
+]
 
-func on_accepted() -> void:
-	pass
+var globalObject: Node
+var turnController: Node
+
+func _accepted_on_turn_changed(turn_number: int, miniturn_number: int):
+	for effect in accept_effects:
+		globalObject.bars[effect.on_bar] += effect.value
+	turnController.disconnect("turn_changed", self, "_accepted_on_turn_changed")
+
+func _refused_on_turn_changed(turn_number: int, miniturn_number: int):
+	for effect in refuse_or_expire_effects:
+		globalObject.bars[effect.on_bar] += effect.value
+	turnController.disconnect("turn_changed", self, "_refused_on_turn_changed")
+
+func on_triggered(scene_tree: SceneTree) -> void:
+	globalObject = scene_tree.get_current_scene().get_node("GlobalObject")
+	turnController = globalObject.get_node("TurnController")
+
+func on_accepted(scene_tree: SceneTree) -> void:
+	turnController.connect("turn_changed", self, "_accepted_on_turn_changed")
 	
-func on_refused() -> void:
-	pass
+func on_refused(scene_tree: SceneTree) -> void:
+	turnController.connect("turn_changed", self, "_refused_on_turn_changed")
 
-func on_expired() -> void:
-	pass
+func on_expired(scene_tree: SceneTree) -> void:
+	turnController.connect("turn_changed", self, "_refused_on_turn_changed")

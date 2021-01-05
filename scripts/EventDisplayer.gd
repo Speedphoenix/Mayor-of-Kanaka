@@ -25,7 +25,6 @@ func _process(_delta):
 	pass
 
 func getRandomEvent(allEvents):
-	randomize()
 	var eventsIDlist = []
 	for eventKey in allEvents:
 		if(allEvents[eventKey]["id"] != 0):

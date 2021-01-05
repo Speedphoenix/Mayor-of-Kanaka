@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-title = "Construisez une École"
-description = "Une école est à construire"
-accept_msg = "Accept!"
-refuse_msg = "Refuse!"
-effects = [  ]
+title = "Earthquake"
+description = "Take earthquake prevention mesures"
+active_duration = 0
+accept_msg = "Accept"
+refuse_msg = "Refuse"
