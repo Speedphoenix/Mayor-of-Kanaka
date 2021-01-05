@@ -20,7 +20,6 @@ signal events_arrived(events)
 signal events_will_expire(events)
 signal events_expired(events)
 
-
 # An array of TriggerableEvents
 var triggerable_events: Array
 # An array of TriggeredEvents
@@ -30,8 +29,8 @@ var active_events: Array
 var triggered_events: Array
 
 # When a new turn/month starts, how many events can be triggered at once
-export(bool) var max_events_per_turn_start = 1
-export(bool) var max_events_per_miniturn = 1
+export(int) var max_events_per_turn_start = 1
+export(int) var max_events_per_miniturn = 1
 
 # Need a better name for this
 # Whether the game should aim to fulfill a certain amount of events per turn
@@ -74,11 +73,13 @@ class TriggerableEvent:
 # It might be active or closed
 class TriggeredEvent:
 	var event_resource: BaseEvent
+	var triggerable: TriggerableEvent
 	var remaining_turns: int
 	
 	func _init(from: TriggerableEvent):
 		event_resource = from.event_resource.duplicate()
 		remaining_turns = event_resource.active_duration
+		triggerable = from
 
 
 func _ready():
@@ -88,13 +89,13 @@ func _ready():
 
 # returns an array of valid usable TriggerableEvents
 # Note that multiple events could have the same reference
-func getAvailableEvent(max_count: int = 1) -> Array:
+func _get_available_events(max_count: int = 1) -> Array:
 	var possible_events := []
 	var trigger_now := []
 	for event in triggerable_events:
 		if event.trigger_immediately != 0:
 			trigger_now.append(event)
-		elif event.remaing_triggers > 0 && event.weight > 0:
+		elif (event.remaing_triggers == -1 || event.remaing_triggers > 0) && event.weight > 0:
 			for i in range(event.weight):
 				possible_events.append(event)
 
@@ -122,8 +123,8 @@ func getAvailableEvent(max_count: int = 1) -> Array:
 	return rep
 
 
-func trigger_events(curr_turn_number: int, curr_miniturn_number: int, max_count: int = 1):
-	var available_events = getAvailableEvent(max_count)
+func trigger_events(curr_turn_number: int, curr_miniturn_number: int, max_count: int = 1) -> void:
+	var available_events = _get_available_events(max_count)
 	if available_events.size() != 0:
 		var to_send = []
 		for event in available_events:
@@ -143,7 +144,8 @@ func trigger_events(curr_turn_number: int, curr_miniturn_number: int, max_count:
 			triggered.event_resource.on_triggered(get_tree())
 		emit_signal("events_arrived", to_send)
 
-func expire_events(to_expire: Array):
+
+func _expire_events(to_expire: Array):
 	var expired_resources := []
 	for event in to_expire:
 		active_events.remove(active_events.find(event))
@@ -164,7 +166,7 @@ func _on_turn_changed(turn_number: int, miniturn_number: int):
 		if event.remaining_turns < 0:
 			to_expire.append(event)
 	if to_expire.size() != 0:
-		expire_events(to_expire)
+		_expire_events(to_expire)
 	trigger_events(turn_number, miniturn_number, max_events_per_turn_start)
 	
 func _on_turn_ended(turn_number: int, miniturn_number: int):
@@ -184,26 +186,25 @@ func _find_by_event_resource(tab: Array, to_find: BaseEvent) -> int:
 
 # TODO:
 # will (forcefully) generate an event next miniturn	(or as soon as possible)
-func trigger_immediate_event():
+func trigger_immediate_event() -> void:
 	pass
 
-# TODO:
 func add_possible_event(base_event: BaseEvent) -> void:
 	var new_event := TriggerableEvent.new(base_event)
 	triggerable_events.append(new_event)
 
 # TODO:
 # remove from the bag of available potential events
-func remove_possible_event():
+func remove_possible_event() -> void:
 	pass
 
 
-func accept_event(base_event: BaseEvent):
+func accept_event(base_event: BaseEvent) -> void:
 	var index := _find_by_event_resource(active_events, base_event)
 	active_events.remove(index)
 	base_event.on_accepted(get_tree())
 
-func refuse_event(base_event: BaseEvent):
+func refuse_event(base_event: BaseEvent) -> void:
 	var index := _find_by_event_resource(active_events, base_event)
 	active_events.remove(index)
 	base_event.on_refused(get_tree())

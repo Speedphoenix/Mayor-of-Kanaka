@@ -3,27 +3,9 @@ extends BaseEvent
 # This has the basic functionality of an event, and is customizable
 # should have an effect on the various gauges 
 
-var accept_effects := [
-	{
-		"on_bar" : "BUDGET",
-		"value": -15,
-	},
-	{
-		"on_bar" : "SATISFACTION",
-		"value": 10,
-	},
-]
+var accept_effects := []
 
-var refuse_or_expire_effects := [
-	{
-		"on_bar" : "SATISFACTION",
-		"value": -10,
-	},
-	{
-		"on_bar" : "HEALTH",
-		"value": -20,
-	},
-]
+var refuse_or_expire_effects := []
 
 var globalObject: Node
 var turnController: Node
@@ -44,7 +26,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 
 func on_accepted(scene_tree: SceneTree) -> void:
 	turnController.connect("turn_changed", self, "_accepted_on_turn_changed")
-	
+
 func on_refused(scene_tree: SceneTree) -> void:
 	turnController.connect("turn_changed", self, "_refused_on_turn_changed")
 
