@@ -1,17 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scripts/EventController.gd" type="Script" id=1]
+[ext_resource path="res://scripts/EventDisplayer.gd" type="Script" id=1]
 [ext_resource path="res://scripts/MainScript.gd" type="Script" id=2]
 [ext_resource path="res://scenes/EventsUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/BarsUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/UnderUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/CityMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="CityMap" parent="." instance=ExtResource( 6 )]
-visible = false
+[node name="GlobalObject" parent="." instance=ExtResource( 7 )]
 
 [node name="Background" type="ColorRect" parent="."]
 margin_left = -667.528
@@ -23,15 +23,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EventsController" type="Control" parent="."]
+[node name="CityMap" parent="." instance=ExtResource( 6 )]
+
+[node name="EventsDisplayer" type="Control" parent="."]
 margin_bottom = 2.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-EventsUI = ExtResource( 3 )
 
-[node name="CreateEventButton" type="Button" parent="EventsController"]
+[node name="CreateEventButton" type="Button" parent="EventsDisplayer"]
 visible = false
 margin_left = 60.5635
 margin_top = 238.834
@@ -43,7 +44,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EventIDSelector" type="OptionButton" parent="EventsController"]
+[node name="EventIDSelector" type="OptionButton" parent="EventsDisplayer"]
 visible = false
 margin_left = 65.1277
 margin_top = 158.417
@@ -53,12 +54,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EventsUIController" type="Control" parent="EventsController"]
+[node name="EventsUIController" type="Control" parent="EventsDisplayer"]
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EventsUI" parent="EventsController/EventsUIController" instance=ExtResource( 3 )]
+[node name="EventsUI" parent="EventsDisplayer/EventsUIController" instance=ExtResource( 3 )]
 
 [node name="BarsController" type="Control" parent="."]
 __meta__ = {
@@ -75,13 +76,13 @@ __meta__ = {
 }
 
 [node name="UnderUI" parent="UnderUIController" instance=ExtResource( 5 )]
-[connection signal="eventChanged" from="EventsController" to="EventsController/EventsUIController/EventsUI" method="_on_eventChanged"]
-[connection signal="pressed" from="EventsController/CreateEventButton" to="EventsController" method="_on_CreateEventButton_pressed"]
-[connection signal="accepted" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_accepted"]
-[connection signal="accepted" from="EventsController/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_accepted"]
-[connection signal="close" from="EventsController/EventsUIController/EventsUI" to="EventsController" method="_on_EventsUI_close"]
-[connection signal="onHold" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_onHold"]
-[connection signal="refused" from="EventsController/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_refused"]
-[connection signal="refused" from="EventsController/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_refused"]
-[connection signal="eventToDisplay" from="UnderUIController/UnderUI" to="EventsController" method="_on_eventToDisplay"]
-[connection signal="nextTurn" from="UnderUIController/UnderUI" to="EventsController" method="_on_nextTurn"]
+[connection signal="eventChanged" from="EventsDisplayer" to="EventsDisplayer/EventsUIController/EventsUI" method="_on_eventChanged"]
+[connection signal="pressed" from="EventsDisplayer/CreateEventButton" to="EventsDisplayer" method="_on_CreateEventButton_pressed"]
+[connection signal="accepted" from="EventsDisplayer/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_accepted"]
+[connection signal="accepted" from="EventsDisplayer/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_accepted"]
+[connection signal="close" from="EventsDisplayer/EventsUIController/EventsUI" to="EventsDisplayer" method="_on_EventsUI_close"]
+[connection signal="onHold" from="EventsDisplayer/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_onHold"]
+[connection signal="refused" from="EventsDisplayer/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_refused"]
+[connection signal="refused" from="EventsDisplayer/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_refused"]
+[connection signal="eventToDisplay" from="UnderUIController/UnderUI" to="EventsDisplayer" method="_on_eventToDisplay"]
+[connection signal="nextTurn" from="UnderUIController/UnderUI" to="EventsDisplayer" method="_on_nextTurn"]

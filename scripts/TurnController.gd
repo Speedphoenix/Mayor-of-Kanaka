@@ -1,8 +1,16 @@
+class_name TurnController
 extends Node
 
-# Note that if it gets paused, on resume it will wait the whole time, not just what was remaining
+# Note that if it gets paused, on resume will wait the whole time, not just what was remaining
 
 signal miniturn_changed(turn_number, miniturn_number)
+
+# Sent when a turn ends, but before the turn_changed
+# turn_number is the number of the turn that is ending
+signal turn_ended(turn_number, miniturn_number)
+
+# Sent after turn_ended, when the new turn is in effect
+# turn_number is the number of the new turn
 signal turn_changed(turn_number, miniturn_number)
 
 # A miniturn is a 'day', the intermediary turns inside a 'month' (a full 'turn')
@@ -38,6 +46,7 @@ func _ready():
 func launch_next_timers():
 	if current_miniturn_no >= days_in_a_month:
 		_turn_timer.start()
+		trigger_end_turn()
 	else:
 		_miniturn_timer.start()
 
@@ -55,6 +64,8 @@ func on_turn_timeout():
 func trigger_next_miniturn():
 	emit_signal("miniturn_changed", current_turn_no, current_miniturn_no)
 
+func trigger_end_turn():
+	emit_signal("turn_ended", current_turn_no, current_miniturn_no)
 
 func trigger_next_turn():
 	emit_signal("turn_changed", current_turn_no, current_miniturn_no)

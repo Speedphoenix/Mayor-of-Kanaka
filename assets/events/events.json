@@ -19,7 +19,7 @@
         "effects": {
             "onAccepted":{
                 "1" : {
-                    "onBar" : "ECONOMY",
+                    "onBar" : "BUDGET",
                     "value": -15,
                     "turnsBeforeEffect": 1
                 },
@@ -57,7 +57,7 @@
                     "turnsBeforeEffect": 2
                 },
                 "2" : {
-                    "onBar" : "ECONOMY",
+                    "onBar" : "BUDGET",
                     "value": -10,
                     "turnsBeforeEffect": 1
                 }
@@ -78,12 +78,12 @@
         "effects": {
             "onAccepted":{
                 "1" : {
-                    "onBar" : "ECONOMY",
+                    "onBar" : "BUDGET",
                     "value": 30,
                     "turnsBeforeEffect": 1
                 },
                 "2" : {
-                    "onBar" : "ECONOMY",
+                    "onBar" : "BUDGET",
                     "value": 10,
                     "turnsBeforeEffect": 2
                 },

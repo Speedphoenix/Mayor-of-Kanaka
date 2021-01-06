@@ -6,13 +6,14 @@ signal eventToDisplay(eventID)
 var currentTurn
 var eventsList
 
+onready var global = get_tree().get_current_scene().get_node("GlobalObject")
+onready var turnController = global.get_node("TurnController")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var Global = get_node("/root/Global")
-	var turnController = get_node("/root/TurnController")
 	turnController.connect("miniturn_changed", self, "_on_anyturn_changed")
 	turnController.connect("turn_changed", self, "_on_anyturn_changed")
-	currentTurn = Global.currentTurn
+	currentTurn = global.currentTurn
 	$NextTurnController/CurrentTurnLabel.text =  str(currentTurn)
 
 func _on_NextTurnButton_pressed():
@@ -21,8 +22,7 @@ func _on_NextTurnButton_pressed():
 #	var newCurrentTurn = currentTurnText + 1
 #	$NextTurnController/CurrentTurnLabel.text =  String(newCurrentTurn)
 #	$EventDetailsController/DetailsMenuController.hide()
-#	var Global = get_node("/root/Global")
-#	Global.currentTurn += 1
+#	global.currentTurn += 1
 #	emit_signal("nextTurn")
 
 func _on_anyturn_changed(turn_number, miniturn_number):
@@ -30,8 +30,7 @@ func _on_anyturn_changed(turn_number, miniturn_number):
 
 func _on_EventDetailsButton_toggled(button_pressed):
 	if(button_pressed):
-		var Global = get_node("/root/Global")
-		eventsList = Global.eventsList
+		eventsList = global.eventsList
 		var eventCounter = 0
 		for event in eventsList:
 			eventCounter += 1
@@ -82,18 +81,16 @@ func _on_eventButton_pressed(eventID):
 
 
 func _on_event_accepted(event):
-	var Global = get_node("/root/Global")
-	eventsList = Global.eventsList
+	eventsList = global.eventsList
 	#var eventID = event["id"]
 	eventsList.erase(event)
-	Global.eventsList = eventsList
+	global.eventsList = eventsList
 	$EventDetailsController/DetailsMenuController.hide()
 
 
 func _on_event_refused(event):
-	var Global = get_node("/root/Global")
-	eventsList = Global.eventsList
+	eventsList = global.eventsList
 	#var eventID = event["id"]
 	eventsList.erase(event)
-	Global.eventsList = eventsList
+	global.eventsList = eventsList
 	$EventDetailsController/DetailsMenuController.hide()

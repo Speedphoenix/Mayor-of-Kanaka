@@ -8,20 +8,56 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Resource",
+"class": "BaseEvent",
+"language": "GDScript",
+"path": "res://scripts/events/BaseEvent.gd"
+}, {
+"base": "BaseEvent",
+"class": "DecisionSimple",
+"language": "GDScript",
+"path": "res://scripts/events/DecisionSimple.gd"
+}, {
+"base": "Node",
+"class": "EventController",
+"language": "GDScript",
+"path": "res://scripts/EventController.gd"
+}, {
+"base": "BaseEvent",
+"class": "EventNonInteractive",
+"language": "GDScript",
+"path": "res://scripts/events/EventNonInteractive.gd"
+}, {
+"base": "Resource",
+"class": "GameParameters",
+"language": "GDScript",
+"path": "res://scripts/GameParameters.gd"
+}, {
+"base": "Node",
+"class": "GlobalObject",
+"language": "GDScript",
+"path": "res://scripts/GlobalObject.gd"
+}, {
+"base": "Node",
+"class": "TurnController",
+"language": "GDScript",
+"path": "res://scripts/TurnController.gd"
+} ]
 _global_script_class_icons={
-
+"BaseEvent": "",
+"DecisionSimple": "",
+"EventController": "",
+"EventNonInteractive": "",
+"GameParameters": "",
+"GlobalObject": "",
+"TurnController": ""
 }
 
 [application]
 
 config/name="Mayor of Kanaka"
 run/main_scene="res://scenes/MainScene.tscn"
-
-[autoload]
-
-Global="*res://scripts/Global.gd"
-TurnController="*res://scripts/TurnController.gd"
 
 [display]
 

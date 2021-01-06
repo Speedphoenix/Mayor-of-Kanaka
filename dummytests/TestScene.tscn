@@ -1,9 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://dummytests/TestLabel.gd" type="Script" id=1]
-[ext_resource path="res://scenes/TurnController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://dummytests/testeventAdder.gd" type="Script" id=3]
+[ext_resource path="res://dummytests/events/TestEvent1.tres" type="Resource" id=4]
+[ext_resource path="res://dummytests/events/TestEvent2.tres" type="Resource" id=5]
+[ext_resource path="res://dummytests/test_game_params.tres" type="Resource" id=6]
 
 [node name="TestScene" type="Node"]
+
+[node name="GlobalObject" parent="." instance=ExtResource( 2 )]
+default_params = ExtResource( 6 )
+
+[node name="TurnController" parent="GlobalObject" index="0"]
+days_in_a_month = 9
 
 [node name="TestLabel" type="Label" parent="."]
 margin_left = 489.946
@@ -36,9 +46,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TurnController" parent="." instance=ExtResource( 2 )]
-days_in_a_month = 5
+[node name="eventAdder" type="Node" parent="."]
+script = ExtResource( 3 )
+events = [ ExtResource( 4 ), ExtResource( 5 ) ]
+[connection signal="miniturn_changed" from="GlobalObject/TurnController" to="TestLabel" method="showmachin"]
+[connection signal="turn_changed" from="GlobalObject/TurnController" to="TestLabel" method="showmachin"]
+[connection signal="events_arrived" from="GlobalObject/EventController" to="eventAdder" method="_on_EventController_events_arrived"]
 [connection signal="pressed" from="Button" to="TestLabel" method="pauseit"]
 [connection signal="pressed" from="Button2" to="TestLabel" method="resumeit"]
-[connection signal="miniturn_changed" from="TurnController" to="TestLabel" method="showmachin"]
-[connection signal="turn_changed" from="TurnController" to="TestLabel" method="showmachin"]
+
+[editable path="GlobalObject"]

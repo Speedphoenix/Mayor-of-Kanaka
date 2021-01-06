@@ -22,12 +22,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Economy" type="Control" parent="BarsController"]
+[node name="Budget" type="Control" parent="BarsController"]
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="BarsController/Economy"]
+[node name="Background" type="ColorRect" parent="BarsController/Budget"]
 margin_left = 18.0
 margin_top = 20.0
 margin_right = 306.0
@@ -37,7 +37,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EconomyBar" type="TextureProgress" parent="BarsController/Economy"]
+[node name="BudgetBar" type="TextureProgress" parent="BarsController/Budget"]
 margin_left = 61.0
 margin_top = 28.0
 margin_right = 311.0
@@ -50,7 +50,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EconomyIcon" type="TextureRect" parent="BarsController/Economy"]
+[node name="BudgetIcon" type="TextureRect" parent="BarsController/Budget"]
 margin_left = 20.2407
 margin_top = 23.2475
 margin_right = 50.2407
