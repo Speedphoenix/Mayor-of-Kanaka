@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://dummytests/TestLabel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://dummytests/testeventAdder.gd" type="Script" id=3]
 [ext_resource path="res://dummytests/events/TestEvent1.tres" type="Resource" id=4]
 [ext_resource path="res://dummytests/events/TestEvent2.tres" type="Resource" id=5]
+[ext_resource path="res://dummytests/test_game_params.tres" type="Resource" id=6]
 
 [node name="TestScene" type="Node"]
 
 [node name="GlobalObject" parent="." instance=ExtResource( 2 )]
+default_params = ExtResource( 6 )
 
 [node name="TurnController" parent="GlobalObject" index="0"]
 days_in_a_month = 9

@@ -1,17 +1,23 @@
 class_name GlobalObject
 extends Node
 
+enum Bars {HEALTH, SATISFACTION, NATURE, STRESS, BUDGET}
 
+# Toremove
 var events
 
 # List of events for the current turn
-var eventsList
+# Toremove
+var eventsList = []
 
-var devmode
+# Toremove
+var currentTurn = 0
 
-var currentTurn
+export(bool) var devmode := false
 
-enum Bars {HEALTH, SATISFACTION, NATURE, STRESS, BUDGET}
+export(Resource) var default_params
+
+var game_params: GameParameters
 
 var bars = {
 	"HEALTH": 50,
@@ -23,19 +29,20 @@ var bars = {
 
 func _ready():
 	randomize()
-	add_events_to_controller()
+	assert(default_params is GameParameters)
+	_receive_game_parameters()
+	_add_events_to_controller()
 	events = getEventsData()
-	# disable if you do not want to display dev tools
-	devmode = false
-	currentTurn = 0		
-	eventsList = []
 
-func _process(_delta):
-	pass
+func _receive_game_parameters():
+	# TODO: try to fetch the given parameters from a global singleton
+	game_params = default_params
 
-func add_events_to_controller():
-	$EventController.add_possible_event(preload("res://assets/events/SimpleEvent.tres"))
+func _add_events_to_controller():
+	for event in game_params.initial_possible_events:
+		$EventController.add_possible_event(event)
 
+# Toremove
 func getEventsData():
 	var data_file = File.new()
 	if data_file.open("res://assets/events/events.json", File.READ) != OK:

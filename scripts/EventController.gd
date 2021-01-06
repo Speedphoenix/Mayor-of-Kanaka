@@ -1,17 +1,13 @@
 class_name EventController
 extends Node
-
-
-# TODO: This whole script. right now it's mostly signatures, sometimes incomplete
-
-# remember:
-# if the number of miniturns left isn't enough, machine gun the events?
-#	rather make variable probas depending on that
+# Controls the flow of event throughout a single game
 
 # TODO: make a robust next-event chooser:
-#	So that we don't get them too many times in a row
+#	So that we don't get them too many miniturns in a row
+#	So we don't get the same event many times in a row
 #		Careful about ending up at the last turns of a game with many of the same!
-#	So that new available ones are adde for infinite games
+# if the number of miniturns left isn't enough, machine gun the events?
+#	or rather make variable probas depending on that
 
 # Events to pop up on the screen right now
 # The parameter is an array of BaseEvent resources
@@ -29,8 +25,8 @@ var active_events: Array
 var triggered_events: Array
 
 # When a new turn/month starts, how many events can be triggered at once
-export(int) var max_events_per_turn_start = 1
-export(int) var max_events_per_miniturn = 1
+export(int) var max_events_per_turn_start := 1
+export(int) var max_events_per_miniturn := 1
 
 # Need a better name for this
 # Whether the game should aim to fulfill a certain amount of events per turn
@@ -38,10 +34,11 @@ export(int) var max_events_per_miniturn = 1
 # TODO:
 # export(bool) var should_fix_event_count_per_turn = true
 
-export(int) var events_per_turn = 3
+# maybe min & max events per turn?
+export(int) var events_per_turn := 3
 
-onready var global = get_tree().get_current_scene().get_node("GlobalObject")
-onready var turnController = global.get_node("TurnController")
+onready var global: GlobalObject = get_tree().get_current_scene().get_node("GlobalObject")
+onready var turnController: TurnController = global.get_node("TurnController")
 
 
 # An event that can be triggered.
@@ -66,8 +63,10 @@ class TriggerableEvent:
 	var trigger_immediately := 0
 	
 	# TODO: initialize the other vars
-	func _init(from: BaseEvent):
+	func _init(from: BaseEvent, use_weight := -1):
 		event_resource = from
+		if use_weight != -1:
+			weight = use_weight
 
 # An event that has been instantiated and triggered.
 # It might be active or closed
@@ -160,7 +159,7 @@ func _on_miniturn_changed(turn_number, miniturn_number):
 		trigger_events(turn_number, miniturn_number, max_events_per_miniturn)
 
 func _on_turn_changed(turn_number: int, miniturn_number: int):
-	var to_expire = []
+	var to_expire := []
 	for event in active_events:
 		event.remaining_turns -= 1
 		if event.remaining_turns < 0:
@@ -170,7 +169,7 @@ func _on_turn_changed(turn_number: int, miniturn_number: int):
 	trigger_events(turn_number, miniturn_number, max_events_per_turn_start)
 	
 func _on_turn_ended(turn_number: int, miniturn_number: int):
-	var imminent = []
+	var imminent := []
 	for event in active_events:
 		if event.remaining_turns == 0:
 			imminent.append(event)
@@ -184,27 +183,50 @@ func _find_by_event_resource(tab: Array, to_find: BaseEvent) -> int:
 			return i
 	return -1
 
-# TODO:
-# will (forcefully) generate an event next miniturn	(or as soon as possible)
-func trigger_immediate_event() -> void:
-	pass
 
-func add_possible_event(base_event: BaseEvent) -> void:
-	var new_event := TriggerableEvent.new(base_event)
+func get_triggerable_event(base_event: BaseEvent) -> TriggerableEvent:
+	var index := _find_by_event_resource(active_events, base_event)
+	if index == -1:
+		return null
+	else:
+		return active_events[index]
+
+# will trigger this event next miniturn (or as soon as possible)
+#
+# Note that if this will reset the trigger_immediately counter
+func trigger_immediate_event(base_event: BaseEvent, trigger_count := 1) -> void:
+	var triggerable := get_triggerable_event(base_event)
+	if triggerable != null:
+		triggerable.trigger_immediately = trigger_count
+
+# Omit the weight argument or pass -1 to use the Event's default
+func add_possible_event(base_event: BaseEvent, weight := -1) -> void:
+	var new_event := TriggerableEvent.new(base_event, weight)
 	triggerable_events.append(new_event)
 
-# TODO:
-# remove from the bag of available potential events
-func remove_possible_event() -> void:
-	pass
+func enable_or_add_possible_event(base_event: BaseEvent, weight := 1) -> void:
+	var triggerable := get_triggerable_event(base_event)
+	if triggerable == null:
+		add_possible_event(base_event, weight)
+	else:
+		triggerable.weight = weight
 
+# Will set the event's probability weight to zero
+#
+# An event without a positive weight value will not be used 
+func disable_possible_event(base_event: BaseEvent) -> void:
+	var triggerable := get_triggerable_event(base_event)
+	if triggerable != null:
+		triggerable.weight = 0
 
 func accept_event(base_event: BaseEvent) -> void:
 	var index := _find_by_event_resource(active_events, base_event)
-	active_events.remove(index)
+	if index != -1:
+		active_events.remove(index)
 	base_event.on_accepted(get_tree())
 
 func refuse_event(base_event: BaseEvent) -> void:
 	var index := _find_by_event_resource(active_events, base_event)
-	active_events.remove(index)
+	if index != -1:
+		active_events.remove(index)
 	base_event.on_refused(get_tree())
