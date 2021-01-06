@@ -6,14 +6,14 @@ var devmode
 var events
 
 onready var global = get_tree().get_current_scene().get_node("GlobalObject")
-onready var turnController = global.get_node("TurnController")
+onready var turn_controller = global.get_node("TurnController")
 
 func _ready():
 	devmode = global.devmode
 	events = global.events
 	
-	turnController.connect("miniturn_changed", self, "_on_miniturn_changed")
-	turnController.connect("turn_changed", self, "_on_turn_changed")
+	turn_controller.connect("miniturn_changed", self, "_on_miniturn_changed")
+	turn_controller.connect("turn_changed", self, "_on_turn_changed")
 	
 	$EventsUIController/EventsUI.get_child(0).hide()
 	initSelector()
@@ -73,9 +73,9 @@ func _on_turn_changed(turn_number, miniturn_number):
 func _on_eventToDisplay(eventID):
 	#print("Need to display event ID: ", eventID)
 	emit_signal("eventChanged", eventID)
-	turnController.pause_turns()
+	turn_controller.pause_turns()
 	$EventsUIController/EventsUI.get_child(0).show()
 	
 func _on_EventsUI_close():
 	$EventsUIController/EventsUI.get_child(0).hide()
-	turnController.resume_turns()
+	turn_controller.resume_turns()

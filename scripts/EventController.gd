@@ -37,8 +37,7 @@ export(int) var max_events_per_miniturn := 1
 # maybe min & max events per turn?
 export(int) var events_per_turn := 3
 
-onready var global: GlobalObject = get_tree().get_current_scene().get_node("GlobalObject")
-onready var turnController: TurnController = global.get_node("TurnController")
+onready var turnController: TurnController = get_node("../TurnController")
 
 
 # An event that can be triggered.
