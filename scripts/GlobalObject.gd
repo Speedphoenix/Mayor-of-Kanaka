@@ -31,16 +31,12 @@ func _ready():
 	randomize()
 	assert(default_params is GameParameters)
 	_receive_game_parameters()
-	_add_events_to_controller()
+	game_params.apply(get_tree())
 	events = getEventsData()
 
 func _receive_game_parameters():
 	# TODO: try to fetch the given parameters from a global singleton
 	game_params = default_params
-
-func _add_events_to_controller():
-	for event in game_params.initial_possible_events:
-		$EventController.add_possible_event(event)
 
 # Toremove
 func getEventsData():
