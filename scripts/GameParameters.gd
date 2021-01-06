@@ -11,8 +11,22 @@ extends Resource
 
 export(Array, Resource) var initial_possible_events = []
 
+export(Dictionary) var initial_gauges := {
+	"HEALTH": 50,
+	"SATISFACTION": 50,
+	"NATURE": 50,
+	"STRESS": 50,
+	"BUDGET": 100,
+}
+
 func apply(scene_tree: SceneTree) -> void:
 	var global_object = scene_tree.get_current_scene().get_node("GlobalObject")
-	var event_controller = global_object.get_node("EventController")
+	var event_controller: EventController = global_object.get_node("EventController")
+	var gauge_controller: GaugeController = global_object.get_node("GaugeController")
+	
+	# Applying intial possible events
 	for event in initial_possible_events:
 		event_controller.add_possible_event(event)
+	
+	# Applying initial gauges
+	gauge_controller.set_gauges(initial_gauges)
