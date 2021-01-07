@@ -52,6 +52,8 @@ events = [ ExtResource( 4 ), ExtResource( 5 ) ]
 [connection signal="miniturn_changed" from="GlobalObject/TurnController" to="TestLabel" method="showmachin"]
 [connection signal="turn_changed" from="GlobalObject/TurnController" to="TestLabel" method="showmachin"]
 [connection signal="events_arrived" from="GlobalObject/EventController" to="eventAdder" method="_on_EventController_events_arrived"]
+[connection signal="gauge_changed" from="GlobalObject/GaugeController" to="TestLabel" method="_on_GaugeController_gauge_changed"]
+[connection signal="gauges_changed" from="GlobalObject/GaugeController" to="TestLabel" method="_on_GaugeController_gauges_changed"]
 [connection signal="pressed" from="Button" to="TestLabel" method="pauseit"]
 [connection signal="pressed" from="Button2" to="TestLabel" method="resumeit"]
 

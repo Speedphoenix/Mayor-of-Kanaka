@@ -6,3 +6,10 @@
 [resource]
 script = ExtResource( 1 )
 initial_possible_events = [ ExtResource( 2 ) ]
+initial_gauges = {
+"BUDGET": 100,
+"HEALTH": 50,
+"NATURE": 50,
+"SATISFACTION": 50,
+"STRESS": 50
+}

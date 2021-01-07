@@ -5,9 +5,9 @@ onready var bars = global.bars
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var turnController = global.get_node("TurnController")
-	#turnController.connect("miniturn_changed", self, "_on_anyturn_changed")
-	turnController.connect("turn_changed", self, "_on_turn_changed")
+	var turn_controller = global.get_node("TurnController")
+	#turn_controller.connect("miniturn_changed", self, "_on_anyturn_changed")
+	turn_controller.connect("turn_changed", self, "_on_turn_changed")
 	
 	# Setting the bars initial values
 	$BarsController/Budget/BudgetBar.value = bars.BUDGET

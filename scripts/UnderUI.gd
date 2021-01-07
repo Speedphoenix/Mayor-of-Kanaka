@@ -7,12 +7,12 @@ var currentTurn
 var eventsList
 
 onready var global = get_tree().get_current_scene().get_node("GlobalObject")
-onready var turnController = global.get_node("TurnController")
+onready var turn_controller = global.get_node("TurnController")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	turnController.connect("miniturn_changed", self, "_on_anyturn_changed")
-	turnController.connect("turn_changed", self, "_on_anyturn_changed")
+	turn_controller.connect("miniturn_changed", self, "_on_anyturn_changed")
+	turn_controller.connect("turn_changed", self, "_on_anyturn_changed")
 	currentTurn = global.currentTurn
 	$NextTurnController/CurrentTurnLabel.text =  str(currentTurn)
 

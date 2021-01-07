@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://scripts/GameParameters.gd"
 }, {
 "base": "Node",
+"class": "GaugeController",
+"language": "GDScript",
+"path": "res://scripts/GaugeController.gd"
+}, {
+"base": "Node",
 "class": "GlobalObject",
 "language": "GDScript",
 "path": "res://scripts/GlobalObject.gd"
@@ -50,6 +55,7 @@ _global_script_class_icons={
 "EventController": "",
 "EventNonInteractive": "",
 "GameParameters": "",
+"GaugeController": "",
 "GlobalObject": "",
 "TurnController": ""
 }

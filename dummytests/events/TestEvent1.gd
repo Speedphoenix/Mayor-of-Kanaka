@@ -4,23 +4,15 @@ extends DecisionSimple
 
 func _init():
 	print("I am test event 1")
-	accept_effects = [
-		{
-			"on_bar" : "BUDGET",
-			"value": -15,
+	accept_effects = {
+		"on_gauges": {
+			"BUDGET": -15,
+			"SATISFACTION": 10,
 		},
-		{
-			"on_bar" : "SATISFACTION",
-			"value": 10,
+	}
+	refuse_or_expire_effects = {
+		"on_gauges": {
+			"SATISFACTION": -10,
+			"HEALTH": -20,
 		},
-	]
-	refuse_or_expire_effects = [
-		{
-			"on_bar" : "SATISFACTION",
-			"value": -10,
-		},
-		{
-			"on_bar" : "HEALTH",
-			"value": -20,
-		},
-	]
+	}
