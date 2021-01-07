@@ -66,6 +66,9 @@ class TriggerableEvent:
 		event_resource = from
 		if use_weight != -1:
 			weight = use_weight
+		else:
+			weight = from.weight
+		remaing_triggers = from.trigger_count
 
 # An event that has been instantiated and triggered.
 # It might be active or closed
@@ -184,11 +187,15 @@ func _find_by_event_resource(tab: Array, to_find: BaseEvent) -> int:
 
 
 func get_triggerable_event(base_event: BaseEvent) -> TriggerableEvent:
-	var index := _find_by_event_resource(active_events, base_event)
+	var index := _find_by_event_resource(triggerable_events, base_event)
 	if index == -1:
-		return null
+		var index_triggered = _find_by_event_resource(triggered_events, base_event)
+		if index_triggered == -1:
+			return null
+		else:
+			return triggered_events[index_triggered].triggerable
 	else:
-		return active_events[index]
+		return triggerable_events[index]
 
 # will trigger this event next miniturn (or as soon as possible)
 #

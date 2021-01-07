@@ -15,6 +15,12 @@ export(int) var active_duration: int = 0
 export(String) var accept_msg := "Accept"
 export(String) var refuse_msg := "Refuse"
 
+export(int) var weight := 1
+
+# -1 to trigger as many times as needed,
+# a positive value to define how many times it should be triggered at most
+export(int) var trigger_count := -1
+
 # These functions should be overridden
 
 # Called when the event is created, before the player has interracted with it
