@@ -16,9 +16,9 @@ default_params = ExtResource( 6 )
 days_in_a_month = 9
 
 [node name="TestLabel" type="Label" parent="."]
-margin_left = 489.946
+margin_left = 490.695
 margin_top = 261.454
-margin_right = 556.946
+margin_right = 557.695
 margin_bottom = 275.454
 text = "I'm a label"
 script = ExtResource( 1 )

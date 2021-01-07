@@ -7,7 +7,7 @@ var currentTurn
 var eventsList
 
 onready var global = get_tree().get_current_scene().get_node("GlobalObject")
-onready var turn_controller = global.get_node("TurnController")
+onready var turn_controller: TurnController = global.get_node("TurnController")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

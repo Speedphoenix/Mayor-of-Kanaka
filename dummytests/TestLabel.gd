@@ -15,10 +15,10 @@ func showmachin(newturn, newday = 1):
 	text = str(newturn) + " " + str(newday)
 
 func pauseit():
-	get_node("../TurnController").pause_turns()
+	get_node("../GlobalObject/TurnController").pause_turns()
 
 func resumeit():
-	get_node("../TurnController").resume_turns()
+	get_node("../GlobalObject/TurnController").resume_turns()
 
 
 func _on_GaugeController_gauge_changed(gauge_name: String, new_value: int, old_value: int):

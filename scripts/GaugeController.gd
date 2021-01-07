@@ -23,7 +23,7 @@ export(Dictionary) var gauge_limits: Dictionary = {
 }
 
 # These will generally be set through the game parameters
-var gauges: Dictionary = {
+var _gauges: Dictionary = {
 	"HEALTH": 50,
 	"SATISFACTION": 50,
 	"NATURE": 50,
@@ -44,40 +44,40 @@ func _gauges_are_different(gauges1: Dictionary, gauges2: Dictionary):
 	return false
 
 func get_gauge(name: String) -> int:
-	assert(name in gauges)
-	return gauges[name]
+	assert(name in _gauges)
+	return _gauges[name]
 
 # Sets gauge and emits the signal
 func set_gauge(name: String, value: int) -> void:
-	assert(name in gauges)
-	var old_value = gauges[name]
-	gauges[name] = value
+	assert(name in _gauges)
+	var old_value = _gauges[name]
+	_gauges[name] = value
 	if emit_signal_on_identical_new_value || old_value != value:
-		emit_signal("gauge_changed", name, gauges[name], old_value)
+		emit_signal("gauge_changed", name, _gauges[name], old_value)
 
 func set_gauges(values: Dictionary, send_signal := true) -> void:
-	var old_values = gauges.duplicate()
+	var old_values = _gauges.duplicate()
 	for gauge_name in values:
 		set_gauge(gauge_name, values[gauge_name])
 	if ((emit_signal_on_identical_new_value
-		|| _gauges_are_different(old_values, gauges))
+		|| _gauges_are_different(old_values, _gauges))
 		&& send_signal):
-		emit_signal("gauges_changed", gauges, old_values)
+		emit_signal("gauges_changed", _gauges, old_values)
 
 func apply_to_gauge(name: String, diff: int) -> void:
-	assert(name in gauges)
-	var old_value = gauges[name]
-	gauges[name] += diff
-	if gauges[name] > gauge_limits[name]:
-		gauges[name] = gauge_limits[name]
-	if gauges[name] < lower_gauge_limit:
-		gauges[name] = 0
-	if emit_signal_on_identical_new_value || gauges[name] != old_value:
-		emit_signal("gauge_changed", name, gauges[name], old_value)
+	assert(name in _gauges)
+	var old_value = _gauges[name]
+	_gauges[name] += diff
+	if _gauges[name] > gauge_limits[name]:
+		_gauges[name] = gauge_limits[name]
+	if _gauges[name] < lower_gauge_limit:
+		_gauges[name] = 0
+	if emit_signal_on_identical_new_value || _gauges[name] != old_value:
+		emit_signal("gauge_changed", name, _gauges[name], old_value)
 
 func apply_to_gauges(differences: Dictionary) -> void:
-	var old_values = gauges.duplicate()
+	var old_values = _gauges.duplicate()
 	for gauge_name in differences:
 		apply_to_gauge(gauge_name, differences[gauge_name])
-	if emit_signal_on_identical_new_value || _gauges_are_different(old_values, gauges):
-		emit_signal("gauges_changed", gauges, old_values)
+	if emit_signal_on_identical_new_value || _gauges_are_different(old_values, _gauges):
+		emit_signal("gauges_changed", _gauges, old_values)
