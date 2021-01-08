@@ -13,6 +13,9 @@ export(bool) var emit_signal_on_identical_new_value = false
 
 export(int) var lower_gauge_limit := 0
 
+# This enum is currently not in use
+enum Gauges {HEALTH, SATISFACTION, NATURE, STRESS, BUDGET}
+
 # This may be added to the GameParameters as well
 export(Dictionary) var gauge_limits: Dictionary = {
 	"HEALTH": 100,
@@ -46,6 +49,12 @@ func _gauges_are_different(gauges1: Dictionary, gauges2: Dictionary):
 func get_gauge(name: String) -> int:
 	assert(name in _gauges)
 	return _gauges[name]
+
+# Returns the current gauges
+# Warning: the modifying the returned dictionary will not change the values
+# of the actual gauges
+func get_gauges() -> Dictionary:
+	return _gauges.duplicate()
 
 # Sets gauge and emits the signal
 func set_gauge(name: String, value: int) -> void:
