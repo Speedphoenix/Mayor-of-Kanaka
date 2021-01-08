@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/EventsUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/BarsUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/UnderUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/CityMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/OldCityMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node2D"]
