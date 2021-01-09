@@ -3,7 +3,7 @@ extends CanvasLayer
 signal nextTurn
 signal eventToDisplay(eventID)
 
-var currentTurn
+
 var eventsList
 
 onready var global = get_tree().get_current_scene().get_node("GlobalObject")
@@ -13,8 +13,7 @@ onready var turn_controller: TurnController = global.get_node("TurnController")
 func _ready():
 	turn_controller.connect("miniturn_changed", self, "_on_anyturn_changed")
 	turn_controller.connect("turn_changed", self, "_on_anyturn_changed")
-	currentTurn = global.currentTurn
-	$NextTurnController/CurrentTurnLabel.text =  str(currentTurn)
+	$NextTurnController/CurrentTurnLabel.text =  str(0)
 
 func _on_NextTurnButton_pressed():
 	pass

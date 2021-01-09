@@ -3,6 +3,7 @@ extends Node
 
 # Toremove
 var events
+var eventsList = []
 
 export(bool) var devmode := false
 
