@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+export(bool) var draggable := false
+
 onready var global = get_tree().get_current_scene().get_node("GlobalObject")
 onready var turn_controller: TurnController = global.get_node("TurnController")
 onready var event_controller: EventController = global.get_node("EventController")
@@ -22,18 +24,24 @@ func _ready():
 	$SingleEventController.hide()
 	window_start_position = $SingleEventController.rect_position
 	event_controller.connect("events_arrived", self, "_on_events_arrived")
+	event_controller.connect("event_to_display", self, "_on_event_to_display")
 	
 func _process(_delta):
 	var _stop_time = stop_time
 	_handle_turns(_stop_time)
 	
 func _input(ev: InputEvent):
-	drag_and_drop_window(ev)
+	if draggable == true:
+		drag_and_drop_window(ev)
 	
 # An array of events as arrived and need to be displayed
 func _on_events_arrived(events: Array):
 	# We print only the first event of the array
 	event = events[0]
+	display_event()
+	
+func _on_event_to_display(ev: BaseEvent):
+	event = ev
 	display_event()
 
 func display_event():
@@ -55,7 +63,7 @@ func _handle_turns(_stop_time: bool):
 		
 
 # drag and drop the event window with the mouse based on the Window ColorRect selection
-# TODO : improve the selection of the window (not based on backgroud)
+# TODO : improve the selection of the window (not based on background)
 func drag_and_drop_window(ev: InputEvent):
 	var Window = $SingleEventController
 	

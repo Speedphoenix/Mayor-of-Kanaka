@@ -16,6 +16,9 @@ signal events_arrived(events)
 signal events_will_expire(events)
 signal events_expired(events)
 
+#Events to be displayed, asked by the player via the UnderUI script
+signal event_to_display(event)
+
 # An array of TriggerableEvents
 var triggerable_events: Array
 # An array of TriggeredEvents
@@ -236,3 +239,7 @@ func refuse_event(base_event: BaseEvent) -> void:
 	if index != -1:
 		active_events.remove(index)
 	base_event.on_refused(get_tree())
+
+# Emit a signal to display an event
+func event_to_display(event: BaseEvent):
+	emit_signal("event_to_display", event)
