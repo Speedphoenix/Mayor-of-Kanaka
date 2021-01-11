@@ -37,7 +37,7 @@ export(int) var max_events_per_miniturn := 1
 # maybe min & max events per turn?
 export(int) var events_per_turn := 3
 
-onready var turnController: TurnController = get_node("../TurnController")
+onready var turn_controller: TurnController = get_node("../TurnController")
 
 
 # An event that can be triggered.
@@ -84,9 +84,9 @@ class TriggeredEvent:
 
 
 func _ready():
-	turnController.connect("miniturn_changed", self, "_on_miniturn_changed")
-	turnController.connect("turn_changed", self, "_on_turn_changed")
-	turnController.connect("turn_ended", self, "_on_turn_ended")
+	turn_controller.connect("miniturn_changed", self, "_on_miniturn_changed")
+	turn_controller.connect("turn_changed", self, "_on_turn_changed")
+	turn_controller.connect("turn_ended", self, "_on_turn_ended")
 
 # returns an array of valid usable TriggerableEvents
 # Note that multiple events could have the same reference
