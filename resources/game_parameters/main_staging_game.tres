@@ -17,8 +17,7 @@ initial_gauges = {
 }
 gauge_limits = {
 "BUDGET": {
-"LOWER": 0,
-"UPPER": 10000
+"LOWER": 0
 },
 "HEALTH": {
 "LOWER": 0,
