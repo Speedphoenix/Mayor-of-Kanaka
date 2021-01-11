@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://scripts/EventDisplayer.gd" type="Script" id=2]
+[ext_resource path="res://scripts/UI/EventDisplayer.gd" type="Script" id=2]
 [ext_resource path="res://assets/events/refused.png" type="Texture" id=3]
 [ext_resource path="res://assets/events/accepted.png" type="Texture" id=4]
 [ext_resource path="res://assets/events/hold.png" type="Texture" id=5]

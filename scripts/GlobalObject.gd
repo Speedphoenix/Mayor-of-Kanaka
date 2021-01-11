@@ -1,21 +1,11 @@
 class_name GlobalObject
 extends Node
 
-enum Bars {HEALTH, SATISFACTION, NATURE, STRESS, BUDGET}
-
 export(bool) var devmode := false
 
 export(Resource) var default_params
 
 var game_params: GameParameters
-
-var bars = {
-	"HEALTH": 50,
-	"SATISFACTION": 50,
-	"NATURE": 50,
-	"STRESS": 50,
-	"BUDGET": 50,
-}
 
 func _ready():
 	randomize()
