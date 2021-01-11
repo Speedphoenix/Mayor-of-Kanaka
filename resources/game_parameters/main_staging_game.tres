@@ -13,3 +13,25 @@ initial_gauges = {
 "SATISFACTION": 50,
 "STRESS": 50
 }
+gauge_limits = {
+"BUDGET": {
+"LOWER": 0,
+"UPPER": 10000
+},
+"HEALTH": {
+"LOWER": 0,
+"UPPER": 100
+},
+"NATURE": {
+"LOWER": 0,
+"UPPER": 100
+},
+"SATISFACTION": {
+"LOWER": 0,
+"UPPER": 100
+},
+"STRESS": {
+"LOWER": 0,
+"UPPER": 100
+}
+}

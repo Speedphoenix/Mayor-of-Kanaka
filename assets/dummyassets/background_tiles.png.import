@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dummycitytiles2._atlaspng.png-1797770f73ee90eec8f3dd31b05dae0b.stex"
+path="res://.import/background_tiles.png-8f2471cb242e83c4bd5da765cae73b1e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dummytests/dummycitytiles2._atlaspng.png"
-dest_files=[ "res://.import/dummycitytiles2._atlaspng.png-1797770f73ee90eec8f3dd31b05dae0b.stex" ]
+source_file="res://assets/dummyassets/background_tiles.png"
+dest_files=[ "res://.import/background_tiles.png-8f2471cb242e83c4bd5da765cae73b1e.stex" ]
 
 [params]
 
