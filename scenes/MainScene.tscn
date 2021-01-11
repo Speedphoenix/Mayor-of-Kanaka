@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scripts/EventDisplayer.gd" type="Script" id=1]
-[ext_resource path="res://scripts/MainScript.gd" type="Script" id=2]
+[ext_resource path="res://scripts/UI/EventDisplayer.gd" type="Script" id=1]
 [ext_resource path="res://scenes/EventsUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/BarsUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/UnderUI.tscn" type="PackedScene" id=5]
@@ -9,7 +8,6 @@
 [ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node2D"]
-script = ExtResource( 2 )
 
 [node name="GlobalObject" parent="." instance=ExtResource( 7 )]
 
@@ -79,10 +77,7 @@ __meta__ = {
 [connection signal="eventChanged" from="EventsDisplayer" to="EventsDisplayer/EventsUIController/EventsUI" method="_on_eventChanged"]
 [connection signal="pressed" from="EventsDisplayer/CreateEventButton" to="EventsDisplayer" method="_on_CreateEventButton_pressed"]
 [connection signal="accepted" from="EventsDisplayer/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_accepted"]
-[connection signal="accepted" from="EventsDisplayer/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_accepted"]
 [connection signal="close" from="EventsDisplayer/EventsUIController/EventsUI" to="EventsDisplayer" method="_on_EventsUI_close"]
-[connection signal="onHold" from="EventsDisplayer/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_onHold"]
 [connection signal="refused" from="EventsDisplayer/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_refused"]
-[connection signal="refused" from="EventsDisplayer/EventsUIController/EventsUI" to="BarsController/BarsUI" method="_on_event_refused"]
 [connection signal="eventToDisplay" from="UnderUIController/UnderUI" to="EventsDisplayer" method="_on_eventToDisplay"]
 [connection signal="nextTurn" from="UnderUIController/UnderUI" to="EventsDisplayer" method="_on_nextTurn"]

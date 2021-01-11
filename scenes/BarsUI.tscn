@@ -12,7 +12,7 @@
 [ext_resource path="res://assets/bars/progression_bar_empty_yellow.png" type="Texture" id=10]
 [ext_resource path="res://assets/bars/health.png" type="Texture" id=11]
 [ext_resource path="res://assets/bars/progression_bar_full_yellow.png" type="Texture" id=12]
-[ext_resource path="res://scripts/BarsUI.gd" type="Script" id=13]
+[ext_resource path="res://scripts/UI/BarsUI.gd" type="Script" id=13]
 
 [node name="BarsUI" type="CanvasLayer"]
 script = ExtResource( 13 )

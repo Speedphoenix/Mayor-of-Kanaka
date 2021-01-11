@@ -19,6 +19,22 @@ export(Dictionary) var initial_gauges := {
 	"BUDGET": 100,
 }
 
+const PERCENT := {
+	"LOWER": 0,
+	"UPPER": 100,
+}
+export(Dictionary) var gauge_limits: Dictionary = {
+	"BUDGET": {
+		"LOWER": 0,
+		"UPPER": 10000,
+	},
+	"HEALTH": PERCENT,
+	"SATISFACTION": PERCENT,
+	"NATURE": PERCENT,
+	"STRESS": PERCENT,
+}
+
+
 func apply(scene_tree: SceneTree) -> void:
 	var global_object = scene_tree.get_current_scene().get_node("GlobalObject")
 	var event_controller: EventController = global_object.get_node("EventController")
@@ -28,5 +44,6 @@ func apply(scene_tree: SceneTree) -> void:
 	for event in initial_possible_events:
 		event_controller.add_possible_event(event)
 	
-	# Applying initial gauges
+	# Applying initial gauges limits and values
+	gauge_controller.set_gauges_limits(gauge_limits)
 	gauge_controller.set_gauges(initial_gauges)

@@ -1,11 +1,12 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://scripts/EventsUI.gd" type="Script" id=2]
+[ext_resource path="res://scripts/UI/EventsUI.gd" type="Script" id=2]
 [ext_resource path="res://assets/events/refused.png" type="Texture" id=3]
 [ext_resource path="res://assets/events/accepted.png" type="Texture" id=4]
 [ext_resource path="res://assets/events/hold.png" type="Texture" id=5]
 [ext_resource path="res://assets/events/close.png" type="Texture" id=6]
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
