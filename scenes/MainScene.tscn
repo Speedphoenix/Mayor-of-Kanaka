@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scripts/EventDisplayer.gd" type="Script" id=1]
 [ext_resource path="res://scenes/EventsUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/BarsUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/UnderUI.tscn" type="PackedScene" id=5]
@@ -24,14 +23,13 @@ __meta__ = {
 [node name="CityMap" parent="." instance=ExtResource( 6 )]
 visible = false
 
-[node name="EventsDisplayer" type="Control" parent="."]
+[node name="EventsDisplayController" type="Control" parent="."]
 margin_bottom = 2.0
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EventUI" parent="EventsDisplayer" instance=ExtResource( 3 )]
+[node name="EventDisplayer" parent="EventsDisplayController" instance=ExtResource( 3 )]
 
 [node name="BarsController" type="Control" parent="."]
 __meta__ = {
@@ -48,4 +46,3 @@ __meta__ = {
 }
 
 [node name="UnderUI" parent="UnderUIController" instance=ExtResource( 5 )]
-[connection signal="nextTurn" from="UnderUIController/UnderUI" to="EventsDisplayer" method="_on_nextTurn"]

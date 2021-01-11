@@ -3,16 +3,6 @@ extends Node
 
 enum Bars {HEALTH, SATISFACTION, NATURE, STRESS, BUDGET}
 
-# Toremove
-var events
-
-# List of events for the current turn
-# Toremove
-var eventsList = []
-
-# Toremove
-var currentTurn = 0
-
 export(bool) var devmode := false
 
 export(Resource) var default_params

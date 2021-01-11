@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-signal nextTurn
-
 var currentTurn
 
 onready var global = get_tree().get_current_scene().get_node("GlobalObject")
@@ -16,4 +14,9 @@ func _ready():
 func _on_anyturn_changed(turn_number, miniturn_number):
 	$NextTurnController/CurrentTurnLabel.text =  str(turn_number) + "m " +  str(miniturn_number) + "d" 
 
-
+func _on_EventDetailsButton_toggled(button_pressed: bool):
+	if(button_pressed):
+		print("Hello")
+	else:
+		print("Goodbye")  
+	
