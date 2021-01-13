@@ -29,6 +29,9 @@ func _ready():
 func _process(_delta):
 	var _stop_time = stop_time
 	_handle_turns(_stop_time)
+	# If the player presses the cancel button, the windows get closed
+	if Input.is_action_pressed("ui_cancel"):
+		close_window()
 	
 func _input(ev: InputEvent):
 	if draggable == true:

@@ -24,12 +24,23 @@ font_data = ExtResource( 1 )
 
 [node name="EventDisplayer" type="CanvasLayer"]
 script = ExtResource( 2 )
+draggable = true
 
 [node name="SingleEventController" type="Control" parent="."]
-margin_left = 250.0
-margin_top = 100.0
-margin_right = 650.0
-margin_bottom = 400.0
+margin_left = 270.13
+margin_top = 78.8107
+margin_right = 670.13
+margin_bottom = 378.811
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Frame" type="ColorRect" parent="SingleEventController"]
+margin_left = -6.0
+margin_top = -6.0
+margin_right = 404.0
+margin_bottom = 305.0
+color = Color( 0.32549, 0.0980392, 0.0980392, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
