@@ -1,11 +1,12 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://resources/events/SchoolBuilding.gd" type="Script" id=1]
+[ext_resource path="res://resources/events/dummy/ArmyChaos.gd" type="Script" id=1]
+
 
 [resource]
 script = ExtResource( 1 )
-title = "Build a school"
-description = "Can you build a school ?"
+title = "Army of Chaos"
+description = "the army of chaos arrived, do you accept them in your city ?"
 active_duration = 0
 accept_msg = "Accept"
 refuse_msg = "Refuse"
