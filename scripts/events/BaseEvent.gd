@@ -21,6 +21,12 @@ export(int) var weight := 1
 # a positive value to define how many times it should be triggered at most
 export(int) var trigger_count := -1
 
+#will generate a random number to chose event's title/description from an array
+var rnd_generator = RandomNumberGenerator.new()
+
+func _init():
+	rnd_generator.randomize()
+
 # These functions should be overridden
 
 # Called when the event is created, before the player has interracted with it
