@@ -10,7 +10,7 @@ export (Array, String) var street_name := ['Bukovski', 'Dupont', 'Smith', 'Bugag
 
 func _init():
 	#on accept
-	#city spends money for some preventive measures in order to soften crisis consequences
+	#in case of city halls intervention we will spend money and raise citizens satisfction
 	accept_effects = {
 		"on_gauges": {
 			#BUDGET is added in on_triggered
@@ -19,7 +19,7 @@ func _init():
 	}
 	
 	#on decline
-	#no preventive measures taken, crisis strikes at it's full strength
+	#in case of refusing, satisfaction will go down
 	refuse_or_expire_effects = {
 		"on_gauges": {
 			"SATISFACTION": rng.randi_range(-15,-10),
@@ -28,9 +28,9 @@ func _init():
 	
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	#ex: Hurricane Incomming !!!
-	title = trouble_name[rng.randi_range(0,trouble_name.size()-1)] + ' Incomming!!!'
-	#Amount of money to spent if we want to softeh crisis concsequences
+	#ex: Pipe broken
+	title = trouble_name[rng.randi_range(0,trouble_name.size()-1)]
+	#Amount of money to spent r repairs
 	var work_cost = rng.randi_range(-100,-20)
 	
 	description = ('Mayor, a troubble has occured on ' 
