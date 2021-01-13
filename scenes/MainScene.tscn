@@ -22,7 +22,6 @@ __meta__ = {
 }
 
 [node name="CityMap" parent="." instance=ExtResource( 6 )]
-visible = false
 
 [node name="DateDisplayer" parent="." instance=ExtResource( 2 )]
 
