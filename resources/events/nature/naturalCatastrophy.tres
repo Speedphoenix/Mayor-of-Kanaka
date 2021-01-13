@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-title = ""
-description = ""
+title = "Natural Cat"
+description = "Nat Cat description"
 active_duration = 0
 accept_msg = "Act"
 refuse_msg = "Do nothing"
