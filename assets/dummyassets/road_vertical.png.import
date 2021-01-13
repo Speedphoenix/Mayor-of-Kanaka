@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dummycitytiles.png-10a4af0b496b1f730a6de6bb699e1e7e.stex"
+path="res://.import/road_vertical.png-5ef57baf05b026710adce9f7c5e34545.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dummyassets/dummycitytiles.png"
-dest_files=[ "res://.import/dummycitytiles.png-10a4af0b496b1f730a6de6bb699e1e7e.stex" ]
+source_file="res://assets/dummyassets/road_vertical.png"
+dest_files=[ "res://.import/road_vertical.png-5ef57baf05b026710adce9f7c5e34545.stex" ]
 
 [params]
 
