@@ -12,12 +12,31 @@
 [ext_resource path="res://assets/bars/progression_bar_empty_yellow.png" type="Texture" id=10]
 [ext_resource path="res://assets/bars/health.png" type="Texture" id=11]
 [ext_resource path="res://assets/bars/progression_bar_full_yellow.png" type="Texture" id=12]
-[ext_resource path="res://scripts/UI/BarsUI.gd" type="Script" id=13]
+[ext_resource path="res://scripts/UI/GaugesDisplayer.gd" type="Script" id=13]
 
-[node name="BarsUI" type="CanvasLayer"]
+[node name="GaugesDisplayer" type="CanvasLayer"]
 script = ExtResource( 13 )
 
 [node name="BarsController" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Frame" type="ColorRect" parent="BarsController"]
+margin_top = 386.0
+margin_right = 800.0
+margin_bottom = 480.0
+color = Color( 0.32549, 0.0980392, 0.0980392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="BarsController"]
+margin_left = 7.0
+margin_top = 392.0
+margin_right = 793.0
+margin_bottom = 474.0
+color = Color( 0.439216, 0.133333, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -28,20 +47,21 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="BarsController/Budget"]
-margin_left = 18.0
-margin_top = 20.0
-margin_right = 306.0
-margin_bottom = 53.0
+margin_left = 286.916
+margin_top = 398.517
+margin_right = 494.916
+margin_bottom = 431.517
 color = Color( 0, 0, 0, 0.156863 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BudgetBar" type="TextureProgress" parent="BarsController/Budget"]
-margin_left = 61.0
-margin_top = 28.0
-margin_right = 311.0
-margin_bottom = 46.0
+margin_left = 329.916
+margin_top = 406.517
+margin_right = 492.916
+margin_bottom = 424.517
+max_value = 200.0
 value = 70.0
 texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 12 )
@@ -51,10 +71,10 @@ __meta__ = {
 }
 
 [node name="BudgetIcon" type="TextureRect" parent="BarsController/Budget"]
-margin_left = 20.2407
-margin_top = 23.2475
-margin_right = 50.2407
-margin_bottom = 51.2475
+margin_left = 291.787
+margin_top = 401.366
+margin_right = 321.787
+margin_bottom = 429.366
 texture = ExtResource( 3 )
 expand = true
 __meta__ = {
@@ -67,20 +87,20 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="BarsController/Health"]
-margin_left = 477.553
-margin_top = 19.8036
-margin_right = 765.553
-margin_bottom = 52.8036
+margin_left = 499.391
+margin_top = 396.777
+margin_right = 707.391
+margin_bottom = 429.777
 color = Color( 0, 0, 0, 0.156863 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HealthBar" type="TextureProgress" parent="BarsController/Health"]
-margin_left = 519.138
-margin_top = 26.7838
-margin_right = 769.138
-margin_bottom = 44.7838
+margin_left = 541.693
+margin_top = 406.517
+margin_right = 701.693
+margin_bottom = 424.517
 rect_pivot_offset = Vector2( 133.543, 33.8617 )
 value = 60.0
 texture_under = ExtResource( 9 )
@@ -91,10 +111,10 @@ __meta__ = {
 }
 
 [node name="HealthIcon" type="TextureRect" parent="BarsController/Health"]
-margin_left = 478.723
-margin_top = 21.4637
-margin_right = 508.723
-margin_bottom = 49.4637
+margin_left = 502.698
+margin_top = 398.315
+margin_right = 532.698
+margin_bottom = 426.315
 texture = ExtResource( 11 )
 expand = true
 __meta__ = {
@@ -107,20 +127,20 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="BarsController/Satisfation"]
-margin_left = 18.3968
-margin_top = 61.6693
-margin_right = 306.397
-margin_bottom = 94.6693
+margin_left = 287.916
+margin_top = 436.517
+margin_right = 494.916
+margin_bottom = 469.517
 color = Color( 0, 0, 0, 0.156863 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SatisfactionBar" type="TextureProgress" parent="BarsController/Satisfation"]
-margin_left = 60.9966
-margin_top = 70.2441
-margin_right = 310.997
-margin_bottom = 88.2441
+margin_left = 329.916
+margin_top = 445.517
+margin_right = 492.916
+margin_bottom = 463.517
 rect_pivot_offset = Vector2( 133.543, 33.8617 )
 value = 65.0
 texture_under = ExtResource( 5 )
@@ -131,10 +151,10 @@ __meta__ = {
 }
 
 [node name="SatisfactionIcon" type="TextureRect" parent="BarsController/Satisfation"]
-margin_left = 20.0
-margin_top = 64.0
-margin_right = 52.0
-margin_bottom = 94.0
+margin_left = 290.717
+margin_top = 439.221
+margin_right = 322.717
+margin_bottom = 469.221
 texture = ExtResource( 6 )
 expand = true
 __meta__ = {
@@ -148,20 +168,20 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="BarsController/Nature"]
-margin_left = 478.752
-margin_top = 60.6562
-margin_right = 766.752
-margin_bottom = 93.6562
+margin_left = 500.391
+margin_top = 436.777
+margin_right = 709.391
+margin_bottom = 469.777
 color = Color( 0, 0, 0, 0.156863 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NatureIcon" type="TextureRect" parent="BarsController/Nature"]
-margin_left = 480.019
-margin_top = 62.414
-margin_right = 510.019
-margin_bottom = 90.414
+margin_left = 504.994
+margin_top = 438.895
+margin_right = 534.994
+margin_bottom = 466.895
 texture = ExtResource( 8 )
 expand = true
 __meta__ = {
@@ -169,10 +189,10 @@ __meta__ = {
 }
 
 [node name="NatureBar" type="TextureProgress" parent="BarsController/Nature"]
-margin_left = 519.656
-margin_top = 65.8724
-margin_right = 769.656
-margin_bottom = 83.8724
+margin_left = 541.391
+margin_top = 442.777
+margin_right = 702.391
+margin_bottom = 460.777
 rect_pivot_offset = Vector2( 133.543, 33.8617 )
 value = 33.0
 texture_under = ExtResource( 1 )

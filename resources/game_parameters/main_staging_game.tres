@@ -1,15 +1,40 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://scripts/GameParameters.gd" type="Script" id=1]
-[ext_resource path="res://resources/events/earthquake.tres" type="Resource" id=2]
+[ext_resource path="res://resources/events/laws-policies/privatisationOfPublicService.tres" type="Resource" id=2]
+[ext_resource path="res://resources/events/nature/naturalCatastrophy.tres" type="Resource" id=3]
+[ext_resource path="res://resources/events/small-troubles/regularTrouble.tres" type="Resource" id=4]
+[ext_resource path="res://resources/events/laws-policies/publicTroubelsomeLaw.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 1 )
-initial_possible_events = [ ExtResource( 2 ) ]
+initial_possible_events = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ) ]
 initial_gauges = {
 "BUDGET": 100,
 "HEALTH": 50,
 "NATURE": 50,
 "SATISFACTION": 50,
 "STRESS": 50
+}
+gauge_limits = {
+"BUDGET": {
+"LOWER": 0,
+"UPPER": 10000
+},
+"HEALTH": {
+"LOWER": 0,
+"UPPER": 100
+},
+"NATURE": {
+"LOWER": 0,
+"UPPER": 100
+},
+"SATISFACTION": {
+"LOWER": 0,
+"UPPER": 100
+},
+"STRESS": {
+"LOWER": 0,
+"UPPER": 100
+}
 }
