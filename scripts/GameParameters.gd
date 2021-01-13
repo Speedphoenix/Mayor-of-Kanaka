@@ -26,7 +26,6 @@ const PERCENT := {
 export(Dictionary) var gauge_limits: Dictionary = {
 	"BUDGET": {
 		"LOWER": 0,
-		"UPPER": 10000,
 	},
 	"HEALTH": PERCENT,
 	"SATISFACTION": PERCENT,
