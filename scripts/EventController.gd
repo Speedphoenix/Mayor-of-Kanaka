@@ -17,6 +17,7 @@ signal events_will_expire(events)
 signal events_expired(events)
 
 # Emmitted anytime the list of currently active events changes
+# This passes an array of TriggeredEvent (not BaseEvent)
 signal active_events_changed(new_active_events)
 
 # toremove
