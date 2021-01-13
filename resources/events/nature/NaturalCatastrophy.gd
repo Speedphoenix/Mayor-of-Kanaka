@@ -1,7 +1,7 @@
 #Natural Catastrophies
 extends DecisionSimple
 
-#will generate a random number to chose event's title/description from an array
+#will generate a random number 
 var rng = RandomNumberGenerator.new()
 
 var catastrophy_name := ['Hurricane', 'Tsunami', 'Earthquake', 'Flood']

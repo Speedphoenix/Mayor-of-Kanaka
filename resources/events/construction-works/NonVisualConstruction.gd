@@ -1,12 +1,13 @@
-#Some regular small troubles like car accident, pipe broken etc...
+# Some construction works not illustrated on the main city map:
+# Basically we are paying a reasonable amount of money per month and get some bonuses for it
+# Ex: upgrading the electricity network 
 extends DecisionSimple
 
-#will generate a random number
+#will generate a random number 
 var rng = RandomNumberGenerator.new()
 
-var trouble_name := ['Pipe broken', 'Electricity cut', 'Car accident']
-export (Array, String) var street_name := ['Bukovski', 'Dupont', 'Smith', 'Bugaga', 'Sezam', 
-'Meisters', 'Wagner', 'Nihon', 'Chingpo']
+var event_title_description = [['Water supply system'], ['Water filtering system'],
+	['Electricity delivery system'], ['Electricity consumption policies']]
 
 func _init():
 	#on accept

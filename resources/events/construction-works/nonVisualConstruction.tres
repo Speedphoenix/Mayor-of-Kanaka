@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/events/construction-works/NonVisualConstruction.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+title = null
+description = null
+active_duration = null
+accept_msg = null
+refuse_msg = null
+weight = null
+trigger_count = null
