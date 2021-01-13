@@ -1,7 +1,6 @@
 class_name TaxiCabIterator
 extends Reference
 
-# This class is currently rather unused 
 var curr_distance: int
 var max_distance: int
 var start_distance: int
