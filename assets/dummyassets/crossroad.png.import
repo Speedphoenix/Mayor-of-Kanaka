@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dummycitytiles.png-10a4af0b496b1f730a6de6bb699e1e7e.stex"
+path="res://.import/crossroad.png-747b88e257381e3224ad7b1e015b561e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dummyassets/dummycitytiles.png"
-dest_files=[ "res://.import/dummycitytiles.png-10a4af0b496b1f730a6de6bb699e1e7e.stex" ]
+source_file="res://assets/dummyassets/crossroad.png"
+dest_files=[ "res://.import/crossroad.png-747b88e257381e3224ad7b1e015b561e.stex" ]
 
 [params]
 

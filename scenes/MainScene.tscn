@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scripts/UI/EventDisplayer.gd" type="Script" id=1]
-[ext_resource path="res://scenes/EventsUI.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/BarsUI.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/UnderUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/DateDisplayer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/EventDisplayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/GaugesDisplayer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/EventLogDisplayer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/CityMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=7]
 
@@ -12,10 +12,10 @@
 [node name="GlobalObject" parent="." instance=ExtResource( 7 )]
 
 [node name="Background" type="ColorRect" parent="."]
-margin_left = -667.528
-margin_top = -651.964
-margin_right = 1622.47
-margin_bottom = 1221.04
+margin_left = -666.406
+margin_top = -654.082
+margin_right = 1623.59
+margin_bottom = 1218.92
 color = Color( 0.0313726, 0.34902, 0.027451, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -23,61 +23,10 @@ __meta__ = {
 
 [node name="CityMap" parent="." instance=ExtResource( 6 )]
 
-[node name="EventsDisplayer" type="Control" parent="."]
-margin_bottom = 2.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="DateDisplayer" parent="." instance=ExtResource( 2 )]
 
-[node name="CreateEventButton" type="Button" parent="EventsDisplayer"]
-visible = false
-margin_left = 60.5635
-margin_top = 238.834
-margin_right = 172.564
-margin_bottom = 279.834
-text = "Create an event"
-expand_icon = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="EventDisplayer" parent="." instance=ExtResource( 3 )]
 
-[node name="EventIDSelector" type="OptionButton" parent="EventsDisplayer"]
-visible = false
-margin_left = 65.1277
-margin_top = 158.417
-margin_right = 166.128
-margin_bottom = 205.417
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="GaugesDisplayer" parent="." instance=ExtResource( 4 )]
 
-[node name="EventsUIController" type="Control" parent="EventsDisplayer"]
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EventsUI" parent="EventsDisplayer/EventsUIController" instance=ExtResource( 3 )]
-
-[node name="BarsController" type="Control" parent="."]
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BarsUI" parent="BarsController" instance=ExtResource( 4 )]
-
-[node name="UnderUIController" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="UnderUI" parent="UnderUIController" instance=ExtResource( 5 )]
-[connection signal="eventChanged" from="EventsDisplayer" to="EventsDisplayer/EventsUIController/EventsUI" method="_on_eventChanged"]
-[connection signal="pressed" from="EventsDisplayer/CreateEventButton" to="EventsDisplayer" method="_on_CreateEventButton_pressed"]
-[connection signal="accepted" from="EventsDisplayer/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_accepted"]
-[connection signal="close" from="EventsDisplayer/EventsUIController/EventsUI" to="EventsDisplayer" method="_on_EventsUI_close"]
-[connection signal="refused" from="EventsDisplayer/EventsUIController/EventsUI" to="UnderUIController/UnderUI" method="_on_event_refused"]
-[connection signal="eventToDisplay" from="UnderUIController/UnderUI" to="EventsDisplayer" method="_on_eventToDisplay"]
-[connection signal="nextTurn" from="UnderUIController/UnderUI" to="EventsDisplayer" method="_on_nextTurn"]
+[node name="EventLogDisplayer" parent="." instance=ExtResource( 5 )]

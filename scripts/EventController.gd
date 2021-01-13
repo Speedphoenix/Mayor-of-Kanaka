@@ -16,6 +16,14 @@ signal events_arrived(events)
 signal events_will_expire(events)
 signal events_expired(events)
 
+# Emmitted anytime the list of currently active events changes
+# This passes an array of TriggeredEvent (not BaseEvent)
+signal active_events_changed(new_active_events)
+
+# toremove
+# Events to be displayed, asked by the player via the UnderUI script
+signal event_to_display(event)
+
 # An array of TriggerableEvents
 var triggerable_events: Array
 # An array of TriggeredEvents
@@ -144,6 +152,7 @@ func trigger_events(curr_turn_number: int, curr_miniturn_number: int, max_count:
 			event.last_trigger_miniturn = curr_miniturn_number
 			triggered.event_resource.on_triggered(get_tree())
 		emit_signal("events_arrived", to_send)
+		emit_signal("active_events_changed", active_events.duplicate())
 
 
 func _expire_events(to_expire: Array):
@@ -153,6 +162,7 @@ func _expire_events(to_expire: Array):
 		expired_resources.append(event.event_resource)
 		event.event_resource.on_expired(get_tree())
 	emit_signal("events_expired", expired_resources)
+	emit_signal("active_events_changed", active_events.duplicate())
 
 func _on_miniturn_changed(turn_number, miniturn_number):
 	# TODO: actually decide randomly, with checks or probabilities depending on
@@ -230,9 +240,16 @@ func accept_event(base_event: BaseEvent) -> void:
 	if index != -1:
 		active_events.remove(index)
 	base_event.on_accepted(get_tree())
+	emit_signal("active_events_changed", active_events.duplicate())
 
 func refuse_event(base_event: BaseEvent) -> void:
 	var index := _find_by_event_resource(active_events, base_event)
 	if index != -1:
 		active_events.remove(index)
 	base_event.on_refused(get_tree())
+	emit_signal("active_events_changed", active_events.duplicate())
+
+# toremove
+# Emit a signal to display an event
+func event_to_display(event: BaseEvent):
+	emit_signal("event_to_display", event)

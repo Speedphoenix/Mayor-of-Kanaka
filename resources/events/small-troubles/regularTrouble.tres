@@ -9,6 +9,6 @@ description = "reg trouble description"
 active_duration = 0
 accept_msg = "Accept"
 refuse_msg = "Refuse"
-weight = 10
+weight = 2
 trigger_count = -1
 street_name = [ "Bukovski", "Dupont", "Smith", "Bugaga", "Sezam", "Meisters", "Wagner", "" ]

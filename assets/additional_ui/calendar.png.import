@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dummycitytiles.png-10a4af0b496b1f730a6de6bb699e1e7e.stex"
+path="res://.import/calendar.png-d805ca31a2a8f169f86cfd6a67ca2cbf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dummyassets/dummycitytiles.png"
-dest_files=[ "res://.import/dummycitytiles.png-10a4af0b496b1f730a6de6bb699e1e7e.stex" ]
+source_file="res://assets/additional_ui/calendar.png"
+dest_files=[ "res://.import/calendar.png-d805ca31a2a8f169f86cfd6a67ca2cbf.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -17,7 +17,6 @@ export(bool) var emit_signal_on_identical_new_value = false
 var gauge_limits: Dictionary = {
 	"BUDGET": {
 		"LOWER": 0,
-		"UPPER": 10000,
 	}
 }
 
@@ -41,7 +40,7 @@ func _apply_limits(name: String) -> int:
 	if gauge_limits.has(name):
 		if gauge_limits[name].has("LOWER") && _gauges[name] < gauge_limits[name].LOWER:
 			_gauges[name] = gauge_limits[name].LOWER
-		if gauge_limits[name].has("UPPER") && _gauges[name] < gauge_limits[name].UPPER:
+		if gauge_limits[name].has("UPPER") && _gauges[name] > gauge_limits[name].UPPER:
 			_gauges[name] = gauge_limits[name].UPPER
 	return _gauges[name]
 
@@ -53,7 +52,8 @@ func set_gauge_limits(name: String, limits: Dictionary) -> void:
 		gauge_limits[name]["LOWER"] = limits["LOWER"]
 	if "UPPER" in limits:
 		gauge_limits[name]["UPPER"] = limits["UPPER"]
-	assert(gauge_limits[name]["UPPER"] >= gauge_limits[name]["LOWER"])
+	if "LOWER" in limits && "UPPER" in limits:
+		assert(gauge_limits[name]["UPPER"] >= gauge_limits[name]["LOWER"])
 
 # limits should be a dictionary of the same type as gauge_limits
 func set_gauges_limits(limits: Dictionary):
