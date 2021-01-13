@@ -9,6 +9,6 @@ description = ""
 active_duration = 0
 accept_msg = "Accept"
 refuse_msg = "Refuse"
-weight = 1
+weight = 2
 trigger_count = -1
 possible_title_and_description = [ [ "Curfew", "Citizens mobility is limited between 8PM and 6AM" ], [ "Limitating CO2 Emissions", "Only vehicles having 'pair' numbers are allowed to move in the city (concerns only civil private transport)" ] ]

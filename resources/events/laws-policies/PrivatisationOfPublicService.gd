@@ -46,9 +46,18 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	)
 	
 func on_accepted(scene_tree: SceneTree) -> void:
-	#supposing it's a long term decision, the effects will take place for 6 to 12 months
+	#Supposing it's a long term decision, the effects will take place for 6 to 12 months
 	for duration in range(1,rng.randi_range(6,12)):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
-	#final negative effect TODO
-	#yield(turn_controller, "turn_changed")
+	#Final hidden consequences
+	var sudden_effects = {
+		"on_gauges": {
+			"NATURE": rng.randi_range(-30,-10),
+			"STRESS": rng.randi_range(-10,-5),
+			"SATISFACTION": rng.randi_range(-20,-10),
+		},
+	}
+	#Final negative effect
+	yield(turn_controller, "turn_changed")
+	gauge_controller.apply_to_gauges(sudden_effects.on_gauges)
