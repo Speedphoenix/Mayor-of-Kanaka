@@ -22,10 +22,10 @@ export(int) var weight := 1
 export(int) var trigger_count := -1
 
 #will generate a random number to chose event's title/description from an array
-var rnd_generator = RandomNumberGenerator.new()
+var rng = RandomNumberGenerator.new()
 
 func _init():
-	rnd_generator.randomize()
+	rng.randomize()
 
 # These functions should be overridden
 

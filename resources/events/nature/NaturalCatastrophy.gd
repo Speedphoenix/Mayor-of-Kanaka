@@ -1,9 +1,6 @@
 #Natural Catastrophies
 extends DecisionSimple
 
-#will generate a random number 
-var rng = RandomNumberGenerator.new()
-
 var catastrophy_title := [
 	'A hurricane has been sighted',
 	'A tsunami is incoming',
@@ -34,8 +31,7 @@ func _init():
 	
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	
-	rng.randomize()
+
 	#ex: Hurricane Incomming !!!
 	title = catastrophy_title[rng.randi_range(0, catastrophy_title.size() - 1)]
 	#Amount of money to spent if we want to softeh crisis concsequences

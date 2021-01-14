@@ -1,9 +1,6 @@
 #Some regular small troubles like car accident, pipe broken etc...
 extends DecisionSimple
 
-#will generate a random number
-var rng = RandomNumberGenerator.new()
-
 var trouble_name := ['A pipe has been severed', 'A power outage has occurred', 'There has been a car accident']
 export (Array, String) var street_name := ['Bukovski', 'Dupont', 'Smith', 'Bugaga', 'Sezam', 
 'Meisters', 'Wagner', 'Nihon', 'Chingpo']
@@ -29,7 +26,6 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	
-	rng.randomize()
 	#ex: Pipe broken
 	title = trouble_name[rng.randi_range(0, trouble_name.size() - 1)]
 	#Amount of money to spent r repairs

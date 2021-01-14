@@ -2,9 +2,6 @@
 #little fluctuation of citizens satisfaction 
 #AND some huge random negative effect after a certain time
 extends DecisionSimple
-
-#will generate a random number to chose event's title/description from an array
-var rng = RandomNumberGenerator.new()
  
 var company_name := ['Tin', 'Lin', 'Back', 'Zbub']
 var company_suffix := ['er', 'ski']
@@ -34,7 +31,6 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	
-	rng.randomize()
 	# ex: Outsource public transport
 	title = (
 		'Outsource public '

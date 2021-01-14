@@ -3,9 +3,6 @@
 # Ex: upgrading the electricity network 
 extends DecisionSimple
 
-#will generate a random number 
-var rng = RandomNumberGenerator.new()
-
 export(Array, Array, String) var event_title_description = [
 	['Renovate the water supply system', 'The system is worn down.'],
 	['Renovate the water filtering system', 'The system has deteriorated.'],
@@ -33,7 +30,6 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	
-	rng.randomize()
 	var event_chosen = rng.randi_range(0, event_title_description.size() - 1)
 	title = event_title_description[event_chosen][0]
 	#money spent mothly to conduct the improvement

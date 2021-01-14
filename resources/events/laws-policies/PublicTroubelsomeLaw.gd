@@ -1,10 +1,6 @@
 #This event generates an unpopular public law preserving nature/ecology
 extends DecisionSimple
 
-#will generate a random number to chose event's title/description from an array
-var rng = RandomNumberGenerator.new()
-
-
 export(Array,Array,String) var possible_title_and_description := [
 	['Implement a curfew', 'Restrict citizen mobility between 8PM and 6AM' ],
 	[
@@ -37,7 +33,6 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	
-	rng.randomize()
 	var name_desc_chooser = rng.randi_range(0, possible_title_and_description.size() - 1)
 	title = possible_title_and_description[name_desc_chooser][0]
 	description = possible_title_and_description[name_desc_chooser][1]
