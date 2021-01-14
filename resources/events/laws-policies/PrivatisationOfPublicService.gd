@@ -39,8 +39,8 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	# ex: Zbubski company is willing to offer its services to the City Hall
 	description = (
 		'The '
-		+ company_name[rng.randi_range(0, service_name.size() - 1)]
-		+ company_suffix[rng.randi_range(0, service_name.size() - 1)]
+		+ company_name[rng.randi_range(0, company_name.size() - 1)]
+		+ company_suffix[rng.randi_range(0, company_suffix.size() - 1)]
 		+ ' company is willing to offer its services to the City Hall'
 	)
 	
