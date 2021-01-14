@@ -4,7 +4,12 @@ extends DecisionSimple
 #will generate a random number 
 var rng = RandomNumberGenerator.new()
 
-var catastrophy_name := ['Hurricane', 'Tsunami', 'Earthquake', 'Flood']
+var catastrophy_title := [
+	'A hurricane has been sighted',
+	'A tsunami is incoming',
+	'An earthquake will hit the city',
+	'A flood is expected soon',
+]
 
 func _init():
 	#on accept
@@ -32,12 +37,12 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	
 	rng.randomize()
 	#ex: Hurricane Incomming !!!
-	title = catastrophy_name[rng.randi_range(0, catastrophy_name.size() - 1)] + ' Incomming!!!'
+	title = catastrophy_title[rng.randi_range(0, catastrophy_title.size() - 1)]
 	#Amount of money to spent if we want to softeh crisis concsequences
 	var preventive_measures_cost = rng.randi_range(-1000, -100)
 	
 	description = ('Nature is rebelling, Mayor. We must act immiditealy, or face unpleasant consequences.'
-		+ 'It will cost ' + str(preventive_measures_cost * -1) + '$ for the city budget.' 
-		+ ' Economic damage yet is unknown.')
+		+ ' It will cost ' + str(preventive_measures_cost * -1) + ' $ for the city budget.' 
+		+ ' The economic damage is yet unknown.')
 		
 	accept_effects['on_gauges']['BUDGET'] = preventive_measures_cost

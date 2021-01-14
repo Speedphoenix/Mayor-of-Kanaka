@@ -11,4 +11,4 @@ accept_msg = "Accept"
 refuse_msg = "Refuse"
 weight = 2
 trigger_count = -1
-street_name = [ "Bukovski", "Dupont", "Smith", "Bugaga", "Sezam", "Meisters", "Wagner", "" ]
+street_name = [ "Bukovski", "Dupont", "Smith", "Bugaga", "Sezam", "Meisters", "Wagner", "Nihon", "Chingpo" ]

@@ -4,7 +4,7 @@ extends DecisionSimple
 #will generate a random number
 var rng = RandomNumberGenerator.new()
 
-var trouble_name := ['Pipe broken', 'Electricity cut', 'Car accident']
+var trouble_name := ['A pipe has been severed', 'A power outage has occurred', 'There has been a car accident']
 export (Array, String) var street_name := ['Bukovski', 'Dupont', 'Smith', 'Bugaga', 'Sezam', 
 'Meisters', 'Wagner', 'Nihon', 'Chingpo']
 
@@ -35,7 +35,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	#Amount of money to spent r repairs
 	var work_cost = rng.randi_range(-100, -20)
 	
-	description = ('Mayor, a troubble has occured on ' 
+	description = ('Mayor, a trouble has occurred on '
 		+ street_name[rng.randi_range(0,street_name.size() - 1)] + ' Street.'
-		+ 'The necessary intervention will cost' + str(work_cost * -1) + ' $')
+		+ ' The necessary intervention will cost ' + str(work_cost * -1) + ' $')
 	accept_effects['on_gauges']['BUDGET'] = work_cost

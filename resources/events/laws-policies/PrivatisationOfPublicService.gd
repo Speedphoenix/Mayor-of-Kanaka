@@ -8,7 +8,7 @@ var rng = RandomNumberGenerator.new()
  
 var company_name := ['Tin', 'Lin', 'Back', 'Zbub']
 var company_suffix := ['er', 'ski']
-var service_name := ['heating', 'transport', 'cleaning']
+var service_name := ['heating', 'transportation', 'garbage collection']
 
 func _init():
 	#on accept
@@ -35,16 +35,17 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	
 	rng.randomize()
-	#ex: Outsource public transport
+	# ex: Outsource public transport
 	title = (
-		'Outsource public'
+		'Outsource public '
 		+ service_name[rng.randi_range(0, service_name.size() - 1)]
 	)
-	#ex: Zbubski company is willing to offer its services to the City Hall
+	# ex: Zbubski company is willing to offer its services to the City Hall
 	description = (
-		company_name[rng.randi_range(0, service_name.size() - 1)]+
-		company_suffix[rng.randi_range(0, service_name.size() - 1)]+
-		' company is willing to offer its services to the City Hall'
+		'The '
+		+ company_name[rng.randi_range(0, service_name.size() - 1)]
+		+ company_suffix[rng.randi_range(0, service_name.size() - 1)]
+		+ ' company is willing to offer its services to the City Hall'
 	)
 	
 func on_accepted(scene_tree: SceneTree) -> void:

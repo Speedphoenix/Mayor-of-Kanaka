@@ -6,10 +6,12 @@ extends DecisionSimple
 #will generate a random number 
 var rng = RandomNumberGenerator.new()
 
-var event_title_description = [['Water supply system', 'The system is used'], 
-	['Water filtering system', 'The system is used'], 
-	['Electricity delivery system', 'The system is used'], 
-	['Electricity consumption policies', 'Policies are too old.']]
+export(Array, Array, String) var event_title_description = [
+	['Renovate the water supply system', 'The system is worn down.'],
+	['Renovate the water filtering system', 'The system has deteriorated.'],
+	['Upgrade the electricity delivery system', 'The system is out of date.'],
+	['Reform the electricity consumption policies', 'Policies are too old.'],
+]
 
 func _init():
 	#on accept

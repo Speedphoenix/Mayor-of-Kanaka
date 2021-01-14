@@ -5,8 +5,13 @@ extends DecisionSimple
 var rng = RandomNumberGenerator.new()
 
 
-export(Array,Array,String) var possible_title_and_description := [['Curfew', 'Citizens mobility is limited between 8PM and 6AM' ],
-	['Limitating CO2 Emissions', 'Only vehicles having \'pair\' numbers are allowed to move in the city (concerns only civil private transport)']]
+export(Array,Array,String) var possible_title_and_description := [
+	['Implement a curfew', 'Restrict citizen mobility between 8PM and 6AM' ],
+	[
+		'Add restrictions in order to limit CO2 emissions',
+		'Only vehicles having a licence plate with even numbers should be allowed to move in the city (concerns only civilian private transport)',
+	],
+]
 
 func _init():
 	#Budget< (city s spending some money on the laws) 
