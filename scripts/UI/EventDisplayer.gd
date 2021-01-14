@@ -2,9 +2,8 @@ extends CanvasLayer
 
 export(bool) var draggable := false
 
-onready var global = get_tree().get_current_scene().get_node("GlobalObject")
-onready var turn_controller: TurnController = global.get_node("TurnController")
-onready var event_controller: EventController = global.get_node("EventController")
+onready var turn_controller := TurnController.get_turn_controller(get_tree())
+onready var event_controller := EventController.get_event_controller(get_tree())
 
 # Event that has to be displayed and handled
 var event: BaseEvent

@@ -12,9 +12,9 @@ var turn_controller: TurnController
 var gauge_controller: GaugeController
 
 func on_triggered(scene_tree: SceneTree) -> void:
-	global_object = scene_tree.get_current_scene().get_node("GlobalObject")
-	turn_controller = global_object.get_node("TurnController")
-	gauge_controller = global_object.get_node("GaugeController")
+	global_object = GlobalObject.get_global_object(scene_tree)
+	turn_controller = TurnController.get_turn_controller(scene_tree)
+	gauge_controller = GaugeController.get_gauge_controller(scene_tree)
 
 func on_accepted(scene_tree: SceneTree) -> void:
 	yield(turn_controller, "turn_changed")

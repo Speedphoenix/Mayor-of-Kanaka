@@ -32,8 +32,7 @@ onready var tile_set: TileSet = background_city.tile_set
 
 onready var cell_size: Vector2 = background_city.cell_size
 
-onready var global = get_tree().get_current_scene().get_node("GlobalObject")
-onready var turn_controller = global.get_node("TurnController")
+onready var turn_controller := TurnController.get_turn_controller(get_tree())
 
 onready var tileid_background_filled := tile_set.find_tile_by_name(tilename_background_filled_tile)
 

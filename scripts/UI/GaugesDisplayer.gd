@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-onready var global_object: GlobalObject = get_tree().get_current_scene().get_node("GlobalObject")
-onready var gauge_controller: GaugeController = global_object.get_node("GaugeController")
+
+onready var gauge_controller := GaugeController.get_gauge_controller(get_tree())
 
 # TODO: use a tween to make the changes animated (except the first one)
 
