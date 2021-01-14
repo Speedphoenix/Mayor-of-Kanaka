@@ -2,8 +2,7 @@ extends CanvasLayer
 
 var DateLabel: Label
 
-onready var global = get_tree().get_current_scene().get_node("GlobalObject")
-onready var turn_controller: TurnController = global.get_node("TurnController")
+onready var turn_controller := TurnController.get_turn_controller(get_tree())
 
 func _ready():
 	turn_controller.connect("miniturn_changed", self, "_on_anyturn_changed")

@@ -35,9 +35,8 @@ export(Dictionary) var gauge_limits: Dictionary = {
 
 
 func apply(scene_tree: SceneTree) -> void:
-	var global_object = scene_tree.get_current_scene().get_node("GlobalObject")
-	var event_controller: EventController = global_object.get_node("EventController")
-	var gauge_controller: GaugeController = global_object.get_node("GaugeController")
+	var event_controller := EventController.get_event_controller(scene_tree)
+	var gauge_controller := GaugeController.get_gauge_controller(scene_tree)
 	
 	# Applying intial possible events
 	for event in initial_possible_events:

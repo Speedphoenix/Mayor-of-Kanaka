@@ -1,7 +1,6 @@
 extends CanvasLayer
 
-onready var global = get_tree().get_current_scene().get_node("GlobalObject")
-onready var event_controller: EventController = global.get_node("EventController")
+onready var event_controller := EventController.get_event_controller(get_tree())
 
 var active_events: Array = []
 var previous_active_events: Array = []
