@@ -10,6 +10,7 @@
 [node name="Game" type="Node2D"]
 
 [node name="GlobalObject" parent="." instance=ExtResource( 7 )]
+devmode = null
 
 [node name="Background" type="ColorRect" parent="."]
 margin_left = -666.406
