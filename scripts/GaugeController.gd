@@ -29,6 +29,9 @@ var _gauges: Dictionary = {
 	"BUDGET": 50,
 }
 
+static func get_gauge_controller(scene_tree: SceneTree) -> GaugeController:
+	# Not using GlobalObject.get_global_object because cyclic reference
+	return scene_tree.get_current_scene().get_node("GlobalObject/GaugeController") as GaugeController
 
 func _gauges_are_different(gauges1: Dictionary, gauges2: Dictionary):
 	for el in gauges1:

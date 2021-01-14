@@ -90,6 +90,9 @@ class TriggeredEvent:
 		remaining_turns = event_resource.active_duration
 		triggerable = from
 
+static func get_event_controller(scene_tree: SceneTree) -> EventController:
+	# Not using GlobalObject.get_global_object because cyclic reference
+	return scene_tree.get_current_scene().get_node("GlobalObject/EventController") as EventController
 
 func _ready():
 	turn_controller.connect("miniturn_changed", self, "_on_miniturn_changed")
