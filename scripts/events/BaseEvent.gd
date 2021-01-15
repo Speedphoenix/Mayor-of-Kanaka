@@ -41,3 +41,6 @@ func on_refused(scene_tree: SceneTree) -> void:
 
 func on_expired(scene_tree: SceneTree) -> void:
 	pass
+
+func budget_check() -> void: 
+	pass

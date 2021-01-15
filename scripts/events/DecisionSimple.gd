@@ -31,3 +31,9 @@ func on_refused(scene_tree: SceneTree) -> void:
 
 func on_expired(scene_tree: SceneTree) -> void:
 	_apply_refuse_expire()
+
+func budget_check():
+	if(accept_effects['on_gauges']['BUDGET'] && accept_effects['on_gauges']['BUDGET'] < 0):
+		if(accept_effects['on_gauges']['BUDGET'] * -1 >= gauge_controller.get_gauge("BUDGET")):
+			return false
+	return true

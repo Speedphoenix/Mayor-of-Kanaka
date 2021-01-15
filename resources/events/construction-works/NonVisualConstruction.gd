@@ -32,6 +32,7 @@ func _init():
 	
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
+	assert(depending_event is BaseEvent)
 	
 	var event_chosen = rng.randi_range(0, event_title_description.size() - 1)
 	title = event_title_description[event_chosen][0]
@@ -57,4 +58,3 @@ func on_accepted(scene_tree: SceneTree) -> void:
 	for duration in range(1, rng.randi_range(6, 12)):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
-	
