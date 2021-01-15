@@ -75,7 +75,6 @@ func reset_map() -> void:
 # - Allow for different sizes of houses
 # - Make the steps above generic and usable for other buildings
 func add_random_house() -> bool:
-	print("---------- boom I separate ------------")
 	var house_dims := Vector2(1, 1)
 	var spots := _get_available_spots(house_dims, initial_townhall_position, 7)
 	if spots.size() > 0:
@@ -110,7 +109,6 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 			continue
 		next_cells.push_back(coord)
 		passed_already[coord] = coord
-	print("next_cells: ", next_cells.size())
 	# Can't build roads anyway
 	if next_cells.empty():
 		return
@@ -121,11 +119,9 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 
 	while !found_road && !next_cells.empty():
 		var current_cell: Vector2 = next_cells.pop_front()
-		# print("next_cells: ", next_cells.size())
 		# Look at directly adjacent cells
 		for diff in TaxiCabIterator.new(1, 1):
 			var to_add_cell: Vector2 = current_cell + diff
-			# print("to add ", to_add_cell)
 			if passed_already.has(to_add_cell):
 				continue
 			passed_already[to_add_cell] = current_cell
@@ -144,7 +140,6 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 					if _cell_connects_to_city(to_add_cell.x + target_diff.x, to_add_cell.y + target_diff.y):
 						next_cells.push_back(to_add_cell)
 						break
-	print("found road: ", found_road, " found building: ", found_building, " ", closest_road if found_road else closest_building)
 	if found_road || found_building:
 		var last_empty: Vector2 = passed_already[closest_road if found_road else closest_building]
 		_trace_back_road_bfs(last_empty, passed_already)
