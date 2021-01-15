@@ -30,8 +30,8 @@ func _ready():
 	interface_controller.connect("event_to_display", self, "_on_event_to_display")
 	
 func _process(_delta):
-	var _stop_time = stop_time
-	_handle_turns(_stop_time)
+	#var _stop_time = stop_time
+	#_handle_turns(_stop_time)
 	# If the player presses the cancel button, the windows get closed
 	if Input.is_action_pressed("ui_cancel"):
 		close_window()
@@ -55,22 +55,24 @@ func display_event():
 		$SingleEventController/DescriptionController/Description.text = event.description
 		$SingleEventController/TitleController/Title.text = event.title
 		$SingleEventController.show()
-		stop_time = true
+		#stop_time = true
+		turn_controller.pause_turns()
 		
 func close_window():
 	var Window = $SingleEventController
 	Window.hide()
 	# put the window back to its initial place
 	Window.rect_position = window_init_position
-	stop_time = false
+	#stop_time = false
+	turn_controller.resume_turns()
 	
 
-func _handle_turns(_stop_time: bool):
-	if(_stop_time):
-		turn_controller.pause_turns()
-	else:
-		turn_controller.resume_turns()
-		
+#func _handle_turns(_stop_time: bool):
+#	if(_stop_time):
+#		turn_controller.pause_turns()
+#	else:
+#		turn_controller.resume_turns()
+#
 
 # drag and drop the event window with the mouse based on the Window ColorRect selection
 # TODO : improve the selection of the window (not based on background)

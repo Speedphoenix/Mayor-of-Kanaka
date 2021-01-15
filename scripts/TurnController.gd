@@ -46,6 +46,9 @@ func _ready():
 	_turn_timer.connect("timeout", self, "on_turn_timeout")
 	launch_next_timers()
 
+func _process(delta):
+	#print("Process pause ", is_paused, " ", _turn_timer.is_stopped(), " ", _miniturn_timer.is_stopped())
+	pass
 
 func launch_next_timers():
 	if current_miniturn_no >= days_in_a_month:
@@ -56,11 +59,13 @@ func launch_next_timers():
 
 func on_miniturn_timeout():
 	current_miniturn_no += 1
+	print("un message bof intéressant ", current_miniturn_no)
 	trigger_next_miniturn()
 	launch_next_timers()
 
 func on_turn_timeout():
 	current_turn_no += 1
+	print("un message très bof intéressant ", current_turn_no)
 	current_miniturn_no = FIRST_MINITURN_NUMBER
 	trigger_next_turn()
 	launch_next_timers()
@@ -80,11 +85,15 @@ func pause_turns():
 	_turn_timer.stop()
 	_miniturn_timer.stop()
 	is_paused = true
+	print("un message intéressant ", self)
+	print(is_paused, " ", _turn_timer.is_stopped(), " ", _miniturn_timer.is_stopped())
 
 # This will also reset the time left to next turn
 func resume_turns(force_timer_reset: bool = false):
+	print("un message peu intéressant ", is_paused)
 	if !is_paused && !force_timer_reset:
 		return
 	is_paused = false
 	launch_next_timers()
+	
 	
