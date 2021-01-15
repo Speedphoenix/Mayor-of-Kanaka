@@ -1,6 +1,12 @@
 class_name CityMap
 extends Node2D
 
+enum SurroundMode {
+	NO_SURROUND,
+	FRONT_ONLY,
+	FULL_SURROUND,
+}
+
 const BFS_SEARCH := 0
 const TAXI_CAB_SEARCH := 1
 
@@ -9,6 +15,8 @@ const BLOCK_OVERLAP_WEAK := 1
 const BLOCK_OVERLAP_STRONG := 2
 
 export(Vector2) var initial_townhall_position = Vector2(11, 7)
+# Could be added to the game params
+export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRONT_ONLY
 
 export(String) var tilename_background_empty_tile = "grass"
 export(String) var tilename_background_filled_tile = "concrete"
@@ -19,6 +27,8 @@ export(String) var tilename_house = "house"
 export(String) var tilename_road_vertical = "road_vertical"
 export(String) var tilename_road_horizontal = "road_horizontal"
 export(String) var tilename_crossroad = "crossroad"
+
+
 
 # This is a static background, could be a tilemap or an image.
 # It will not move and will likely not ever be used
@@ -35,6 +45,7 @@ onready var cell_size: Vector2 = background_city.cell_size
 onready var turn_controller := TurnController.get_turn_controller(get_tree())
 
 onready var tileid_background_filled := tile_set.find_tile_by_name(tilename_background_filled_tile)
+onready var tileid_road_vertical := tile_set.find_tile_by_name(tilename_road_vertical)
 
 # An iterator to go through each cell in order of manhattan distance
 
@@ -43,25 +54,111 @@ func _ready():
 	turn_controller.connect("miniturn_changed", self, "_on_miniturn_changed")
 	reset_map()
 
+func reset_map() -> void:
+	background_city.clear()
+	foreground_city.clear()
+	var townhall_dims = _get_tile_size(tilename_townhall)
+	_add_tile_at(tilename_townhall, initial_townhall_position, townhall_dims)
+	match initial_townhall_surrounding_roads:
+		SurroundMode.NO_SURROUND:
+			pass
+		SurroundMode.FRONT_ONLY:
+			for i in range(initial_townhall_position.x, initial_townhall_position.x + townhall_dims.x):
+				add_road(i, initial_townhall_position.y + townhall_dims.y)
+		SurroundMode.FULL_SURROUND:
+			for pos in TaxiCabIterator.get_adjacent_coords(initial_townhall_position, townhall_dims, true):
+				add_road(pos.x, pos.y)
+
 # TODO:
 # - A more random choice (make it randomer)
 # - Take only spots that are contiguous to the rest of the city?
 # - Allow for different sizes of houses
-# - Take roads into account
 # - Make the steps above generic and usable for other buildings
 func add_random_house() -> bool:
+	print("---------- boom I separate ------------")
 	var house_dims := Vector2(1, 1)
-	var spots := _get_available_spot(house_dims, initial_townhall_position, 7)
+	var spots := _get_available_spots(house_dims, initial_townhall_position, 7)
 	if spots.size() > 0:
 		spots.shuffle()
-		_add_tile_at(tilename_house, spots[0], house_dims)
+		var chosen_spot = spots[0]
+		_add_tile_at(tilename_house, chosen_spot, house_dims)
+		construct_road_to(chosen_spot, house_dims)
 		return true
 	return false
 
-func reset_map() -> void:
-	background_city.clear()
-	foreground_city.clear()
-	_add_tile_at(tilename_townhall, initial_townhall_position, _get_tile_size(tilename_townhall))
+# This will add roads leading to where, but not inside it
+# If there is already a road touching it, will return immediately
+# If there is no free space for roads, will return immediately
+func construct_road_to(where: Vector2, dims: Vector2) -> void:
+	var found_road := false
+	var found_building := false
+	var closest_building: Vector2
+	var closest_road: Vector2
+	
+	# This is to be used as a queue, where the oldest and next in line is the front
+	var next_cells := []
+	# The keys to this are Vector2s that indicate cells that have already been checked or added
+	# The values are Vector2s indicating where the path is coming from
+	# Or itself if it's the start of the search or invalid
+	var passed_already := {}
+	
+	# Add initial cells
+	for coord in TaxiCabIterator.get_adjacent_coords(where, dims):
+		if _cell_is_road(coord.x, coord.y):
+			return
+		if _cell_connects_to_city(coord.x, coord.y):
+			continue
+		next_cells.push_back(coord)
+		passed_already[coord] = coord
+	print("next_cells: ", next_cells.size())
+	# Can't build roads anyway
+	if next_cells.empty():
+		return
+	# Add cells that should be ignored
+	for i in range(where.x, where.x + dims.x):
+		for j in range(where.y, where.y + dims.y):
+			passed_already[Vector2(i, j)] = Vector2(i, j)
+
+	while !found_road && !next_cells.empty():
+		var current_cell: Vector2 = next_cells.pop_front()
+		# print("next_cells: ", next_cells.size())
+		# Look at directly adjacent cells
+		for diff in TaxiCabIterator.new(1, 1):
+			var to_add_cell: Vector2 = current_cell + diff
+			# print("to add ", to_add_cell)
+			if passed_already.has(to_add_cell):
+				continue
+			passed_already[to_add_cell] = current_cell
+			if _cell_is_connectable_road(to_add_cell.x, to_add_cell.y):
+				found_road = true
+				closest_road = to_add_cell
+				break
+			elif _cell_connects_to_city(to_add_cell.x, to_add_cell.y):
+				# Only set that as the found building if the track passes through available space first
+				if !found_building && !_cell_connects_to_city(current_cell.x, current_cell.y):
+					found_building = true
+					closest_building = to_add_cell
+			else:
+				# Need to check that we don't stray away from the city
+				for target_diff in TaxiCabIterator.new(1, 1):
+					if _cell_connects_to_city(to_add_cell.x + target_diff.x, to_add_cell.y + target_diff.y):
+						next_cells.push_back(to_add_cell)
+						break
+	print("found road: ", found_road, " found building: ", found_building, " ", closest_road if found_road else closest_building)
+	if found_road || found_building:
+		var last_empty: Vector2 = passed_already[closest_road if found_road else closest_building]
+		_trace_back_road_bfs(last_empty, passed_already)
+	else: # Somehow this building is alone, still gotta add one road if possible
+		for coord in TaxiCabIterator.get_adjacent_coords(where, dims):
+			if _can_build_on_cell(coord.x, coord.y):
+				add_road(coord.x, coord.y)
+				break
+
+# Will add a single road tile and connect it around
+# TODO: make it connect to nearby roads
+func add_road(x: int, y: int) -> void:
+	background_city.set_cell(x, y, tileid_background_filled)
+	foreground_city.set_cell(x, y, tileid_road_vertical)
 
 # Preferably do not use this, but rather receive the information from other sources...
 func _get_tile_size(tile_name: String) -> Vector2:
@@ -77,18 +174,16 @@ func _get_tile_size(tile_name: String) -> Vector2:
 
 func _add_tile_at(tile_name: String, where: Vector2, dims: Vector2):
 	var tile_id = tile_set.find_tile_by_name(tile_name)
-	var filled_id = tile_set.find_tile_by_name(tilename_background_filled_tile)
 	for i in range(dims.x):
 		for j in range(dims.y):
-			background_city.set_cellv(where + Vector2(i, j), filled_id)
+			background_city.set_cellv(where + Vector2(i, j), tileid_background_filled)
 	foreground_city.set_cellv(where, tile_id)
 
 # Returns whether a cell is part of the city or empty
-func _cell_can_connect(x: int, y: int) -> bool:
+func _cell_connects_to_city(x: int, y: int) -> bool:
 	return background_city.get_cell(x, y) != TileMap.INVALID_CELL
 
-# Returns whether a building can be created here
-# TODO: make this able to build on roads if that's not blocking a building
+# Returns whether a building or road can be created here
 func _can_build_on_cell(x: int, y: int) -> bool:
 	return background_city.get_cell(x, y) == TileMap.INVALID_CELL
 
@@ -113,7 +208,7 @@ func _find_available_spots(included_cell: Vector2, dims: Vector2) -> Array:
 				rep.append(Vector2(i, j))
 	return rep
 
-func _get_available_spot_manhattan(
+func _get_available_spots_manhattan(
 	dims: Vector2,
 	around_where: Vector2,
 	count: int = 1,
@@ -153,7 +248,7 @@ func _get_available_spot_manhattan(
 # around_where must be a full cell,
 # else the returned array will only contain spots icluding with that cell
 # TODO: implement a ignore_overlapping parameter
-func _get_available_spot_bfs(
+func _get_available_spots_bfs(
 	dims: Vector2,
 	around_where: Vector2,
 	count: int = 1,
@@ -201,7 +296,7 @@ func _get_available_spot_bfs(
 						break
 			elif !to_add.empty(): # BLOCK_OVERLAP_WEAK or STRONG
 				rep.append(to_add[0])
-		if _cell_can_connect(current_cell.x, current_cell.y):
+		if _cell_connects_to_city(current_cell.x, current_cell.y):
 			# Look at directly adjacent cells
 			for diff in TaxiCabIterator.new(1, 1):
 				var to_add_cell: Vector2 = current_cell + diff
@@ -216,7 +311,7 @@ func _get_available_spot_bfs(
 # The returned array has the closest cell at the front
 # Remember to shuffle the array before using it
 # search_limit is inclusive and decides how far to look in terms of Manhattan distance
-func _get_available_spot(
+func _get_available_spots(
 	dims: Vector2,
 	around_where: Vector2,
 	count: int = 1,
@@ -225,11 +320,57 @@ func _get_available_spot(
 ) -> Array:
 	match method:
 		TAXI_CAB_SEARCH:
-			return _get_available_spot_manhattan(dims, around_where, count, search_limit)
+			return _get_available_spots_manhattan(dims, around_where, count, search_limit)
 		_, BFS_SEARCH:
-			return _get_available_spot_bfs(dims, around_where, count, search_limit)
+			return _get_available_spots_bfs(dims, around_where, count, search_limit)
 
 # TODO: add randomness (don't always add a house, add a random number...)
 func _on_miniturn_changed(turn_number, miniturn_number):
 	if randi() % 2:
 		add_random_house()
+
+# Returns whether the cell contains a bit of road
+# TODO: rather if the cell is one of the possible road tiles
+func _cell_is_road(x: int, y: int) -> bool:
+	return foreground_city.get_cell(x, y) == tileid_road_vertical
+
+# Returns whether the cell contains a bit of road that can be connected to more road
+# For example a bus stop might return false
+# TODO: rather if the cell is one of the possible road tiles
+func _cell_is_connectable_road(x: int, y: int) -> bool:
+	return foreground_city.get_cell(x, y) == tileid_road_vertical
+
+# TODO: add the possibility to do this over time with yields n' stuff
+func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary):
+	var current := start
+	if _can_build_on_cell(current.x, current.y):
+		add_road(current.x, current.y)
+	while current != passed_already[current]:
+		current = passed_already[current]
+		if _can_build_on_cell(current.x, current.y):
+			add_road(current.x, current.y)
+
+# todo:
+var todo = """
+add roads
+
+keep the city's dimensions in memory somewhere?
+
+suround the town hall with roads (or just the front?)
+
+# add a add-road-here function
+	will add road n° 1
+	check roads around it, update their tile and itself
+
+function might be called with some yields or something to make it build slowly
+
+when building a new building, add it normally.
+check if it touches a road
+then do a bfs to the closest road, keeping close to the city
+when hitting the first other building remember that, and use it if no road is found
+
+
+when doing previews don't change the background tile until it's set in stone
+"""
+
+

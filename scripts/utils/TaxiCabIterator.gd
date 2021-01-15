@@ -10,6 +10,21 @@ var y: int
 
 enum Stages {RIGHT_TO_TOP = 0, TOP_TO_LEFT = 1, LEFT_TO_BOTTOM = 2, BOTTOM_TO_RIGHT = 3}
 
+static func get_adjacent_coords(where: Vector2, dims: Vector2, include_corners := false) -> Array:
+	var rep := []
+	for i in range(where.x, where.x + dims.x):
+		rep.append(Vector2(i, where.y - 1))
+		rep.append(Vector2(i, where.y + dims.y))
+	for j in range(where.y, where.y + dims.y):
+		rep.append(Vector2(where.x - 1, j))
+		rep.append(Vector2(where.x + dims.x, j))
+	if include_corners:
+		rep.append(Vector2(where.x - 1, where.y - 1))
+		rep.append(Vector2(where.x - 1, where.y + dims.y))
+		rep.append(Vector2(where.x + dims.x, where.y - 1))
+		rep.append(Vector2(where.x + dims.x, where.y + dims.y))
+	return rep
+
 # Use -1 to not set any maximum distance
 # max_distance is included in the iteration
 func _init(max_distance := -1, start_distance := 0):
