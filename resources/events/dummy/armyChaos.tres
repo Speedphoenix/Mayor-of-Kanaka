@@ -2,7 +2,6 @@
 
 [ext_resource path="res://resources/events/dummy/ArmyChaos.gd" type="Script" id=1]
 
-
 [resource]
 script = ExtResource( 1 )
 title = "Army of Chaos"

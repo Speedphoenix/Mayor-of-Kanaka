@@ -7,14 +7,16 @@ var accept_effects := {}
 
 var refuse_or_expire_effects := {}
 
-var global_object: GlobalObject
+#var global_object: GlobalObject
 var turn_controller: TurnController
 var gauge_controller: GaugeController
+var event_controller: EventController
 
 func on_triggered(scene_tree: SceneTree) -> void:
-	global_object = GlobalObject.get_global_object(scene_tree)
+#	global_object = GlobalObject.get_global_object(scene_tree)
 	turn_controller = TurnController.get_turn_controller(scene_tree)
 	gauge_controller = GaugeController.get_gauge_controller(scene_tree)
+	event_controller = EventController.get_event_controller(scene_tree)
 
 func on_accepted(scene_tree: SceneTree) -> void:
 	yield(turn_controller, "turn_changed")

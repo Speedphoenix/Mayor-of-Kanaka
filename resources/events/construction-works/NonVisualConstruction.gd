@@ -10,6 +10,9 @@ export(Array, Array, String) var event_title_description = [
 	['Reform the electricity consumption policies', 'Policies are too old.'],
 ]
 
+export(Resource) var depending_event
+
+
 func _init():
 	#on accept
 	accept_effects = {
@@ -48,6 +51,8 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	accept_effects['on_gauges']['NATURE'] = improvement_monthly_cost
 
 func on_accepted(scene_tree: SceneTree) -> void:
+	event_controller.enable_or_add_possible_event(depending_event)
+	event_controller.trigger_immediate_event(depending_event)
 	#effects will take place for 6 to 12 months
 	for duration in range(1, rng.randi_range(6, 12)):
 		yield(turn_controller, "turn_changed")
