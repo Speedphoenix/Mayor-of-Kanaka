@@ -4,6 +4,8 @@ export(bool) var draggable := false
 
 onready var turn_controller := TurnController.get_turn_controller(get_tree())
 onready var event_controller := EventController.get_event_controller(get_tree())
+# the interface controller is the immediate parent node
+onready var interface_controller : InterfaceController = get_parent()
 
 # Event that has to be displayed and handled
 var event: BaseEvent
@@ -16,14 +18,16 @@ var holding_window: bool = false
 
 # Vector2 indicating where the mouse started dragging the event window
 var mouse_start_position: Vector2
-# Vector2 indicating the initial position of the window
+# Vector2 indicating the initial position and the start position of the window
 var window_start_position: Vector2
+var window_init_position: Vector2
 
 func _ready():
 	$SingleEventController.hide()
 	window_start_position = $SingleEventController.rect_position
+	window_init_position = $SingleEventController.rect_position
 	event_controller.connect("events_arrived", self, "_on_events_arrived")
-	event_controller.connect("event_to_display", self, "_on_event_to_display")
+	interface_controller.connect("event_to_display", self, "_on_event_to_display")
 	
 func _process(_delta):
 	var _stop_time = stop_time
@@ -54,8 +58,12 @@ func display_event():
 		stop_time = true
 		
 func close_window():
-	$SingleEventController.hide()
+	var Window = $SingleEventController
+	Window.hide()
+	# put the window back to its initial place
+	Window.rect_position = window_init_position
 	stop_time = false
+	
 
 func _handle_turns(_stop_time: bool):
 	if(_stop_time):

@@ -87,3 +87,4 @@ func resume_turns(force_timer_reset: bool = false):
 		return
 	is_paused = false
 	launch_next_timers()
+	

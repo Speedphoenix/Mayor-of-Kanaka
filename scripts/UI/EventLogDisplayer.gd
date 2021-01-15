@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 onready var event_controller := EventController.get_event_controller(get_tree())
+# the interface controller is the immediate parent node
+onready var interface_controller : InterfaceController = get_parent()
 
 var active_events: Array = []
 var previous_active_events: Array = []
@@ -77,4 +79,4 @@ func _on_EventDetailsButton_toggled(button_pressed: bool):
 		$EventDetailsController/DetailsMenuController.hide()
 	
 func _on_eventButton_pressed(event: BaseEvent):
-	event_controller.event_to_display(event)
+	interface_controller.event_to_display(event)

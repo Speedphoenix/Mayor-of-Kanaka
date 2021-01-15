@@ -80,7 +80,7 @@ __meta__ = {
 [node name="TitleBackground" type="ColorRect" parent="SingleEventController/TitleController"]
 margin_left = 79.0
 margin_top = 44.0
-margin_right = 301.0
+margin_right = 306.0
 margin_bottom = 107.0
 rect_pivot_offset = Vector2( 82.183, 114.337 )
 color = Color( 0.501961, 0.203922, 0.113725, 0.721569 )
@@ -91,9 +91,9 @@ __meta__ = {
 [node name="Title" type="Label" parent="SingleEventController/TitleController"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 92.0
+margin_left = 87.0
 margin_top = 54.0
-margin_right = 290.0
+margin_right = 297.0
 margin_bottom = 96.0
 rect_pivot_offset = Vector2( -700.5, -123 )
 custom_fonts/font = SubResource( 2 )
@@ -128,7 +128,7 @@ __meta__ = {
 }
 
 [node name="DescriptionBackground2" type="ColorRect" parent="SingleEventController/DescriptionController"]
-margin_left = 85.0
+margin_left = 79.0
 margin_top = 121.0
 margin_right = 306.0
 margin_bottom = 254.0
@@ -141,10 +141,10 @@ __meta__ = {
 [node name="Description" type="Label" parent="SingleEventController/DescriptionController"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 93.0
-margin_top = 136.0
-margin_right = 299.0
-margin_bottom = 245.0
+margin_left = 88.0
+margin_top = 133.0
+margin_right = 296.0
+margin_bottom = 242.0
 rect_pivot_offset = Vector2( -700.5, -123 )
 custom_fonts/font = SubResource( 4 )
 text = "This is where description goes."
@@ -187,10 +187,10 @@ __meta__ = {
 }
 
 [node name="CloseButton" type="TextureButton" parent="SingleEventController"]
-margin_left = 363.155
-margin_top = 11.0729
-margin_right = 391.155
-margin_bottom = 40.0729
+margin_left = 366.655
+margin_top = 6.5729
+margin_right = 394.655
+margin_bottom = 35.5729
 texture_normal = ExtResource( 6 )
 expand = true
 __meta__ = {
