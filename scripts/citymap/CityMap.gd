@@ -1,6 +1,13 @@
 class_name CityMap
 extends Node2D
 
+# TODO:
+# keep the city's dimensions in memory somewhere?
+# add a add-road-here function (done)
+#	will add road n° 1
+#	check roads around it, update their tile and itself
+# when doing previews don't change the background tile until it's set in stone
+
 enum SurroundMode {
 	NO_SURROUND,
 	FRONT_ONLY,
@@ -18,16 +25,35 @@ export(Vector2) var initial_townhall_position = Vector2(11, 7)
 # Could be added to the game params
 export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRONT_ONLY
 
+export(float, 0, 1) var new_house_probability = 0.5
+export(int) var max_city_length := 20000000
+export(int) var new_house_choises_max_count := 100
+
 export(String) var tilename_background_empty_tile = "grass"
 export(String) var tilename_background_filled_tile = "concrete"
 export(String) var tilename_townhall = "townhall"
-export(String) var tilename_house = "house"
 
-# These will in time be changed for autotiles
-export(String) var tilename_road_vertical = "road_vertical"
-export(String) var tilename_road_horizontal = "road_horizontal"
-export(String) var tilename_crossroad = "crossroad"
+export(Array, Dictionary) var houses := [
+	{
+		"tilename": "house",
+		"dimensions": Vector2(1, 1),
+		"weight": 8,
+	},
+	{
+		"tilename": "house_long_horizontal",
+		"dimensions": Vector2(2, 1),
+		"weight": 1,
+	},
+	{
+		"tilename": "house_long_vertical",
+		"dimensions": Vector2(1, 2),
+		"weight": 1,
+	},
+]
 
+var path_tiles: PathTilesManager
+
+var townhall_dims: Vector2
 
 
 # This is a static background, could be a tilemap or an image.
@@ -45,13 +71,15 @@ onready var cell_size: Vector2 = background_city.cell_size
 onready var turn_controller := TurnController.get_turn_controller(get_tree())
 
 onready var tileid_background_filled := tile_set.find_tile_by_name(tilename_background_filled_tile)
-onready var tileid_road_vertical := tile_set.find_tile_by_name(tilename_road_vertical)
 
 # An iterator to go through each cell in order of manhattan distance
 
 func _ready():
 	assert(tile_set == foreground_city.tile_set && tile_set == background_city.tile_set)
-	turn_controller.connect("miniturn_changed", self, "_on_miniturn_changed")
+	path_tiles = PathTilesManager.new(tile_set)
+	turn_controller.connect("miniturn_changed", self, "_on_anyturn_changed")
+	turn_controller.connect("turn_changed", self, "_on_anyturn_changed")
+	townhall_dims = _get_tile_size(tilename_townhall)
 	reset_map()
 
 func reset_map() -> void:
@@ -75,12 +103,16 @@ func reset_map() -> void:
 # - Allow for different sizes of houses
 # - Make the steps above generic and usable for other buildings
 func add_random_house() -> bool:
-	var house_dims := Vector2(1, 1)
-	var spots := _get_available_spots(house_dims, initial_townhall_position, 7)
+	assert(!houses.empty())
+	var chosen_house: Dictionary = WeightChoice.choose_by_weight(houses)
+	assert(chosen_house.has("dimensions"))
+	var house_dims: Vector2 = chosen_house.dimensions
+	var spots := _get_available_spots(house_dims, initial_townhall_position,
+			new_house_choises_max_count, max_city_length)
 	if spots.size() > 0:
 		spots.shuffle()
 		var chosen_spot = spots[0]
-		_add_tile_at(tilename_house, chosen_spot, house_dims)
+		_add_tile_at(chosen_house.tilename, chosen_spot, house_dims)
 		construct_road_to(chosen_spot, house_dims)
 		return true
 	return false
@@ -136,8 +168,8 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 					closest_building = to_add_cell
 			else:
 				# Need to check that we don't stray away from the city
-				for target_diff in TaxiCabIterator.new(1, 1):
-					if _cell_connects_to_city(to_add_cell.x + target_diff.x, to_add_cell.y + target_diff.y):
+				for neighbour in TaxiCabIterator.get_adjacent_coords(to_add_cell, Vector2(1, 1), true):
+					if _cell_connects_to_city(neighbour.x, neighbour.y):
 						next_cells.push_back(to_add_cell)
 						break
 	if found_road || found_building:
@@ -149,11 +181,29 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 				add_road(coord.x, coord.y)
 				break
 
+func _get_neighbor_connectivity(x: int, y: int, xdiff: int, ydiff: int) -> int:
+	var target_id = foreground_city.get_cell(x + xdiff, y + ydiff)
+	return int(path_tiles.cell_can_connect_to(PathTilesManager.PathType.ROAD,
+			target_id, Vector2(x, y), Vector2(x + xdiff, y + ydiff)))
+
 # Will add a single road tile and connect it around
 # TODO: make it connect to nearby roads
-func add_road(x: int, y: int) -> void:
+func add_road(x: int, y: int, neighbours_too := true) -> void:
 	background_city.set_cell(x, y, tileid_background_filled)
-	foreground_city.set_cell(x, y, tileid_road_vertical)
+	var neighbours = [0, 0, 0, 0]
+	
+	neighbours[PathTilesManager.Direction.UP] = _get_neighbor_connectivity(x, y, 0, -1)
+	neighbours[PathTilesManager.Direction.LEFT] = _get_neighbor_connectivity(x, y, -1, 0)
+	neighbours[PathTilesManager.Direction.RIGHT] = _get_neighbor_connectivity(x, y, 1, 0)
+	neighbours[PathTilesManager.Direction.DOWN] = _get_neighbor_connectivity(x, y, 0, 1)
+	foreground_city.set_cell(x, y, path_tiles.get_tileid_from_neighbours(neighbours))
+	
+	if neighbours_too:
+		for dir in PathTilesManager.Direction:
+			if neighbours[PathTilesManager.Direction[dir]] == 1:
+				var diff := PathTilesManager.get_diff_from_dir(PathTilesManager.Direction[dir])
+				# make sure the neighbours connect themselves
+				add_road(x + diff.x, y + diff.y, false)
 
 # Preferably do not use this, but rather receive the information from other sources...
 func _get_tile_size(tile_name: String) -> Vector2:
@@ -248,6 +298,7 @@ func _get_available_spots_bfs(
 	around_where: Vector2,
 	count: int = 1,
 	search_limit: int = 5,
+	starting_dims := Vector2(1, 1),
 	overlapping_ignore_level: int = BLOCK_OVERLAP_NONE
 ) -> Array:
 	# This is to be used as a queue, where the oldest and next in line is the front
@@ -262,6 +313,7 @@ func _get_available_spots_bfs(
 	# Elements of this array are also keys to checked_already
 	var rep := []
 
+	
 	next_cells.push_back(around_where)
 	checked_already[around_where] = true
 	
@@ -317,23 +369,23 @@ func _get_available_spots(
 		TAXI_CAB_SEARCH:
 			return _get_available_spots_manhattan(dims, around_where, count, search_limit)
 		_, BFS_SEARCH:
-			return _get_available_spots_bfs(dims, around_where, count, search_limit)
+			return _get_available_spots_bfs(dims, around_where, count, search_limit, townhall_dims)
 
 # TODO: add randomness (don't always add a house, add a random number...)
-func _on_miniturn_changed(turn_number, miniturn_number):
-	if randi() % 2:
+func _on_anyturn_changed(turn_number, miniturn_number):
+	if randf() <= new_house_probability:
 		add_random_house()
 
 # Returns whether the cell contains a bit of road
 # TODO: rather if the cell is one of the possible road tiles
 func _cell_is_road(x: int, y: int) -> bool:
-	return foreground_city.get_cell(x, y) == tileid_road_vertical
+	return path_tiles.tile_is_path(foreground_city.get_cell(x, y))
 
 # Returns whether the cell contains a bit of road that can be connected to more road
 # For example a bus stop might return false
-# TODO: rather if the cell is one of the possible road tiles
+# TODO: use can_connect_to
 func _cell_is_connectable_road(x: int, y: int) -> bool:
-	return foreground_city.get_cell(x, y) == tileid_road_vertical
+	return _cell_is_road(x, y)
 
 # TODO: add the possibility to do this over time with yields n' stuff
 func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary):
@@ -344,28 +396,3 @@ func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary):
 		current = passed_already[current]
 		if _can_build_on_cell(current.x, current.y):
 			add_road(current.x, current.y)
-
-# todo:
-var todo = """
-add roads
-
-keep the city's dimensions in memory somewhere?
-
-suround the town hall with roads (or just the front?)
-
-# add a add-road-here function
-	will add road n° 1
-	check roads around it, update their tile and itself
-
-function might be called with some yields or something to make it build slowly
-
-when building a new building, add it normally.
-check if it touches a road
-then do a bfs to the closest road, keeping close to the city
-when hitting the first other building remember that, and use it if no road is found
-
-
-when doing previews don't change the background tile until it's set in stone
-"""
-
-
