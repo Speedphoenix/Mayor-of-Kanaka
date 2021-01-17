@@ -81,6 +81,8 @@ func _ready():
 	turn_controller.connect("turn_changed", self, "_on_anyturn_changed")
 	townhall_dims = _get_tile_size(tilename_townhall)
 	reset_map()
+	for i in range(30):
+		WeightChoice.choose_dict_by_weight(houses)
 
 func reset_map() -> void:
 	background_city.clear()
@@ -104,14 +106,13 @@ func reset_map() -> void:
 # - Make the steps above generic and usable for other buildings
 func add_random_house() -> bool:
 	assert(!houses.empty())
-	var chosen_house: Dictionary = WeightChoice.choose_by_weight(houses)
+	var chosen_house: Dictionary = WeightChoice.choose_dict_by_weight(houses)
 	assert(chosen_house.has("dimensions"))
 	var house_dims: Vector2 = chosen_house.dimensions
 	var spots := _get_available_spots(house_dims, initial_townhall_position,
 			new_house_choises_max_count, max_city_length)
 	if spots.size() > 0:
-		spots.shuffle()
-		var chosen_spot = spots[0]
+		var chosen_spot = WeightChoice.choose_random_from_array(spots)
 		_add_tile_at(chosen_house.tilename, chosen_spot, house_dims)
 		construct_road_to(chosen_spot, house_dims)
 		return true

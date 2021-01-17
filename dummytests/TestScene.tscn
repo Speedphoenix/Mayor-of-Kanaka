@@ -19,6 +19,19 @@ inter_turn_delay = 0.5
 
 [node name="CityMap" parent="." instance=ExtResource( 7 )]
 new_house_probability = 1.0
+houses = [ {
+"dimensions": Vector2( 1, 1 ),
+"tilename": "house",
+"weight": 8
+}, {
+"dimensions": Vector2( 2, 1 ),
+"tilename": "house_long_horizontal",
+"weight": 1
+}, {
+"dimensions": Vector2( 1, 2 ),
+"tilename": "house_long_vertical",
+"weight": 1
+} ]
 
 [node name="TestLabel" type="Label" parent="."]
 visible = false

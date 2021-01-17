@@ -125,13 +125,11 @@ func _get_available_events(max_count: int = 1) -> Array:
 			needmore -= event.trigger_immediately
 		if needmore == 0:
 			break
-	if needmore > 0:
-		possible_events.shuffle()
-		for event in possible_events:
-			rep.append(event)
-			needmore -= 1
-			if needmore == 0:
-				break
+	if needmore > 0 && !possible_events.empty():
+		var possible_weights := WeightChoice.get_weights_from_dicts(possible_events)
+		var chosen_possibles := WeightChoice.choose_by_weight(possible_weights, needmore)
+		for chosen_index in chosen_possibles:
+			rep.append(possible_events[chosen_index])
 	return rep
 
 
