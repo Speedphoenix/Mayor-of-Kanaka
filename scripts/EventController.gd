@@ -107,9 +107,8 @@ func _get_available_events(max_count: int = 1) -> Array:
 	for event in triggerable_events:
 		if event.trigger_immediately != 0:
 			trigger_now.append(event)
-		elif (event.remaing_triggers == -1 || event.remaing_triggers > 0) && event.weight > 0:
-			for i in range(event.weight):
-				possible_events.append(event)
+		elif event.remaing_triggers == -1 || event.remaing_triggers > 0:
+			possible_events.append(event)
 
 	var rep := []
 	var needmore := max_count
