@@ -6,6 +6,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_PausePlayButton_toggled(button_pressed):
+	print("button pressed ", button_pressed)
 	if(button_pressed):
 		turn_controller.pause_turns()
 	else:

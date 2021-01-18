@@ -31,36 +31,36 @@ func _process(_delta):
 func _display_eventslist(events: Array):
 	var eventsCounter = 0
 	for ev in active_events:
-			if ev is EventController.TriggeredEvent:
-				eventsCounter += 1
-				if eventsCounter <= 5 :
-					var event = ev.event_resource
-					var eventTitle = event.title
-					var detailMenuController = $EventDetailsController/DetailsMenuController
-					
-					var controller = Control.new()
-					controller.name = "Controller" + String(eventsCounter)
-					controller.margin_left = 40
-					controller.margin_top = 100 + (eventsCounter * 45)
-					
-					var background = ColorRect.new()
-					background.name = "background" + String(eventsCounter)
-					background.margin_right = 175
-					background.margin_bottom = 35
-					background.color = Color("531919")
-					
-					var button = Button.new()
-					background.name = "button" + String(eventsCounter)
-					button.flat = true
-					button.text = eventTitle
-					button.margin_right = 175
-					button.margin_bottom = 35
-					
-					button.connect("pressed", self, "_on_eventButton_pressed", [event])
-					
-					controller.add_child(background)
-					controller.add_child(button)
-					detailMenuController.add_child(controller)
+		if ev is EventController.TriggeredEvent:
+			eventsCounter += 1
+			
+			var event = ev.event_resource
+			var eventTitle = event.title
+			var detailMenuController = $EventDetailsController/DetailsMenuController
+			
+			var controller = Control.new()
+			controller.name = "Controller" + String(eventsCounter)
+			controller.margin_left = 40
+			controller.margin_top = 100 + (eventsCounter * 45)
+			
+			var background = ColorRect.new()
+			background.name = "background" + String(eventsCounter)
+			#background.margin_right = 175
+			#background.margin_bottom = 35
+			background.color = Color("531919")
+			
+			var button = Button.new()
+			background.name = "button" + String(eventsCounter)
+			button.flat = true
+			button.text = eventTitle
+			#button.margin_right = 175
+			#button.margin_bottom = 35
+			
+			button.connect("pressed", self, "_on_eventButton_pressed", [event])
+			
+			controller.add_child(background)
+			controller.add_child(button)
+			detailMenuController.add_child(controller)
 
 # clear and free the graphical nodes used for active events
 func _clear_previous_active_events():
