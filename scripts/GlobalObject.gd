@@ -1,7 +1,8 @@
 class_name GlobalObject
 extends Node
 
-export(bool) var devmode := false
+# not currently used
+var devmode := false
 
 export(Resource) var default_params
 

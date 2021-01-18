@@ -56,14 +56,14 @@ func launch_next_timers():
 
 func on_miniturn_timeout():
 	current_miniturn_no += 1
-	trigger_next_miniturn()
 	launch_next_timers()
+	trigger_next_miniturn()
 
 func on_turn_timeout():
 	current_turn_no += 1
 	current_miniturn_no = FIRST_MINITURN_NUMBER
-	trigger_next_turn()
 	launch_next_timers()
+	trigger_next_turn()
 
 func trigger_next_miniturn():
 	emit_signal("miniturn_changed", current_turn_no, current_miniturn_no)
