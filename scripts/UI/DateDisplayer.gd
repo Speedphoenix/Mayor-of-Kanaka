@@ -9,7 +9,7 @@ func _ready():
 	turn_controller.connect("turn_changed", self, "_on_anyturn_changed")
 	
 	DateLabel = $DateController/DateLabel
-	DateLabel.text =  "0m 0 d"
+	DateLabel.text =  "0m 0d"
 	
 func _on_anyturn_changed(turn_number, miniturn_number):
 	DateLabel.text =  str(turn_number) + "m " +  str(miniturn_number) + "d"
