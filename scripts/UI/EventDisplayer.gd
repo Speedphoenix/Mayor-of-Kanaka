@@ -55,7 +55,6 @@ func display_event():
 		$SingleEventController/DescriptionController/Description.text = event.description
 		$SingleEventController/TitleController/Title.text = event.title
 		$SingleEventController.show()
-		#stop_time = true
 		turn_controller.pause_turns()
 		
 func close_window():
@@ -63,16 +62,7 @@ func close_window():
 	Window.hide()
 	# put the window back to its initial place
 	Window.rect_position = window_init_position
-	#stop_time = false
 	turn_controller.resume_turns()
-	
-
-#func _handle_turns(_stop_time: bool):
-#	if(_stop_time):
-#		turn_controller.pause_turns()
-#	else:
-#		turn_controller.resume_turns()
-#
 
 # drag and drop the event window with the mouse based on the Window ColorRect selection
 # TODO : improve the selection of the window (not based on background)
