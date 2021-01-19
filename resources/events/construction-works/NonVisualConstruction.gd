@@ -52,9 +52,13 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	accept_effects['on_gauges']['NATURE'] = improvement_monthly_cost
 
 func on_accepted(scene_tree: SceneTree) -> void:
-	event_controller.enable_or_add_possible_event(depending_event)
-	event_controller.trigger_immediate_event(depending_event)
 	#effects will take place for 6 to 12 months
 	for duration in range(1, rng.randi_range(6, 12)):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
+
+func on_refused(scene_tree: SceneTree) -> void:
+	.on_refused(scene_tree)
+	#will add and trigger a BankLoan event
+	event_controller.enable_or_add_possible_event(depending_event)
+	event_controller.trigger_immediate_event(depending_event)
