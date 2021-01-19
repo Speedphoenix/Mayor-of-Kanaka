@@ -21,6 +21,9 @@ export(int) var weight := 1
 # a positive value to define how many times it should be triggered at most
 export(int) var trigger_count := -1
 
+# supposed to contain a dependable event
+export(Resource) var depending_event
+
 #will generate a random number to chose event's title/description from an array
 var rng = RandomNumberGenerator.new()
 

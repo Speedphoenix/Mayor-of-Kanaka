@@ -10,9 +10,6 @@ export(Array, Array, String) var event_title_description = [
 	['Reform the electricity consumption policies', 'Policies are too old.'],
 ]
 
-export(Resource) var depending_event
-
-
 func _init():
 	#on accept
 	accept_effects = {
@@ -32,7 +29,6 @@ func _init():
 	
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	assert(depending_event is BaseEvent)
 	
 	var event_chosen = rng.randi_range(0, event_title_description.size() - 1)
 	title = event_title_description[event_chosen][0]
