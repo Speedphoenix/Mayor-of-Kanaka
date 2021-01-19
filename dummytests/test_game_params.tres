@@ -5,9 +5,6 @@
 [ext_resource path="res://resources/events/dummy/earthquake.tres" type="Resource" id=3]
 [ext_resource path="res://dummytests/events/TestEvent1.tres" type="Resource" id=4]
 
-
-
-
 [resource]
 script = ExtResource( 1 )
 initial_possible_events = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ]
@@ -17,4 +14,25 @@ initial_gauges = {
 "NATURE": 50,
 "SATISFACTION": 50,
 "STRESS": 50
+}
+gauge_limits = {
+"BUDGET": {
+"LOWER": 0
+},
+"HEALTH": {
+"LOWER": 0,
+"UPPER": 100
+},
+"NATURE": {
+"LOWER": 0,
+"UPPER": 100
+},
+"SATISFACTION": {
+"LOWER": 0,
+"UPPER": 100
+},
+"STRESS": {
+"LOWER": 0,
+"UPPER": 100
+}
 }

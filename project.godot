@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "CityMap",
 "language": "GDScript",
-"path": "res://scripts/CityMap.gd"
+"path": "res://scripts/citymap/CityMap.gd"
 }, {
 "base": "BaseEvent",
 "class": "DecisionSimple",
@@ -55,14 +55,24 @@ _global_script_classes=[ {
 "path": "res://scripts/UI/InterfaceController.gd"
 }, {
 "base": "Reference",
+"class": "PathTilesManager",
+"language": "GDScript",
+"path": "res://scripts/citymap/PathTilesManager.gd"
+}, {
+"base": "Reference",
 "class": "TaxiCabIterator",
 "language": "GDScript",
-"path": "res://scripts/utils/TaxiCabIterator.gd"
+"path": "res://scripts/citymap/TaxiCabIterator.gd"
 }, {
 "base": "Node",
 "class": "TurnController",
 "language": "GDScript",
 "path": "res://scripts/TurnController.gd"
+}, {
+"base": "Reference",
+"class": "WeightChoice",
+"language": "GDScript",
+"path": "res://scripts/utils/WeightChoice.gd"
 } ]
 _global_script_class_icons={
 "BaseEvent": "",
@@ -74,8 +84,10 @@ _global_script_class_icons={
 "GaugeController": "",
 "GlobalObject": "",
 "InterfaceController": "",
+"PathTilesManager": "",
 "TaxiCabIterator": "",
-"TurnController": ""
+"TurnController": "",
+"WeightChoice": ""
 }
 
 [application]

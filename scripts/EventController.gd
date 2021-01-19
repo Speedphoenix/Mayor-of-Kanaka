@@ -103,9 +103,8 @@ func _get_available_events(max_count: int = 1) -> Array:
 	for event in triggerable_events:
 		if event.trigger_immediately != 0:
 			trigger_now.append(event)
-		elif (event.remaing_triggers == -1 || event.remaing_triggers > 0) && event.weight > 0:
-			for i in range(event.weight):
-				possible_events.append(event)
+		elif event.remaing_triggers == -1 || event.remaing_triggers > 0:
+			possible_events.append(event)
 
 	var rep := []
 	var needmore := max_count
@@ -121,13 +120,11 @@ func _get_available_events(max_count: int = 1) -> Array:
 			needmore -= event.trigger_immediately
 		if needmore == 0:
 			break
-	if needmore > 0:
-		possible_events.shuffle()
-		for event in possible_events:
-			rep.append(event)
-			needmore -= 1
-			if needmore == 0:
-				break
+	if needmore > 0 && !possible_events.empty():
+		var possible_weights := WeightChoice.get_weights_from_dicts(possible_events)
+		var chosen_possibles := WeightChoice.choose_by_weight(possible_weights, needmore)
+		for chosen_index in chosen_possibles:
+			rep.append(possible_events[chosen_index])
 	return rep
 
 
