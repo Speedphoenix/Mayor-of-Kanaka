@@ -27,7 +27,7 @@ export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRON
 
 export(float, 0, 1) var new_house_probability = 0.5
 export(int) var max_city_length := 20000000
-export(int) var new_house_choises_max_count := 100
+export(int) var new_house_choices_max_count := 100
 
 export(String) var tilename_background_empty_tile = "grass"
 export(String) var tilename_background_filled_tile = "concrete"
@@ -110,7 +110,7 @@ func add_random_house() -> bool:
 	assert(chosen_house.has("dimensions"))
 	var house_dims: Vector2 = chosen_house.dimensions
 	var spots := _get_available_spots(house_dims, initial_townhall_position,
-			new_house_choises_max_count, max_city_length)
+			new_house_choices_max_count, max_city_length)
 	if spots.size() > 0:
 		var chosen_spot = WeightChoice.choose_random_from_array(spots)
 		_add_tile_at(chosen_house.tilename, chosen_spot, house_dims)
