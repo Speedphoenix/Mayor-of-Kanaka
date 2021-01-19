@@ -26,13 +26,12 @@ func _ready():
 	$SingleEventController.hide()
 	window_start_position = $SingleEventController.rect_position
 	window_init_position = $SingleEventController.rect_position
+# warning-ignore:return_value_discarded
 	event_controller.connect("events_arrived", self, "_on_events_arrived")
+# warning-ignore:return_value_discarded
 	interface_controller.connect("event_to_display", self, "_on_event_to_display")
 	
 func _process(_delta):
-	#var _stop_time = stop_time
-	#_handle_turns(_stop_time)
-	# If the player presses the cancel button, the windows get closed
 	if Input.is_action_pressed("ui_cancel"):
 		close_window()
 	
@@ -42,7 +41,6 @@ func _input(ev: InputEvent):
 	
 # An array of events as arrived and need to be displayed
 func _on_events_arrived(events: Array):
-	# We print only the first event of the array
 	event = events[0]
 	display_event()
 	
@@ -54,6 +52,8 @@ func display_event():
 	if event != null:
 		$SingleEventController/DescriptionController/Description.text = event.description
 		$SingleEventController/TitleController/Title.text = event.title
+		$SingleEventController/ButtonsController/FrameAccept/AcceptLabel.text = event.accept_msg
+		$SingleEventController/ButtonsController/FrameRefuse/RefuseLabel.text = event.refuse_msg
 		$SingleEventController.show()
 		turn_controller.pause_turns()
 		
@@ -70,13 +70,10 @@ func drag_and_drop_window(ev: InputEvent):
 	var Window = $SingleEventController
 	
 	if ev is InputEventMouseButton and ev.is_pressed() and hover_window == true:
-		#print("Mouse Clicked at: ", ev.position)
 		mouse_start_position = ev.position
-		#print("mouse start : ", mouse_start_position)
 		holding_window = true
 		
 	elif ev is InputEventMouseButton and !ev.is_pressed() and hover_window == true :
-		#print("Mouse Unclicked at: ", ev.position)
 		holding_window = false
 		window_start_position = Window.rect_position
 		
@@ -97,10 +94,7 @@ func _on_RefuseButton_pressed():
 	if event != null:
 		event_controller.refuse_event(event)
 		close_window()
-	
-func _on_HoldButton_pressed():
-	close_window()
-	
+
 func _on_CloseButton_pressed():
 	close_window()
 

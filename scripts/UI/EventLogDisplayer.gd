@@ -81,3 +81,5 @@ func _on_EventDetailsButton_toggled(button_pressed: bool):
 	
 func _on_eventButton_pressed(event: BaseEvent):
 	interface_controller.event_to_display(event)
+	# When clicking on an event card, we flip the the toggle button to hide the menu
+	$EventDetailsController/EventDetailsButton.pressed = false
