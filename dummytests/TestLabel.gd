@@ -6,10 +6,11 @@ var test_dictionary = {
 }
 
 func _ready():
-	print("HEALTH" in test_dictionary)
-	print("Health" in test_dictionary)
-	for key in test_dictionary:
-		print(key)
+#	print("HEALTH" in test_dictionary)
+#	print("Health" in test_dictionary)
+#	for key in test_dictionary:
+#		print(key)
+	pass
 
 func showmachin(newturn, newday = 1):
 	text = str(newturn) + " " + str(newday)
