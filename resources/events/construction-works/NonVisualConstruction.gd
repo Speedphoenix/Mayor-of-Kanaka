@@ -26,7 +26,7 @@ func _init():
 			"SATISFACTION": rng.randi_range(-20,-15),
 		},
 	}
-	
+
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	
