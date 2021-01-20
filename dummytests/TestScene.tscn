@@ -14,11 +14,13 @@
 default_params = ExtResource( 6 )
 
 [node name="TurnController" parent="GlobalObject" index="0"]
-inter_miniturn_delay = 0.5
-inter_turn_delay = 0.5
+inter_miniturn_delay = 0.1
+inter_turn_delay = 0.1
 
 [node name="CityMap" parent="." instance=ExtResource( 7 )]
 new_house_probability = 1.0
+max_city_length = 500
+new_house_choices_max_count = 500
 houses = [ {
 "dimensions": Vector2( 1, 1 ),
 "tilename": "house",

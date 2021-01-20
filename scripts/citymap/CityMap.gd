@@ -8,6 +8,8 @@ extends Node2D
 #	check roads around it, update their tile and itself
 # when doing previews don't change the background tile until it's set in stone
 
+signal city_dimensions_changed(new_top_left, new_bottom_right)
+
 enum SurroundMode {
 	NO_SURROUND,
 	FRONT_ONLY,
@@ -28,6 +30,9 @@ export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRON
 export(float, 0, 1) var new_house_probability = 0.5
 export(int) var max_city_length := 20000000
 export(int) var new_house_choices_max_count := 100
+
+# Must be a positive value
+export(int, 0, 2e9) var map_size_padding := 0
 
 export(String) var tilename_background_empty_tile = "grass"
 export(String) var tilename_background_filled_tile = "concrete"
@@ -55,6 +60,10 @@ var path_tiles: PathTilesManager
 
 var townhall_dims: Vector2
 
+var top_left_map_corner := Vector2(0, 0)
+# will be set in reset_map()
+var bottom_right_map_corner := Vector2(0, 0)
+
 
 # This is a static background, could be a tilemap or an image.
 # It will not move and will likely not ever be used
@@ -64,9 +73,9 @@ onready var full_city: Node2D = $FullCity
 onready var background_city: TileMap = $FullCity/BackgroundCity
 onready var foreground_city: TileMap = $FullCity/ForegroundCity
 
-onready var tile_set: TileSet = background_city.tile_set
+onready var tile_set: TileSet = foreground_city.tile_set
 
-onready var cell_size: Vector2 = background_city.cell_size
+onready var cell_size: Vector2 = foreground_city.cell_size
 
 onready var turn_controller := TurnController.get_turn_controller(get_tree())
 
@@ -81,13 +90,15 @@ func _ready():
 	turn_controller.connect("turn_changed", self, "_on_anyturn_changed")
 	townhall_dims = _get_tile_size(tilename_townhall)
 	reset_map()
-	for i in range(30):
-		WeightChoice.choose_dict_by_weight(houses)
+
 
 func reset_map() -> void:
 	background_city.clear()
 	foreground_city.clear()
 	var townhall_dims = _get_tile_size(tilename_townhall)
+	top_left_map_corner = Vector2(0, 0)
+	bottom_right_map_corner = ((get_viewport_rect().size / cell_size) / full_city.transform.get_scale()).ceil()
+
 	_add_tile_at(tilename_townhall, initial_townhall_position, townhall_dims)
 	match initial_townhall_surrounding_roads:
 		SurroundMode.NO_SURROUND:
@@ -182,15 +193,11 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 				add_road(coord.x, coord.y)
 				break
 
-func _get_neighbor_connectivity(x: int, y: int, xdiff: int, ydiff: int) -> int:
-	var target_id = foreground_city.get_cell(x + xdiff, y + ydiff)
-	return int(path_tiles.cell_can_connect_to(PathTilesManager.PathType.ROAD,
-			target_id, Vector2(x, y), Vector2(x + xdiff, y + ydiff)))
-
 # Will add a single road tile and connect it around
 # TODO: make it connect to nearby roads
 func add_road(x: int, y: int, neighbours_too := true) -> void:
 	background_city.set_cell(x, y, tileid_background_filled)
+	_expand_city_dims(Vector2(x, y))
 	var neighbours = [0, 0, 0, 0]
 	
 	neighbours[PathTilesManager.Direction.UP] = _get_neighbor_connectivity(x, y, 0, -1)
@@ -206,6 +213,27 @@ func add_road(x: int, y: int, neighbours_too := true) -> void:
 				# make sure the neighbours connect themselves
 				add_road(x + diff.x, y + diff.y, false)
 
+# Will attempt to move the map.
+func move_map(diff: Vector2) -> void:
+	full_city.position += diff
+	var top_left: Vector2 = top_left_map_corner * foreground_city.cell_size * full_city.transform.get_scale()
+	var bot_right: Vector2 = bottom_right_map_corner * foreground_city.cell_size * full_city.transform.get_scale()
+
+	var viewport_size: Vector2 = get_viewport_rect().size
+	if full_city.position.x + bot_right.x < viewport_size.x:
+		full_city.position.x = viewport_size.x - bot_right.x
+	if full_city.position.x + top_left.x > 0:
+		full_city.position.x = -1 * top_left.x
+	if full_city.position.y + bot_right.y < viewport_size.y:
+		full_city.position.y = viewport_size.y - bot_right.y
+	if full_city.position.y + top_left.y > 0:
+		full_city.position.y = -1 * top_left.y
+
+func _get_neighbor_connectivity(x: int, y: int, xdiff: int, ydiff: int) -> int:
+	var target_id = foreground_city.get_cell(x + xdiff, y + ydiff)
+	return int(path_tiles.cell_can_connect_to(PathTilesManager.PathType.ROAD,
+			target_id, Vector2(x, y), Vector2(x + xdiff, y + ydiff)))
+
 # Preferably do not use this, but rather receive the information from other sources...
 func _get_tile_size(tile_name: String) -> Vector2:
 	var tile_id = tile_set.find_tile_by_name(tile_name)
@@ -218,12 +246,32 @@ func _get_tile_size(tile_name: String) -> Vector2:
 		y += 1
 	return Vector2(x, y)
 
+# This will not expand the city, but rather change its dimensions
+# if the new position was outside the previous dimensions
+func _expand_city_dims(where: Vector2):
+	var did_expand := false
+	if where.x - map_size_padding < top_left_map_corner.x:
+		top_left_map_corner.x = where.x - map_size_padding
+		did_expand = true
+	if where.x + map_size_padding >= bottom_right_map_corner.x:
+		bottom_right_map_corner.x = where.x + 1 + map_size_padding
+		did_expand = true
+	if where.y - map_size_padding < top_left_map_corner.y:
+		top_left_map_corner.y = where.y - map_size_padding
+		did_expand = true
+	if where.y + map_size_padding >= bottom_right_map_corner.y:
+		bottom_right_map_corner.y = where.y + 1 + map_size_padding
+		did_expand = true
+	emit_signal("city_dimensions_changed", top_left_map_corner, bottom_right_map_corner)
+
 func _add_tile_at(tile_name: String, where: Vector2, dims: Vector2):
 	var tile_id = tile_set.find_tile_by_name(tile_name)
 	for i in range(dims.x):
 		for j in range(dims.y):
 			background_city.set_cellv(where + Vector2(i, j), tileid_background_filled)
 	foreground_city.set_cellv(where, tile_id)
+	_expand_city_dims(where)
+	_expand_city_dims(where + dims - Vector2.ONE)
 
 # Returns whether a cell is part of the city or empty
 func _cell_connects_to_city(x: int, y: int) -> bool:
@@ -397,3 +445,6 @@ func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary):
 		current = passed_already[current]
 		if _can_build_on_cell(current.x, current.y):
 			add_road(current.x, current.y)
+
+func _on_DragInputArea_map_dragged(difference):
+	move_map(difference)
