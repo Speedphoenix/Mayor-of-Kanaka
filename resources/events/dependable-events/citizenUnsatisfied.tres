@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/events/dependable-events/CitizenUnsatisfied.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+title = "Citizens Unsatisfied"
+description = "Mayor, citizens are unsatisfied of our current policies and actions. We suggest making a public speach. For a little cost we can return their loyalty."
+active_duration = 0
+accept_msg = "Accept"
+refuse_msg = "Refuse"
+weight = 1
+trigger_count = -1

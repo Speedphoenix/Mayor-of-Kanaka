@@ -1,6 +1,6 @@
 # Some construction works not illustrated on the main city map:
 # Basically we are paying a reasonable amount of money per month and get some bonuses for it
-# Ex: upgrading the electricity network 
+# Ex: upgrading the electricity network
 extends DecisionSimple
 
 export(Array, Array, String) var event_title_description = [
@@ -26,7 +26,7 @@ func _init():
 			"SATISFACTION": rng.randi_range(-20,-15),
 		},
 	}
-	
+
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	
@@ -52,4 +52,9 @@ func on_accepted(scene_tree: SceneTree) -> void:
 	for duration in range(1, rng.randi_range(6, 12)):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
-	
+
+func on_refused(scene_tree: SceneTree) -> void:
+	.on_refused(scene_tree)
+	#will add and trigger a BankLoan event
+	event_controller.enable_or_add_possible_event(depending_event)
+	event_controller.trigger_immediate_event(depending_event)
