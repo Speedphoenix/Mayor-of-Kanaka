@@ -17,9 +17,9 @@ func _ready():
 	$BarsController/Satisfation/SatisfactionBar.value = curr_gauges.SATISFACTION
 	#$BarsController/Stress/StressBar.value = curr_gauges.STRESS
 	$BarsController/Budget/BudgetLabel.text = str(curr_gauges.BUDGET) + "k $"
-	$BarsController/Health/HealthLabel.text = str(curr_gauges.BUDGET) + " %"
-	$BarsController/Nature/NatureLabel.text = str(curr_gauges.BUDGET) + " %"
-	$BarsController/Satisfation/SatisfactionLabel.text = str(curr_gauges.BUDGET) + " %"
+	$BarsController/Health/HealthLabel.text = str(curr_gauges.HEALTH) + " %"
+	$BarsController/Nature/NatureLabel.text = str(curr_gauges.NATURE) + " %"
+	$BarsController/Satisfation/SatisfactionLabel.text = str(curr_gauges.SATISFACTION) + " %"
 	
 	if gaugesAsBars:
 		$BarsController/Budget/BudgetLabel.hide()
