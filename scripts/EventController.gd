@@ -20,10 +20,6 @@ signal events_expired(events)
 # This passes an array of TriggeredEvent (not BaseEvent)
 signal active_events_changed(new_active_events)
 
-# toremove
-# Events to be displayed, asked by the player via the UnderUI script
-signal event_to_display(event)
-
 # An array of TriggerableEvents
 var triggerable_events: Array
 # An array of TriggeredEvents
@@ -248,8 +244,3 @@ func refuse_event(base_event: BaseEvent) -> void:
 		active_events.remove(index)
 	base_event.on_refused(get_tree())
 	emit_signal("active_events_changed", active_events.duplicate())
-
-# toremove
-# Emit a signal to display an event
-func event_to_display(event: BaseEvent):
-	emit_signal("event_to_display", event)

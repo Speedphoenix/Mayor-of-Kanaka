@@ -41,6 +41,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ScrollContainer" type="ScrollContainer" parent="EventDetailsController/DetailsMenuController"]
+margin_left = 23.0
+margin_top = 122.0
+margin_right = 234.0
+margin_bottom = 368.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="EventDetailsController/DetailsMenuController/ScrollContainer"]
+
+[node name="EventListContainer" type="VBoxContainer" parent="EventDetailsController/DetailsMenuController/ScrollContainer/MarginContainer"]
+alignment = 1
+
 [node name="CircleBackground" type="TextureRect" parent="EventDetailsController"]
 margin_left = -19.0
 margin_top = 374.0
@@ -73,9 +87,9 @@ __meta__ = {
 
 [node name="CounterCircleFrame" type="TextureRect" parent="EventDetailsController/EventCounterController"]
 margin_left = 76.0
-margin_top = 447.0
+margin_top = 444.0
 margin_right = 111.0
-margin_bottom = 485.0
+margin_bottom = 482.0
 rect_pivot_offset = Vector2( -230.904, -130.786 )
 texture = ExtResource( 2 )
 expand = true
@@ -85,9 +99,9 @@ __meta__ = {
 
 [node name="CounterCircleBackground" type="TextureRect" parent="EventDetailsController/EventCounterController"]
 margin_left = 79.3568
-margin_top = 452.06
+margin_top = 448.06
 margin_right = 107.357
-margin_bottom = 482.06
+margin_bottom = 478.06
 rect_pivot_offset = Vector2( -230.904, -130.786 )
 texture = ExtResource( 1 )
 expand = true
@@ -97,9 +111,9 @@ __meta__ = {
 
 [node name="CounterLabel" type="Label" parent="EventDetailsController/EventCounterController"]
 margin_left = 88.7027
-margin_top = 459.405
+margin_top = 455.405
 margin_right = 98.7027
-margin_bottom = 478.405
+margin_bottom = 474.405
 custom_fonts/font = SubResource( 1 )
 text = "0"
 __meta__ = {

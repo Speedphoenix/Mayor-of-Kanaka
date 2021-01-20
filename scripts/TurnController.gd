@@ -45,7 +45,12 @@ func _ready():
 	_turn_timer.one_shot = true # We may need to stop it often
 	_turn_timer.connect("timeout", self, "on_turn_timeout")
 	launch_next_timers()
-
+	
+# prevent memory leak
+func _exit_tree():
+	for n in get_children():
+		self.remove_child(n)
+		n.queue_free()
 
 func launch_next_timers():
 	if current_miniturn_no >= days_in_a_month:
@@ -80,6 +85,7 @@ func pause_turns():
 	_turn_timer.stop()
 	_miniturn_timer.stop()
 	is_paused = true
+	#print("pause turns")
 
 # This will also reset the time left to next turn
 func resume_turns(force_timer_reset: bool = false):
@@ -87,3 +93,6 @@ func resume_turns(force_timer_reset: bool = false):
 		return
 	is_paused = false
 	launch_next_timers()
+	#print("resume turns")
+	
+	

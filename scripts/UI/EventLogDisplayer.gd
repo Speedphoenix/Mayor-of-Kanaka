@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 onready var event_controller := EventController.get_event_controller(get_tree())
+# the interface controller is the immediate parent node
+onready var interface_controller : InterfaceController = get_parent()
 
 var active_events: Array = []
 var previous_active_events: Array = []
@@ -28,47 +30,48 @@ func _process(_delta):
 	
 func _display_eventslist(events: Array):
 	var eventsCounter = 0
+	var eventListContainer = $EventDetailsController/DetailsMenuController/ScrollContainer/MarginContainer/EventListContainer
 	for ev in active_events:
-			if ev is EventController.TriggeredEvent:
-				eventsCounter += 1
-				if eventsCounter <= 5 :
-					var event = ev.event_resource
-					var eventTitle = event.title
-					var detailMenuController = $EventDetailsController/DetailsMenuController
-					
-					var controller = Control.new()
-					controller.name = "Controller" + String(eventsCounter)
-					controller.margin_left = 40
-					controller.margin_top = 100 + (eventsCounter * 45)
-					
-					var background = ColorRect.new()
-					background.name = "background" + String(eventsCounter)
-					background.margin_right = 175
-					background.margin_bottom = 35
-					background.color = Color("531919")
-					
-					var button = Button.new()
-					background.name = "button" + String(eventsCounter)
-					button.flat = true
-					button.text = eventTitle
-					button.margin_right = 175
-					button.margin_bottom = 35
-					
-					button.connect("pressed", self, "_on_eventButton_pressed", [event])
-					
-					controller.add_child(background)
-					controller.add_child(button)
-					detailMenuController.add_child(controller)
+		if ev is EventController.TriggeredEvent:
+			eventsCounter += 1
+			var event = ev.event_resource
+			var eventTitle = event.title
+
+			var marginContainer = MarginContainer.new()
+			marginContainer.name = "MarginContainer" + str(eventsCounter)
+			
+			var background = ColorRect.new()
+			background.name = "Background" + str(eventsCounter)
+			background.color = Color("531919")
+			background.rect_min_size.x = 200
+			background.rect_min_size.y = 35
+			
+			var button = Button.new()
+			button.name = "Button" + str(eventsCounter)
+			button.flat = true
+			var text_to_display = eventTitle
+			if text_to_display.length() > 20:
+				text_to_display = text_to_display.substr(0, 20) + "..."
+			button.text = text_to_display
+			button.connect("pressed", self, "_on_eventButton_pressed", [event])
+			
+			# TODO : get rid of this pseudo-whitespace
+			var whitespace = Control.new()
+			whitespace.rect_min_size.y = 3
+			
+			marginContainer.add_child(background)
+			marginContainer.add_child(button)
+			eventListContainer.add_child(whitespace)
+			
+			eventListContainer.add_child(marginContainer)
+			
 
 # clear and free the graphical nodes used for active events
 func _clear_previous_active_events():
-	var detailMenuController = $EventDetailsController/DetailsMenuController
-	var background = $EventDetailsController/DetailsMenuController/Background
-	var frame = $EventDetailsController/DetailsMenuController/Frame
-	for n in detailMenuController.get_children():
-		if (n != background && n != frame):
-			detailMenuController.remove_child(n)
-			n.queue_free()
+	var eventListContainer = $EventDetailsController/DetailsMenuController/ScrollContainer/MarginContainer/EventListContainer
+	for n in eventListContainer.get_children():
+		eventListContainer.remove_child(n)
+		n.queue_free()
 
 func _on_EventDetailsButton_toggled(button_pressed: bool):
 	if(button_pressed):
@@ -77,4 +80,6 @@ func _on_EventDetailsButton_toggled(button_pressed: bool):
 		$EventDetailsController/DetailsMenuController.hide()
 	
 func _on_eventButton_pressed(event: BaseEvent):
-	event_controller.event_to_display(event)
+	interface_controller.event_to_display(event)
+	# When clicking on an event card, we flip the the toggle button to hide the menu
+	$EventDetailsController/EventDetailsButton.pressed = false
