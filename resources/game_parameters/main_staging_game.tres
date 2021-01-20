@@ -10,11 +10,11 @@
 script = ExtResource( 1 )
 initial_possible_events = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ) ]
 initial_gauges = {
-"BUDGET": 100,
-"HEALTH": 50,
-"NATURE": 50,
-"SATISFACTION": 50,
-"STRESS": 50
+"BUDGET": 30,
+"HEALTH": 80,
+"NATURE": 75,
+"SATISFACTION": 28,
+"STRESS": 8
 }
 gauge_limits = {
 "BUDGET": {
