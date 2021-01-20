@@ -5,7 +5,12 @@
 
 [resource]
 script = ExtResource( 1 )
-title = "NonVisConstrEvent"
-description = "NonVisConstrEvent desc"
-weight = 2
+title = ""
+description = ""
+active_duration = 0
+accept_msg = "Accept"
+refuse_msg = "Refuse"
+weight = 1
+trigger_count = -1
 depending_event = ExtResource( 2 )
+event_title_description = [ [ "Renovate the water supply system", "The system is worn down." ], [ "Renovate the water filtering system", "The system has deteriorated." ], [ "Upgrade the electricity delivery system", "The system is out of date." ], [ "Reform the electricity consumption policies", "Policies are too old." ] ]

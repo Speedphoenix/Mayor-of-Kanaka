@@ -1,6 +1,6 @@
 # Some construction works not illustrated on the main city map:
 # Basically we are paying a reasonable amount of money per month and get some bonuses for it
-# Ex: upgrading the electricity network 
+# Ex: upgrading the electricity network
 extends DecisionSimple
 
 export(Array, Array, String) var event_title_description = [
