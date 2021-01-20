@@ -27,9 +27,11 @@ export(Vector2) var initial_townhall_position = Vector2(11, 7)
 # Could be added to the game params
 export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRONT_ONLY
 
-export(float, 0, 1) var new_house_probability = 0.5
+export(float, 0, 1) var new_house_probability := 0.5
 export(int) var max_city_length := 20000000
 export(int) var new_house_choices_max_count := 100
+
+export(float, 0, 1) var alternative_road_probability := 0.5
 
 # Must be a positive value
 export(int, 0, 2e9) var map_size_padding := 0
@@ -79,6 +81,7 @@ onready var cell_size: Vector2 = foreground_city.cell_size
 
 onready var turn_controller := TurnController.get_turn_controller(get_tree())
 
+onready var tileid_background_empty := tile_set.find_tile_by_name(tilename_background_empty_tile)
 onready var tileid_background_filled := tile_set.find_tile_by_name(tilename_background_filled_tile)
 
 # An iterator to go through each cell in order of manhattan distance
@@ -98,6 +101,10 @@ func reset_map() -> void:
 	var townhall_dims = _get_tile_size(tilename_townhall)
 	top_left_map_corner = Vector2(0, 0)
 	bottom_right_map_corner = ((get_viewport_rect().size / cell_size) / full_city.transform.get_scale()).ceil()
+	
+	for i in range(top_left_map_corner.x, bottom_right_map_corner.x):
+		for j in range(top_left_map_corner.y, bottom_right_map_corner.y):
+			background_city.set_cell(i, j, tileid_background_empty)
 
 	_add_tile_at(tilename_townhall, initial_townhall_position, townhall_dims)
 	match initial_townhall_surrounding_roads:
@@ -196,15 +203,15 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 # Will add a single road tile and connect it around
 # TODO: make it connect to nearby roads
 func add_road(x: int, y: int, neighbours_too := true) -> void:
-	background_city.set_cell(x, y, tileid_background_filled)
 	_expand_city_dims(Vector2(x, y))
+	background_city.set_cell(x, y, tileid_background_filled)
 	var neighbours = [0, 0, 0, 0]
 	
 	neighbours[PathTilesManager.Direction.UP] = _get_neighbor_connectivity(x, y, 0, -1)
 	neighbours[PathTilesManager.Direction.LEFT] = _get_neighbor_connectivity(x, y, -1, 0)
 	neighbours[PathTilesManager.Direction.RIGHT] = _get_neighbor_connectivity(x, y, 1, 0)
 	neighbours[PathTilesManager.Direction.DOWN] = _get_neighbor_connectivity(x, y, 0, 1)
-	foreground_city.set_cell(x, y, path_tiles.get_tileid_from_neighbours(neighbours))
+	foreground_city.set_cell(x, y, path_tiles.get_tileid_from_neighbours(neighbours, alternative_road_probability))
 	
 	if neighbours_too:
 		for dir in PathTilesManager.Direction:
@@ -246,40 +253,55 @@ func _get_tile_size(tile_name: String) -> Vector2:
 		y += 1
 	return Vector2(x, y)
 
+func fill_expansion(start: Vector2, end: Vector2):
+	for i in range(start.x, end.x + 1):
+		for j in range(start.y, end.y + 1):
+			if background_city.get_cell(i, j) == TileMap.INVALID_CELL:
+				background_city.set_cell(i, j, tileid_background_empty)
+
 # This will not expand the city, but rather change its dimensions
 # if the new position was outside the previous dimensions
 func _expand_city_dims(where: Vector2):
 	var did_expand := false
 	if where.x - map_size_padding < top_left_map_corner.x:
+		fill_expansion(Vector2(where.x - map_size_padding, top_left_map_corner.y),
+				Vector2(top_left_map_corner.x, bottom_right_map_corner.y))
 		top_left_map_corner.x = where.x - map_size_padding
 		did_expand = true
 	if where.x + map_size_padding >= bottom_right_map_corner.x:
+		fill_expansion(Vector2(bottom_right_map_corner.x, top_left_map_corner.y),
+				Vector2(where.x + map_size_padding, bottom_right_map_corner.y))
 		bottom_right_map_corner.x = where.x + 1 + map_size_padding
 		did_expand = true
 	if where.y - map_size_padding < top_left_map_corner.y:
+		fill_expansion(Vector2(top_left_map_corner.x, where.y - map_size_padding),
+				Vector2(bottom_right_map_corner.x, top_left_map_corner.y))
 		top_left_map_corner.y = where.y - map_size_padding
 		did_expand = true
 	if where.y + map_size_padding >= bottom_right_map_corner.y:
+		fill_expansion(Vector2(top_left_map_corner.x, bottom_right_map_corner.y),
+				Vector2(bottom_right_map_corner.x, where.y + map_size_padding))
 		bottom_right_map_corner.y = where.y + 1 + map_size_padding
 		did_expand = true
 	emit_signal("city_dimensions_changed", top_left_map_corner, bottom_right_map_corner)
 
 func _add_tile_at(tile_name: String, where: Vector2, dims: Vector2):
 	var tile_id = tile_set.find_tile_by_name(tile_name)
+	_expand_city_dims(where)
+	_expand_city_dims(where + dims - Vector2.ONE)
 	for i in range(dims.x):
 		for j in range(dims.y):
 			background_city.set_cellv(where + Vector2(i, j), tileid_background_filled)
 	foreground_city.set_cellv(where, tile_id)
-	_expand_city_dims(where)
-	_expand_city_dims(where + dims - Vector2.ONE)
 
 # Returns whether a cell is part of the city or empty
 func _cell_connects_to_city(x: int, y: int) -> bool:
-	return background_city.get_cell(x, y) != TileMap.INVALID_CELL
+	var curr_constr := background_city.get_cell(x, y)
+	return curr_constr != tileid_background_empty && curr_constr != TileMap.INVALID_CELL
 
 # Returns whether a building or road can be created here
 func _can_build_on_cell(x: int, y: int) -> bool:
-	return background_city.get_cell(x, y) == TileMap.INVALID_CELL
+	return ! _cell_connects_to_city(x, y)
 
 # TODO: make this take into account roads and the like
 # (give roads a different background than buildings for this?)
