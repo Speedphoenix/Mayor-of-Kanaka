@@ -1,0 +1,163 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/menu/OptionMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/menu/buttonClick.png" type="Texture" id=2]
+[ext_resource path="res://assets/menu/buttonNormal.png" type="Texture" id=3]
+[ext_resource path="res://assets/menu/button_font.tres" type="DynamicFont" id=4]
+
+[node name="OptionMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0156863, 0.470588, 0.298039, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Colum1" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 780.0
+margin_bottom = 40.0
+
+[node name="SonorEffects" type="CheckButton" parent="HBoxContainer/Colum1"]
+margin_right = 780.0
+margin_bottom = 40.0
+text = "Sonor Effects"
+
+[node name="Colum2" type="VBoxContainer" parent="HBoxContainer"]
+margin_top = 55.0
+margin_right = 780.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="LinkGooglePlay" type="TextureButton" parent="HBoxContainer/Colum2"]
+margin_right = 780.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 2 )
+expand = true
+
+[node name="Label" type="Label" parent="HBoxContainer/Colum2/LinkGooglePlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Link Google Play Account"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Colum4" type="VBoxContainer" parent="HBoxContainer"]
+margin_top = 110.0
+margin_right = 780.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="HowToPlay" type="TextureButton" parent="HBoxContainer/Colum4"]
+margin_right = 780.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 2 )
+expand = true
+
+[node name="Label" type="Label" parent="HBoxContainer/Colum4/HowToPlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "How to Play"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Colum5" type="VBoxContainer" parent="HBoxContainer"]
+margin_top = 165.0
+margin_right = 780.0
+margin_bottom = 205.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Credits" type="TextureButton" parent="HBoxContainer/Colum5"]
+margin_right = 780.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 2 )
+expand = true
+
+[node name="Label" type="Label" parent="HBoxContainer/Colum5/Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Credits"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Colum6" type="VBoxContainer" parent="HBoxContainer"]
+margin_top = 220.0
+margin_right = 780.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Label" type="Label" parent="HBoxContainer/Colum6"]
+margin_right = 780.0
+margin_bottom = 14.0
+text = "Langage: "
+align = 1
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer/Colum6"]
+margin_top = 18.0
+margin_right = 780.0
+margin_bottom = 38.0
+
+[node name="Colum3" type="VBoxContainer" parent="HBoxContainer"]
+margin_top = 275.0
+margin_right = 780.0
+margin_bottom = 315.0
+
+[node name="Exit" type="TextureButton" parent="HBoxContainer/Colum3"]
+margin_right = 780.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+expand = true
+
+[node name="Label" type="Label" parent="HBoxContainer/Colum3/Exit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "Back"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="HBoxContainer/Colum1/SonorEffects" to="." method="_on_CheckButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/Colum1/SonorEffects" to="." method="_on_SonorEffects_pressed"]
+[connection signal="pressed" from="HBoxContainer/Colum4/HowToPlay" to="." method="_on_HowToPlay_pressed"]
+[connection signal="pressed" from="HBoxContainer/Colum5/Credits" to="." method="_on_Credits_pressed"]
+[connection signal="pressed" from="HBoxContainer/Colum3/Exit" to="." method="_on_Exit_pressed"]
