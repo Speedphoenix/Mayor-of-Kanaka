@@ -36,3 +36,10 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	var name_desc_chooser = rng.randi_range(0, possible_title_and_description.size() - 1)
 	title = possible_title_and_description[name_desc_chooser][0]
 	description = possible_title_and_description[name_desc_chooser][1]
+
+func on_accepted(scene_tree: SceneTree) -> void:
+	.on_accepted(scene_tree)
+	#if citizens stress is too elevated, this event will trigger public unsatisfaction
+	if (gauge_controller.get_gauge('STRESS') > 51):
+		event_controller.enable_or_add_possible_event(depending_event)
+		event_controller.trigger_immediate_event(depending_event)

@@ -73,6 +73,47 @@ __meta__ = {
 [node name="eventAdder" type="Node" parent="."]
 script = ExtResource( 3 )
 events = [ ExtResource( 4 ), ExtResource( 5 ) ]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 425.0
+margin_top = 124.0
+margin_right = 609.0
+margin_bottom = 210.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GUI" type="MarginContainer" parent="ScrollContainer"]
+margin_right = 160.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 160, 150 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/GUI"]
+margin_right = 160.0
+margin_bottom = 150.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ScrollContainer/GUI/VBoxContainer"]
+margin_right = 160.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/GUI/VBoxContainer"]
+margin_top = 4.0
+margin_right = 160.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="ColorRect2" type="ColorRect" parent="ScrollContainer/GUI/VBoxContainer"]
+margin_top = 58.0
+margin_right = 160.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="Label" type="Label" parent="ScrollContainer/GUI/VBoxContainer"]
+margin_top = 112.0
+margin_right = 160.0
+margin_bottom = 126.0
 [connection signal="miniturn_changed" from="GlobalObject/TurnController" to="TestLabel" method="showmachin"]
 [connection signal="turn_changed" from="GlobalObject/TurnController" to="TestLabel" method="showmachin"]
 [connection signal="events_arrived" from="GlobalObject/EventController" to="eventAdder" method="_on_EventController_events_arrived"]

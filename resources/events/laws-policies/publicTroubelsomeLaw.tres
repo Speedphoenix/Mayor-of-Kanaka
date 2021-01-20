@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://resources/events/laws-policies/PublicTroubelsomeLaw.gd" type="Script" id=1]
+[ext_resource path="res://resources/events/dependable-events/citizenUnsatisfied.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -11,4 +12,5 @@ accept_msg = "Accept"
 refuse_msg = "Refuse"
 weight = 2
 trigger_count = -1
+depending_event = ExtResource( 2 )
 possible_title_and_description = [ [ "Implement a curfew", "Restrict citizen mobility between 8PM and 6AM" ], [ "Add restrictions in order to limit CO2 emissions", "Only vehicles having a licence plate with even numbers should be allowed to move in the city (concerns only civilian private transport)" ] ]
