@@ -1,6 +1,6 @@
 extends Control
 
-
+const mainscene = preload("res://scenes/MainScene.tscn")
 
 func _on_Options_pressed():
 	var option_menu = load("res://scenes/menu/OptionMenu.tscn").instance()
@@ -16,4 +16,6 @@ func _on_Exit_pressed():
 
 func _on_NewGame_pressed():
 	print("new game")
-	pass # Replace with function body.
+	get_tree().change_scene("res://scenes/MainScene.tscn")
+	queue_free()
+	

@@ -93,7 +93,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Mayor of Kanaka"
-run/main_scene="res://scenes/MainScene.tscn"
+run/main_scene="res://scenes/menu/GameMenu.tscn"
 
 [display]
 

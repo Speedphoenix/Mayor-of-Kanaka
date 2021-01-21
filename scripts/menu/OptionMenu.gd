@@ -15,7 +15,10 @@ func CloseHowToPlay():
 	get_node("HowToPlay").queue_free()
 
 
-func _on_SonorEffects_pressed():
+func _on_SoundEffects_pressed():
+	pass # Replace with function body.
+	
+func _on_Music_pressed():
 	pass # Replace with function body.
 
 
@@ -26,3 +29,4 @@ func _on_Credits_pressed():
 
 func CloseCredits():
 	get_node("Credits").queue_free()
+
