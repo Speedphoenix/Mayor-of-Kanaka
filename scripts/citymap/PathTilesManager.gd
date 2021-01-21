@@ -130,11 +130,20 @@ func _init(tile_set: TileSet):
 		if el.can_replace_default:
 			road_tiles_list.append(el.tileid)
 
-func get_tileid_from_neighbours(neighbours: Array) -> int:
+func get_tileid_from_neighbours(neighbours: Array, alt_probability := 0.0) -> int:
+	var found := TileMap.INVALID_CELL
+	var alts := []
 	for el in tiles:
 		if el.neighbours_array == neighbours:
-			return el.tileid
-	return TileMap.INVALID_CELL
+			found = el.tileid
+	for el in alt_tiles:
+		if el.can_replace_default && el.neighbours_array == neighbours:
+			alts.append(el.tileid)
+	if alts.empty():
+		return found
+	elif found == TileMap.INVALID_CELL || randf() < alt_probability:
+		return WeightChoice.choose_random_from_array(alts)
+	return found
 
 # TODO: take direction into account for stuff like bus stops that can't be changed
 # (you can only connect to a bus stop road tile if you're ahead or behind it)

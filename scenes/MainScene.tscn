@@ -1,32 +1,32 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
+[ext_resource path="res://scripts/UI/InterfaceController.gd" type="Script" id=1]
 [ext_resource path="res://scenes/DateDisplayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/EventDisplayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/GaugesDisplayer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/EventLogDisplayer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/CityMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/PausePlayDisplayer.tscn" type="PackedScene" id=8]
 
 [node name="Game" type="Node2D"]
 
 [node name="GlobalObject" parent="." instance=ExtResource( 7 )]
 
-[node name="Background" type="ColorRect" parent="."]
-margin_left = -666.406
-margin_top = -654.082
-margin_right = 1623.59
-margin_bottom = 1218.92
-color = Color( 0.0313726, 0.34902, 0.027451, 1 )
+[node name="CityMap" parent="." instance=ExtResource( 6 )]
+
+[node name="InterfaceController" type="Control" parent="."]
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CityMap" parent="." instance=ExtResource( 6 )]
+[node name="DateDisplayer" parent="InterfaceController" instance=ExtResource( 2 )]
 
-[node name="DateDisplayer" parent="." instance=ExtResource( 2 )]
+[node name="EventDisplayer" parent="InterfaceController" instance=ExtResource( 3 )]
 
-[node name="EventDisplayer" parent="." instance=ExtResource( 3 )]
+[node name="GaugesDisplayer" parent="InterfaceController" instance=ExtResource( 4 )]
 
-[node name="GaugesDisplayer" parent="." instance=ExtResource( 4 )]
+[node name="EventLogDisplayer" parent="InterfaceController" instance=ExtResource( 5 )]
 
-[node name="EventLogDisplayer" parent="." instance=ExtResource( 5 )]
+[node name="PausePlayDisplayer" parent="InterfaceController" instance=ExtResource( 8 )]

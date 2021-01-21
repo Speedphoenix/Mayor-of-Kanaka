@@ -14,7 +14,7 @@ signal gauge_created(gauge_name, value)
 export(bool) var emit_signal_on_identical_new_value = false
 
 # This is set through the GameParameters
-var gauge_limits: Dictionary = {
+var _gauge_limits: Dictionary = {
 	"BUDGET": {
 		"LOWER": 0,
 	}
@@ -49,7 +49,7 @@ func set_gauge_limits(name: String, limits: Dictionary) -> void:
 	if old_value != new_value:
 		emit_signal("gauge_changed", name, new_value, old_value)
 
-# limits should be a dictionary of the same type as gauge_limits
+# limits should be a dictionary of the same type as _gauge_limits
 func set_gauges_limits(limits: Dictionary):
 	for name in limits:
 		set_gauge_limits(name, limits[name])
@@ -87,16 +87,18 @@ func apply_to_gauges(differences: Dictionary) -> void:
 
 # limits should contain either "LOWER", "UPPER" or both
 func _set_gauge_limits(name: String, limits: Dictionary) -> void:
-	if !(name in gauge_limits):
-		gauge_limits[name] = {}
+	if !(name in _gauge_limits):
+		_gauge_limits[name] = {}
 	if "LOWER" in limits:
-		gauge_limits[name]["LOWER"] = limits["LOWER"]
+		_gauge_limits[name]["LOWER"] = limits["LOWER"]
 	if "UPPER" in limits:
-		gauge_limits[name]["UPPER"] = limits["UPPER"]
+		_gauge_limits[name]["UPPER"] = limits["UPPER"]
 	if "LOWER" in limits && "UPPER" in limits:
-		assert(gauge_limits[name]["UPPER"] >= gauge_limits[name]["LOWER"])
-		gauge_limits[name]["LOWER"] = gauge_limits[name]["UPPER"]
-		# assert only kills the execution in debug builds
+		assert(_gauge_limits[name]["UPPER"] >= _gauge_limits[name]["LOWER"])
+		if _gauge_limits[name]["UPPER"] < _gauge_limits[name]["LOWER"]:
+			_gauge_limits[name]["LOWER"] = _gauge_limits[name]["UPPER"]
+		# assert only kills the execution in debug builds.
+		# In production builds we want it to keep playing silently
 	_apply_limits(name)
 
 func _gauges_are_different(gauges1: Dictionary, gauges2: Dictionary):
@@ -106,9 +108,9 @@ func _gauges_are_different(gauges1: Dictionary, gauges2: Dictionary):
 	return false
 
 func _apply_limits(name: String) -> float:
-	if gauge_limits.has(name):
-		if gauge_limits[name].has("LOWER") && _gauges[name] < gauge_limits[name].LOWER:
-			_gauges[name] = gauge_limits[name].LOWER
-		if gauge_limits[name].has("UPPER") && _gauges[name] > gauge_limits[name].UPPER:
-			_gauges[name] = gauge_limits[name].UPPER
+	if _gauge_limits.has(name):
+		if _gauge_limits[name].has("LOWER") && _gauges[name] < _gauge_limits[name].LOWER:
+			_gauges[name] = _gauge_limits[name].LOWER
+		if _gauge_limits[name].has("UPPER") && _gauges[name] > _gauge_limits[name].UPPER:
+			_gauges[name] = _gauge_limits[name].UPPER
 	return _gauges[name]

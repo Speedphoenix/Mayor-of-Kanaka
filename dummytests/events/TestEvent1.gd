@@ -3,7 +3,7 @@ extends DecisionSimple
 # should have an effect on the various gauges 
 
 func _init():
-	print("I am test event 1")
+#	print("I am test event 1")
 	accept_effects = {
 		"on_gauges": {
 			"BUDGET": -15,
