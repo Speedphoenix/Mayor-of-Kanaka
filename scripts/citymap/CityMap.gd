@@ -28,7 +28,7 @@ export(Vector2) var initial_townhall_position = Vector2(11, 7)
 export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRONT_ONLY
 
 export(float, 0, 1) var new_house_probability := 0.5
-export(int) var max_city_length := 20000000
+export(int) var max_city_length := 20000
 export(int) var new_house_choices_max_count := 100
 
 export(float, 0, 1) var alternative_road_probability := 0.5
@@ -84,7 +84,8 @@ onready var turn_controller := TurnController.get_turn_controller(get_tree())
 onready var tileid_background_empty := tile_set.find_tile_by_name(tilename_background_empty_tile)
 onready var tileid_background_filled := tile_set.find_tile_by_name(tilename_background_filled_tile)
 
-# An iterator to go through each cell in order of manhattan distance
+static func get_city_map(scene_tree: SceneTree) -> CityMap:
+	return scene_tree.get_current_scene().get_node("CityMap") as CityMap
 
 func _ready():
 	assert(tile_set == foreground_city.tile_set && tile_set == background_city.tile_set)
@@ -118,16 +119,23 @@ func reset_map() -> void:
 				add_road(pos.x, pos.y)
 
 # TODO:
+func remove_building(where: Vector2, dims: Vector2):
+	pass
+
+func add_building(tile_name: String, where: Vector2, dims: Vector2):
+	assert(_spot_is_available(where, dims))
+	_add_tile_at(tile_name, where, dims)
+	construct_road_to(where, dims)
+
+# TODO:
 # - A more random choice (make it randomer)
-# - Take only spots that are contiguous to the rest of the city?
-# - Allow for different sizes of houses
 # - Make the steps above generic and usable for other buildings
 func add_random_house() -> bool:
 	assert(!houses.empty())
 	var chosen_house: Dictionary = WeightChoice.choose_dict_by_weight(houses)
 	assert(chosen_house.has("dimensions"))
 	var house_dims: Vector2 = chosen_house.dimensions
-	var spots := _get_available_spots(house_dims, initial_townhall_position,
+	var spots := get_available_spots(house_dims, initial_townhall_position,
 			new_house_choices_max_count, max_city_length)
 	if spots.size() > 0:
 		var chosen_spot = WeightChoice.choose_random_from_array(spots)
@@ -220,6 +228,28 @@ func add_road(x: int, y: int, neighbours_too := true) -> void:
 				# make sure the neighbours connect themselves
 				add_road(x + diff.x, y + diff.y, false)
 
+# Returns an array of Vector2 that indicate possible positions
+#
+# Note that it may return an array smaller than count
+# The returned array has the closest cell at the front
+# Remember to shuffle the array before using it
+# search_limit is inclusive and decides how far to look in terms of Manhattan distance
+func get_available_spots(
+	dims: Vector2,
+	around_where: Vector2,
+	count: int = 1,
+	search_limit: int = max_city_length,
+	method: int = BFS_SEARCH
+) -> Array:
+	match method:
+		TAXI_CAB_SEARCH:
+			return _get_available_spots_manhattan(dims, around_where, count, search_limit)
+		_, BFS_SEARCH:
+			return _get_available_spots_bfs(dims, around_where, count, search_limit, townhall_dims)
+
+func get_town_hall_center_position() -> Vector2:
+	return (initial_townhall_position + (townhall_dims / 2)).floor()
+
 # Will attempt to move the map.
 func move_map(diff: Vector2) -> void:
 	full_city.position += diff
@@ -253,7 +283,7 @@ func _get_tile_size(tile_name: String) -> Vector2:
 		y += 1
 	return Vector2(x, y)
 
-func fill_expansion(start: Vector2, end: Vector2):
+func _fill_expansion(start: Vector2, end: Vector2):
 	for i in range(start.x, end.x + 1):
 		for j in range(start.y, end.y + 1):
 			if background_city.get_cell(i, j) == TileMap.INVALID_CELL:
@@ -264,22 +294,22 @@ func fill_expansion(start: Vector2, end: Vector2):
 func _expand_city_dims(where: Vector2):
 	var did_expand := false
 	if where.x - map_size_padding < top_left_map_corner.x:
-		fill_expansion(Vector2(where.x - map_size_padding, top_left_map_corner.y),
+		_fill_expansion(Vector2(where.x - map_size_padding, top_left_map_corner.y),
 				Vector2(top_left_map_corner.x, bottom_right_map_corner.y))
 		top_left_map_corner.x = where.x - map_size_padding
 		did_expand = true
 	if where.x + map_size_padding >= bottom_right_map_corner.x:
-		fill_expansion(Vector2(bottom_right_map_corner.x, top_left_map_corner.y),
+		_fill_expansion(Vector2(bottom_right_map_corner.x, top_left_map_corner.y),
 				Vector2(where.x + map_size_padding, bottom_right_map_corner.y))
 		bottom_right_map_corner.x = where.x + 1 + map_size_padding
 		did_expand = true
 	if where.y - map_size_padding < top_left_map_corner.y:
-		fill_expansion(Vector2(top_left_map_corner.x, where.y - map_size_padding),
+		_fill_expansion(Vector2(top_left_map_corner.x, where.y - map_size_padding),
 				Vector2(bottom_right_map_corner.x, top_left_map_corner.y))
 		top_left_map_corner.y = where.y - map_size_padding
 		did_expand = true
 	if where.y + map_size_padding >= bottom_right_map_corner.y:
-		fill_expansion(Vector2(top_left_map_corner.x, bottom_right_map_corner.y),
+		_fill_expansion(Vector2(top_left_map_corner.x, bottom_right_map_corner.y),
 				Vector2(bottom_right_map_corner.x, where.y + map_size_padding))
 		bottom_right_map_corner.y = where.y + 1 + map_size_padding
 		did_expand = true
@@ -303,8 +333,6 @@ func _cell_connects_to_city(x: int, y: int) -> bool:
 func _can_build_on_cell(x: int, y: int) -> bool:
 	return ! _cell_connects_to_city(x, y)
 
-# TODO: make this take into account roads and the like
-# (give roads a different background than buildings for this?)
 func _spot_is_available(pos: Vector2, dims: Vector2) -> bool:
 	for i in range(dims.x):
 		for j in range(dims.y):
@@ -422,25 +450,6 @@ func _get_available_spots_bfs(
 					checked_already[to_add_cell] = true
 					next_cells.push_back(to_add_cell)
 	return rep
-
-# Returns an array of Vector2 that indicate possible positions
-#
-# Note that it may return an array smaller than count
-# The returned array has the closest cell at the front
-# Remember to shuffle the array before using it
-# search_limit is inclusive and decides how far to look in terms of Manhattan distance
-func _get_available_spots(
-	dims: Vector2,
-	around_where: Vector2,
-	count: int = 1,
-	search_limit: int = 5,
-	method: int = BFS_SEARCH
-) -> Array:
-	match method:
-		TAXI_CAB_SEARCH:
-			return _get_available_spots_manhattan(dims, around_where, count, search_limit)
-		_, BFS_SEARCH:
-			return _get_available_spots_bfs(dims, around_where, count, search_limit, townhall_dims)
 
 # TODO: add randomness (don't always add a house, add a random number...)
 func _on_anyturn_changed(turn_number, miniturn_number):
