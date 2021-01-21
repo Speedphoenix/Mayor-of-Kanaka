@@ -18,7 +18,6 @@ func _init():
 			"SATISFACTION": rng.randi_range(5, 15),
 		},
 	}
-	
 	#on decline
 	#no preventive measures taken, crisis strikes at it's full strength
 	refuse_or_expire_effects = {
@@ -28,7 +27,7 @@ func _init():
 			"BUDGET": rng.randi_range(-1000, -100),
 		},
 	}
-	
+
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 
