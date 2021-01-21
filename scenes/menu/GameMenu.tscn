@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/menu/title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/menu/GameMenu.gd" type="Script" id=2]
 [ext_resource path="res://assets/menu/buttonClick.png" type="Texture" id=3]
 [ext_resource path="res://assets/menu/buttonNormal.png" type="Texture" id=4]
 [ext_resource path="res://assets/menu/button_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/menu/Logo_Kanaka.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 15
+font_data = ExtResource( 6 )
 
 [node name="GameMenu" type="Control"]
 anchor_right = 1.0
@@ -18,34 +24,73 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0156863, 0.454902, 0.290196, 1 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_right = 800.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 0, 35 )
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 40.0
+margin_top = 6.0
+margin_right = 100.0
+margin_bottom = 86.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="title" type="Label" parent="VBoxContainer"]
-margin_top = 50.0
-margin_right = 800.0
-margin_bottom = 97.0
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+margin_right = 60.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="Titlecontainer" type="VBoxContainer" parent="."]
+margin_right = 801.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Titlecontainer"]
+margin_right = 801.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="title" type="Label" parent="Titlecontainer"]
+margin_top = 19.0
+margin_right = 801.0
+margin_bottom = 66.0
 custom_fonts/font = ExtResource( 1 )
 text = "Mayor of Kanaka"
 align = 1
 valign = 1
 
-[node name="NewGame" type="TextureButton" parent="VBoxContainer"]
-margin_left = 270.0
-margin_top = 112.0
-margin_right = 530.0
-margin_bottom = 162.0
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_top = 90.0
+margin_right = 800.0
+margin_bottom = 365.0
+color = Color( 0.396078, 0.894118, 0.870588, 1 )
+
+[node name="HScrollBar" type="ScrollContainer" parent="."]
+margin_left = 5.0
+margin_top = 92.0
+margin_right = 798.0
+margin_bottom = 362.0
+scroll_vertical_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="HBoxContainer" parent="HScrollBar"]
+margin_right = 1085.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 0, 255 )
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame" type="TextureButton" parent="HScrollBar/VBoxContainer"]
+margin_right = 260.0
+margin_bottom = 255.0
 rect_min_size = Vector2( 260, 50 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 4 )
@@ -53,22 +98,42 @@ texture_pressed = ExtResource( 3 )
 texture_hover = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="VBoxContainer/NewGame"]
+[node name="GameTitle" type="Label" parent="HScrollBar/VBoxContainer/NewGame"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.07108
+margin_top = 1.34314
+margin_right = -4.92892
+margin_bottom = -205.657
 custom_fonts/font = ExtResource( 5 )
-text = "New Game"
+text = "Paris"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Options" type="TextureButton" parent="VBoxContainer"]
-margin_left = 270.0
-margin_top = 177.0
-margin_right = 530.0
-margin_bottom = 227.0
+[node name="GameInfos" type="Label" parent="HScrollBar/VBoxContainer/NewGame"]
+margin_left = 9.0
+margin_top = 65.0
+margin_right = 250.0
+margin_bottom = 240.0
+custom_fonts/font = SubResource( 1 )
+text = "Budget : 100
+Santé : 100
+écologie : 100
+Satisfaction citoyens: 100
+Stress du maire : 0
+"
+valign = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame4" type="TextureButton" parent="HScrollBar/VBoxContainer"]
+margin_left = 275.0
+margin_right = 535.0
+margin_bottom = 255.0
 rect_min_size = Vector2( 260, 50 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 4 )
@@ -76,7 +141,147 @@ texture_pressed = ExtResource( 3 )
 texture_hover = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="VBoxContainer/Options"]
+[node name="GameTitle" type="Label" parent="HScrollBar/VBoxContainer/NewGame4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.07108
+margin_top = 1.34314
+margin_right = -4.92892
+margin_bottom = -205.657
+custom_fonts/font = ExtResource( 5 )
+text = "Strasbourg"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameInfos" type="Label" parent="HScrollBar/VBoxContainer/NewGame4"]
+margin_left = 9.0
+margin_top = 65.0
+margin_right = 250.0
+margin_bottom = 240.0
+custom_fonts/font = SubResource( 1 )
+text = "Budget : 100
+Santé : 100
+écologie : 100
+Satisfaction citoyens: 100
+Stress du maire : 0
+"
+valign = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame2" type="TextureButton" parent="HScrollBar/VBoxContainer"]
+margin_left = 550.0
+margin_right = 810.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 260, 50 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+expand = true
+
+[node name="GameTitle" type="Label" parent="HScrollBar/VBoxContainer/NewGame2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.07108
+margin_top = 1.34314
+margin_right = -4.92892
+margin_bottom = -205.657
+custom_fonts/font = ExtResource( 5 )
+text = "Unknow"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameInfos" type="Label" parent="HScrollBar/VBoxContainer/NewGame2"]
+margin_left = 9.0
+margin_top = 65.0
+margin_right = 250.0
+margin_bottom = 240.0
+custom_fonts/font = SubResource( 1 )
+text = "Budget : 100
+Santé : 100
+écologie : 100
+Satisfaction citoyens: 100
+Stress du maire : 0
+"
+valign = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame3" type="TextureButton" parent="HScrollBar/VBoxContainer"]
+margin_left = 825.0
+margin_right = 1085.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 260, 50 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+expand = true
+
+[node name="GameTitle" type="Label" parent="HScrollBar/VBoxContainer/NewGame3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -22.0
+margin_bottom = -206.0
+custom_fonts/font = ExtResource( 5 )
+text = "New York"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameInfos" type="Label" parent="HScrollBar/VBoxContainer/NewGame3"]
+margin_left = 9.0
+margin_top = 63.3182
+margin_right = 250.0
+margin_bottom = 238.318
+custom_fonts/font = SubResource( 1 )
+text = "Budget : 100
+Santé : 100
+écologie : 100
+Satisfaction citoyens: 100
+Stress du maire : 0
+"
+valign = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="."]
+margin_left = 4.0
+margin_top = 421.0
+margin_right = 266.0
+margin_bottom = 477.0
+custom_constants/separation = 10
+
+[node name="Exit" type="VBoxContainer" parent="VBoxContainer3"]
+margin_right = 262.0
+margin_bottom = 50.0
+
+[node name="Options" type="TextureButton" parent="VBoxContainer3/Exit"]
+margin_right = 260.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 260, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer3/Exit/Options"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 5 )
@@ -87,19 +292,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exit" type="TextureButton" parent="VBoxContainer"]
-margin_left = 270.0
-margin_top = 242.0
-margin_right = 530.0
-margin_bottom = 292.0
+[node name="ExitContainer" type="VBoxContainer" parent="."]
+margin_left = 536.0
+margin_top = 421.0
+margin_right = 796.0
+margin_bottom = 471.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="TextureButton" parent="ExitContainer"]
+margin_right = 260.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 260, 50 )
-size_flags_horizontal = 4
+size_flags_horizontal = 0
+size_flags_vertical = 8
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 3 )
 texture_hover = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="VBoxContainer/Exit"]
+[node name="Label" type="Label" parent="ExitContainer/Exit"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 5 )
@@ -109,6 +322,9 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_Options_pressed"]
-[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="HScrollBar/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="HScrollBar/VBoxContainer/NewGame4" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="HScrollBar/VBoxContainer/NewGame2" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="HScrollBar/VBoxContainer/NewGame3" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="VBoxContainer3/Exit/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="ExitContainer/Exit" to="." method="_on_Exit_pressed"]
