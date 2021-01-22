@@ -33,7 +33,6 @@ export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRON
 
 export(float, 0, 1) var new_house_probability := 0.5
 export(int) var max_city_length := 20000
-export(int) var new_house_choices_max_count := 100
 
 export(float, 0, 1) var alternative_road_probability := 0.5
 
@@ -44,24 +43,6 @@ export(String) var tilename_background_empty_tile = "grass"
 export(String) var tilename_background_filled_tile = "concrete"
 export(String) var tilename_townhall = "townhall"
 
-export(Array, Dictionary) var houses := [
-	{
-		"tilename": "house",
-		"dimensions": Vector2(1, 1),
-		"weight": 8,
-	},
-	{
-		"tilename": "house_long_horizontal",
-		"dimensions": Vector2(2, 1),
-		"weight": 1,
-	},
-	{
-		"tilename": "house_long_vertical",
-		"dimensions": Vector2(1, 2),
-		"weight": 1,
-	},
-]
-
 var path_tiles: PathTilesManager
 
 var townhall_dims: Vector2
@@ -71,10 +52,6 @@ var top_left_map_corner := Vector2(0, 0)
 var bottom_right_map_corner := Vector2(0, 0)
 
 
-# This is a static background, could be a tilemap or an image.
-# It will not move and will likely not ever be used
-onready var background: Node2D = $Background
-
 onready var full_city: Node2D = $FullCity
 onready var background_city: TileMap = $FullCity/BackgroundCity
 onready var foreground_city: TileMap = $FullCity/ForegroundCity
@@ -82,8 +59,6 @@ onready var foreground_city: TileMap = $FullCity/ForegroundCity
 onready var tile_set: TileSet = foreground_city.tile_set
 
 onready var cell_size: Vector2 = foreground_city.cell_size
-
-onready var turn_controller := TurnController.get_turn_controller(get_tree())
 
 onready var tileid_background_empty := tile_set.find_tile_by_name(tilename_background_empty_tile)
 onready var tileid_background_filled := tile_set.find_tile_by_name(tilename_background_filled_tile)
@@ -94,8 +69,6 @@ static func get_city_map(scene_tree: SceneTree) -> CityMap:
 func _ready():
 	assert(tile_set == foreground_city.tile_set && tile_set == background_city.tile_set)
 	path_tiles = PathTilesManager.new(tile_set)
-	turn_controller.connect("miniturn_changed", self, "_on_anyturn_changed")
-	turn_controller.connect("turn_changed", self, "_on_anyturn_changed")
 	townhall_dims = _get_tile_size(tilename_townhall)
 	reset_map()
 
@@ -135,23 +108,6 @@ func add_building(tile_name: String, where: Vector2, dims: Vector2) -> void:
 	assert(_spot_is_available(where, dims))
 	_add_tile_at(tile_name, where, dims)
 	construct_road_to(where, dims)
-
-# TODO:
-# - A more random choice (make it randomer)
-# - Make the steps above generic and usable for other buildings
-func add_random_house() -> bool:
-	assert(!houses.empty())
-	var chosen_house: Dictionary = WeightChoice.choose_dict_by_weight(houses)
-	assert(chosen_house.has("dimensions"))
-	var house_dims: Vector2 = chosen_house.dimensions
-	var spots := get_available_spots(house_dims, initial_townhall_position,
-			new_house_choices_max_count, max_city_length)
-	if spots.size() > 0:
-		var chosen_spot = WeightChoice.choose_random_from_array(spots)
-		_add_tile_at(chosen_house.tilename, chosen_spot, house_dims)
-		construct_road_to(chosen_spot, house_dims)
-		return true
-	return false
 
 # This will add roads leading to where, but not inside it
 # If there is already a road touching it, will return immediately
@@ -462,11 +418,6 @@ func _get_available_spots_bfs(
 					checked_already[to_add_cell] = true
 					next_cells.push_back(to_add_cell)
 	return rep
-
-# TODO: add randomness (don't always add a house, add a random number...)
-func _on_anyturn_changed(turn_number, miniturn_number):
-	if randf() <= new_house_probability:
-		add_random_house()
 
 # Returns whether the cell contains a bit of road
 # TODO: rather if the cell is one of the possible road tiles

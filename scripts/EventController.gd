@@ -20,6 +20,11 @@ signal events_expired(events)
 # This passes an array of TriggeredEvent (not BaseEvent)
 signal active_events_changed(new_active_events)
 
+# Emitted when a possible triggerable event is added
+# This DOES NOT mean any event was triggered
+# This is triggered even if the new triggerable event has a weight of 0
+signal new_triggerable_event_added(new_triggerable)
+
 # An array of TriggerableEvents
 var triggerable_events: Array
 # An array of TriggeredEvents
@@ -215,6 +220,7 @@ func trigger_immediate_event(base_event: BaseEvent, trigger_count := 1) -> void:
 func add_possible_event(base_event: BaseEvent, weight := -1) -> void:
 	var new_event := TriggerableEvent.new(base_event, weight)
 	triggerable_events.append(new_event)
+	emit_signal("new_triggerable_event_added", new_event)
 
 func enable_or_add_possible_event(base_event: BaseEvent, weight := 1) -> void:
 	var triggerable := get_triggerable_event(base_event)

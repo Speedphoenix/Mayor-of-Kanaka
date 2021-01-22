@@ -8,7 +8,6 @@ signal gauge_changed(gauge_name, new_value, old_value)
 # signal gauges_changed(new_gauges, old_gauges)
 
 # Emitted when a new gauge is created
-# TODO:
 signal gauge_created(gauge_name, value)
 
 export(bool) var emit_signal_on_identical_new_value = false
