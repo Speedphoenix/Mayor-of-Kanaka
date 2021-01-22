@@ -23,6 +23,10 @@ const BLOCK_OVERLAP_NONE := 0
 const BLOCK_OVERLAP_WEAK := 1
 const BLOCK_OVERLAP_STRONG := 2
 
+# How the tiles indicating construction work's names start
+# for example a 3 by 2 construction work is named constructing_3x2 
+const CONSTRUCTING_NAME := "constructing_"
+
 export(Vector2) var initial_townhall_position = Vector2(11, 7)
 # Could be added to the game params
 export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRONT_ONLY
@@ -118,11 +122,16 @@ func reset_map() -> void:
 			for pos in TaxiCabIterator.get_adjacent_coords(initial_townhall_position, townhall_dims, true):
 				add_road(pos.x, pos.y)
 
-# TODO:
-func remove_building(where: Vector2, dims: Vector2):
-	pass
+func remove_building(where: Vector2, dims: Vector2) -> void:
+	for i in range(dims.x):
+		for j in range(dims.y):
+			background_city.set_cellv(where + Vector2(i, j), tileid_background_empty)
+	foreground_city.set_cellv(where, -1)
 
-func add_building(tile_name: String, where: Vector2, dims: Vector2):
+func add_construction_work(where: Vector2, dims: Vector2) -> void:
+	add_building(_get_construction_work_tilename(dims.x, dims.y), where, dims)
+
+func add_building(tile_name: String, where: Vector2, dims: Vector2) -> void:
 	assert(_spot_is_available(where, dims))
 	_add_tile_at(tile_name, where, dims)
 	construct_road_to(where, dims)
@@ -238,14 +247,17 @@ func get_available_spots(
 	dims: Vector2,
 	around_where: Vector2,
 	count: int = 1,
+	overlapping_ignore_level: int = BLOCK_OVERLAP_NONE,
 	search_limit: int = max_city_length,
-	method: int = BFS_SEARCH
+	method: int = BFS_SEARCH,
+	starting_zone_dimensions: Vector2 = townhall_dims
 ) -> Array:
 	match method:
 		TAXI_CAB_SEARCH:
 			return _get_available_spots_manhattan(dims, around_where, count, search_limit)
 		_, BFS_SEARCH:
-			return _get_available_spots_bfs(dims, around_where, count, search_limit, townhall_dims)
+			return _get_available_spots_bfs(dims, around_where, count, search_limit,
+					starting_zone_dimensions, overlapping_ignore_level)
 
 func get_town_hall_center_position() -> Vector2:
 	return (initial_townhall_position + (townhall_dims / 2)).floor()
@@ -331,7 +343,7 @@ func _cell_connects_to_city(x: int, y: int) -> bool:
 
 # Returns whether a building or road can be created here
 func _can_build_on_cell(x: int, y: int) -> bool:
-	return ! _cell_connects_to_city(x, y)
+	return !_cell_connects_to_city(x, y)
 
 func _spot_is_available(pos: Vector2, dims: Vector2) -> bool:
 	for i in range(dims.x):
@@ -438,7 +450,7 @@ func _get_available_spots_bfs(
 			if overlapping_ignore_level == BLOCK_OVERLAP_NONE: # may replace with a match in time
 				for el in to_add:
 					rep.append(el)
-					if rep.size() > count:
+					if rep.size() >= count:
 						break
 			elif !to_add.empty(): # BLOCK_OVERLAP_WEAK or STRONG
 				rep.append(to_add[0])
@@ -476,6 +488,9 @@ func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary):
 		current = passed_already[current]
 		if _can_build_on_cell(current.x, current.y):
 			add_road(current.x, current.y)
+
+func _get_construction_work_tilename(width: int, height: int) -> String:
+	return CONSTRUCTING_NAME + str(width) + "x" + str(height)
 
 func _on_DragInputArea_map_dragged(difference):
 	move_map(difference)
