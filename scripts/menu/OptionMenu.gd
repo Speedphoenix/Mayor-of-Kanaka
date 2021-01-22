@@ -21,7 +21,6 @@ func _on_SoundEffects_pressed():
 func _on_Music_pressed():
 	pass # Replace with function body.
 
-
 func _on_Credits_pressed():
 	var credits = load("res://scenes/menu/Credits.tscn").instance()
 	add_child(credits)
