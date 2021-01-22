@@ -42,7 +42,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	description = ('Mayor, our ' + title + ' needs an improvement. ' 
 		+ event_title_description[event_chosen][1]
 		+ ' The necessary intervention will cost ' + str(improvement_monthly_cost * -1) 
-		+ ' $ monthly')
+		+ 'K $ monthly')
 	accept_effects['on_gauges']['BUDGET'] = improvement_monthly_cost
 	accept_effects['on_gauges']['SATISFACTION'] = improvement_monthly_cost
 	accept_effects['on_gauges']['NATURE'] = improvement_monthly_cost

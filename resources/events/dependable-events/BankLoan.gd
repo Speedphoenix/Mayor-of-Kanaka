@@ -38,7 +38,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	accept_effects['on_gauges']['BUDGET'] = loan_amount
 	# ex: Loan amount: 1000$ Loan term: 14 month Loan percentage: 5% 
 	description = (
-		'Loan amount: ' + str(loan_amount) + '$ \n' + 
+		'Loan amount: ' + str(loan_amount) + 'K $ \n' + 
 		'Loan term: ' + str(loan_month_term) + ' month \n' + 
 		'Loan percentage: ' + str(loan_percent * 100) + '%'
 	)
