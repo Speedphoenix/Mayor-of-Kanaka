@@ -9,6 +9,7 @@ extends Node2D
 # when doing previews don't change the background tile until it's set in stone
 
 signal city_dimensions_changed(new_top_left, new_bottom_right)
+signal building_constructed(new_building_position, new_building_size)
 
 enum SurroundMode {
 	NO_SURROUND,
@@ -102,12 +103,14 @@ func remove_building(where: Vector2, dims: Vector2) -> void:
 	foreground_city.set_cellv(where, -1)
 
 func add_construction_work(where: Vector2, dims: Vector2) -> void:
-	add_building(_get_construction_work_tilename(dims.x, dims.y), where, dims)
+	add_building(_get_construction_work_tilename(dims.x, dims.y), where, dims, false)
 
-func add_building(tile_name: String, where: Vector2, dims: Vector2) -> void:
+func add_building(tile_name: String, where: Vector2, dims: Vector2, send_signal := true) -> void:
 	assert(_spot_is_available(where, dims))
 	_add_tile_at(tile_name, where, dims)
 	construct_road_to(where, dims)
+	if send_signal:
+		emit_signal("building_constructed", where, dims)
 
 # This will add roads leading to where, but not inside it
 # If there is already a road touching it, will return immediately
