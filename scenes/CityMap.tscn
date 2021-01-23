@@ -11,6 +11,7 @@ extents = Vector2( 400, 240 )
 script = ExtResource( 2 )
 initial_townhall_position = Vector2( 19, 10 )
 max_city_length = 100
+map_size_padding = 10
 
 [node name="FullCity" type="Node2D" parent="."]
 scale = Vector2( 0.25, 0.25 )
