@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/GameControllers/EducationController.gd" type="Script" id=1]
 [ext_resource path="res://resources/events/construction-works/schoolConstruction.tres" type="Resource" id=2]
 [ext_resource path="res://scripts/GameControllers/PopulationController.gd" type="Script" id=3]
+[ext_resource path="res://scripts/GameControllers/GameStateController.gd" type="Script" id=4]
 
 [node name="GameControllers" type="Node"]
 
@@ -12,3 +13,6 @@ school_construction_event = ExtResource( 2 )
 
 [node name="PopulationController" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[node name="GameStateController" type="Node" parent="."]
+script = ExtResource( 4 )
