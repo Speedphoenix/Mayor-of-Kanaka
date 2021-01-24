@@ -14,7 +14,6 @@ static func get_global_object(scene_tree: SceneTree) -> GlobalObject:
 	return scene_tree.get_current_scene().get_node("GlobalObject") as GlobalObject
 
 func _ready():
-	randomize()
 	assert(default_params is GameParameters)
 	_receive_game_parameters()
 	game_params.apply(get_tree())
