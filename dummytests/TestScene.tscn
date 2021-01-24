@@ -17,8 +17,10 @@ default_params = ExtResource( 6 )
 inter_miniturn_delay = 0.1
 inter_turn_delay = 0.1
 
-[node name="CityMap" parent="." instance=ExtResource( 7 )]
+[node name="PopulationController" parent="GlobalObject/GameControllers" index="1"]
 new_house_probability = 1.0
+
+[node name="CityMap" parent="." instance=ExtResource( 7 )]
 max_city_length = 500
 
 [node name="TestLabel" type="Label" parent="."]
@@ -108,3 +110,5 @@ text = "blabla"
 [connection signal="pressed" from="Button2" to="TestLabel" method="resumeit"]
 
 [editable path="GlobalObject"]
+
+[editable path="GlobalObject/GameControllers"]

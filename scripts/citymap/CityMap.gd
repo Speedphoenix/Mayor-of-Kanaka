@@ -32,7 +32,6 @@ export(Vector2) var initial_townhall_position = Vector2(11, 7)
 # Could be added to the game params
 export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRONT_ONLY
 
-export(float, 0, 1) var new_house_probability := 0.5
 export(int) var max_city_length := 20000
 
 export(float, 0, 1) var alternative_road_probability := 0.5
@@ -219,7 +218,7 @@ func get_available_spots(
 					starting_zone_dimensions, overlapping_ignore_level)
 
 func get_town_hall_center_position() -> Vector2:
-	return (initial_townhall_position + (townhall_dims / 2)).floor()
+	return (initial_townhall_position + ((townhall_dims - Vector2.ONE) / 2)).floor()
 
 # Will attempt to move the map.
 func move_map(diff: Vector2) -> void:
@@ -311,6 +310,12 @@ func _spot_is_available(pos: Vector2, dims: Vector2) -> bool:
 				return false
 	return true
 
+func _spot_touches_city(pos: Vector2, dims: Vector2) -> bool:
+	for el in TaxiCabIterator.get_adjacent_coords(pos, dims):
+		if _cell_connects_to_city(el.x, el.y):
+			return true
+	return false
+
 # Will return an array of available spots (Vector2) that include included_cell
 # TODO: find a better name for this func
 # TODO: optimize this with spot_is_available to not iterate n^2 times too many
@@ -399,7 +404,8 @@ func _get_available_spots_bfs(
 			var skipped := false
 			for el in available:
 				if !ignore_rep.has(el):
-					to_add.append(el)
+					if _spot_touches_city(el, dims):
+						to_add.append(el)
 				elif overlapping_ignore_level == BLOCK_OVERLAP_STRONG:
 					skipped = true
 					break
