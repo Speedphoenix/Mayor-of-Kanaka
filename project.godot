@@ -107,6 +107,10 @@ _global_script_class_icons={
 config/name="Mayor of Kanaka"
 run/main_scene="res://scenes/menu/GameMenu.tscn"
 
+[autoload]
+
+GlobalGameInfo="*res://scripts/GlobalGameInfo.gd"
+
 [display]
 
 window/size/width=800
