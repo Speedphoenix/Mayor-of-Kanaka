@@ -156,8 +156,8 @@ func tile_is_path(tileid: int, path_type := PathType.ANYPATH) -> bool:
 		if el.tileid == tileid:
 			return true
 	# TODO: specialize this?
-	for el in tiles:
-		if el.tileid == tileid:
+	for el in alt_tiles:
+		if el.tileid == tileid && el.can_replace_default:
 			return true
 	return false
 	

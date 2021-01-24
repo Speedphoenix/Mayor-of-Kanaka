@@ -7,6 +7,7 @@
 
 [resource]
 script = ExtResource( 1 )
+random_seed = 0
 initial_possible_events = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ]
 initial_gauges = {
 "BUDGET": 100,
