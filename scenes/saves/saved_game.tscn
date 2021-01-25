@@ -1,32 +1,33 @@
 [gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://scripts/UI/InterfaceController.gd" type="Script" id=1]
-[ext_resource path="res://scripts/UI/DateDisplayer.gd" type="Script" id=2]
-[ext_resource path="res://scripts/UI/EventDisplayer.gd" type="Script" id=3]
-[ext_resource path="res://scripts/UI/GaugesDisplayer.gd" type="Script" id=4]
-[ext_resource path="res://scripts/UI/EventLogDisplayer.gd" type="Script" id=5]
-[ext_resource path="res://scripts/citymap/CityMap.gd" type="Script" id=6]
-[ext_resource path="res://scripts/UI/PausePlayDisplayer.gd" type="Script" id=7]
-[ext_resource path="res://scripts/GlobalObject.gd" type="Script" id=8]
-[ext_resource path="res://resources/game_parameters/main_staging_game.tres" type="Resource" id=9]
-[ext_resource path="res://scripts/MenuDisplayer.gd" type="Script" id=10]
-[ext_resource path="res://scenes/UI/EventLogDisplayer.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/UI/PausePlayDisplayer.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/UI/MenuDisplayer.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/UI/GaugesDisplayer.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/UI/DateDisplayer.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/CityMap.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/UI/EventDisplayer.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/UI/MenuDisplayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/UI/PausePlayDisplayer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/UI/EventLogDisplayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/UI/DateDisplayer.gd" type="Script" id=4]
+[ext_resource path="res://scripts/UI/EventDisplayer.gd" type="Script" id=5]
+[ext_resource path="res://scripts/UI/InterfaceController.gd" type="Script" id=6]
+[ext_resource path="res://scripts/UI/GaugesDisplayer.gd" type="Script" id=7]
+[ext_resource path="res://scripts/UI/EventLogDisplayer.gd" type="Script" id=8]
+[ext_resource path="res://scripts/citymap/CityMap.gd" type="Script" id=9]
+[ext_resource path="res://resources/game_parameters/main_staging_game.tres" type="Resource" id=10]
+[ext_resource path="res://scripts/UI/PausePlayDisplayer.gd" type="Script" id=11]
+[ext_resource path="res://scripts/MenuDisplayer.gd" type="Script" id=12]
+[ext_resource path="res://scripts/GlobalObject.gd" type="Script" id=13]
+[ext_resource path="res://scenes/UI/EventDisplayer.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/CityMap.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/UI/GaugesDisplayer.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/UI/DateDisplayer.tscn" type="PackedScene" id=18]
 
 [node name="Game" type="Node"]
+pause_mode = 1
 
-[node name="GlobalObject" type="Node" parent="." instance=ExtResource( 14 )]
-script = ExtResource( 8 )
-default_params = ExtResource( 9 )
+[node name="GlobalObject" type="Node" parent="." instance=ExtResource( 17 )]
+script = ExtResource( 13 )
+default_params = ExtResource( 10 )
 
-[node name="CityMap" type="Node2D" parent="." instance=ExtResource( 17 )]
-script = ExtResource( 6 )
+[node name="CityMap" type="Node2D" parent="." instance=ExtResource( 15 )]
+script = ExtResource( 9 )
 initial_townhall_position = Vector2( 19, 10 )
 initial_townhall_surrounding_roads = 1
 max_city_length = 100
@@ -37,27 +38,27 @@ tilename_background_filled_tile = "concrete"
 tilename_townhall = "townhall"
 
 [node name="InterfaceController" type="Control" parent="."]
-script = ExtResource( 1 )
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DateDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 16 )]
-script = ExtResource( 2 )
+[node name="DateDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 18 )]
+script = ExtResource( 4 )
 
-[node name="EventDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 18 )]
-script = ExtResource( 3 )
+[node name="EventDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 14 )]
+script = ExtResource( 5 )
 draggable = true
 
-[node name="GaugesDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 15 )]
-script = ExtResource( 4 )
+[node name="GaugesDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 16 )]
+script = ExtResource( 7 )
 gaugesAsBars = false
 
-[node name="EventLogDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 11 )]
-script = ExtResource( 5 )
+[node name="EventLogDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 3 )]
+script = ExtResource( 8 )
 
-[node name="PausePlayDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 12 )]
-script = ExtResource( 7 )
+[node name="PausePlayDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 2 )]
+script = ExtResource( 11 )
 
-[node name="MenuDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 13 )]
-script = ExtResource( 10 )
+[node name="MenuDisplayer" type="CanvasLayer" parent="InterfaceController" instance=ExtResource( 1 )]
+script = ExtResource( 12 )

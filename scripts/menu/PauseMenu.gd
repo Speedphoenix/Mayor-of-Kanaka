@@ -8,6 +8,7 @@ func _on_Exit_pressed():
 
 func _on_MainMenu_pressed():
 	get_tree().change_scene("res://scenes/menu/GameMenu.tscn")
+	get_tree().paused = false
 
 
 func _on_Options_pressed():

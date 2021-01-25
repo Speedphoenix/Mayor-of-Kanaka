@@ -221,10 +221,10 @@ custom_constants/shadow_offset_y = 5
 text = "Options"
 align = 1
 valign = 1
-[connection signal="pressed" from="HBoxContainer/Colum1/SoundEffects" to="." method="_on_CheckButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/Colum1/SoundEffects" to="." method="_on_SonorEffects_pressed"]
-[connection signal="pressed" from="HBoxContainer/Colum1/Music" to="." method="_on_CheckButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/Colum1/SoundEffects" to="." method="_on_CheckButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/Colum1/Music" to="." method="_on_SonorEffects_pressed"]
+[connection signal="pressed" from="HBoxContainer/Colum1/Music" to="." method="_on_CheckButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/Column2/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="pressed" from="HBoxContainer/Column2/HowToPlay" to="." method="_on_HowToPlay_pressed"]
 [connection signal="pressed" from="Exit/Exit" to="." method="_on_Exit_pressed"]
