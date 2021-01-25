@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/UI/InterfaceController.gd" type="Script" id=1]
-[ext_resource path="res://scenes/DateDisplayer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/EventDisplayer.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/GaugesDisplayer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/EventLogDisplayer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/UI/DateDisplayer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/UI/EventDisplayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/UI/GaugesDisplayer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/UI/EventLogDisplayer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/CityMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/GlobalObject.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/PausePlayDisplayer.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/UI/PausePlayDisplayer.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/UI/MenuDisplayer.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node"]
 
@@ -30,3 +31,5 @@ __meta__ = {
 [node name="EventLogDisplayer" parent="InterfaceController" instance=ExtResource( 5 )]
 
 [node name="PausePlayDisplayer" parent="InterfaceController" instance=ExtResource( 8 )]
+
+[node name="MenuDisplayer" parent="InterfaceController" instance=ExtResource( 9 )]
