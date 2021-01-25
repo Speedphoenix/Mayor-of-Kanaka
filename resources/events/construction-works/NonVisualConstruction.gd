@@ -56,5 +56,7 @@ func on_accepted(scene_tree: SceneTree) -> void:
 func on_refused(scene_tree: SceneTree) -> void:
 	.on_refused(scene_tree)
 	#will add and trigger a BankLoan event
+	#var test_event: BaseEvent = depending_event.duplicate()
+	#test_event.title
 	event_controller.enable_or_add_possible_event(depending_event)
 	event_controller.trigger_immediate_event(depending_event)
