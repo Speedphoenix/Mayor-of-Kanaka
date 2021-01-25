@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/UI/NonInteractiveButtons.gd" type="Script" id=1]
+[ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/additional_ui/non_interactivec_frame.png" type="Texture" id=3]
+[ext_resource path="res://assets/additional_ui/non_interactivec_frame_hover.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+font_data = ExtResource( 2 )
+
+[node name="NonInteractiveButtons" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NonInteractiveFrame" type="ColorRect" parent="."]
+margin_left = 136.0
+margin_top = 249.0
+margin_right = 354.0
+margin_bottom = 296.0
+color = Color( 0.32549, 0.0980392, 0.0980392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NonInteractiveButton" type="TextureButton" parent="NonInteractiveFrame"]
+margin_left = 3.0
+margin_top = 4.0
+margin_right = 215.0
+margin_bottom = 44.0
+texture_normal = ExtResource( 3 )
+texture_hover = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NonInteractiveLabel" type="Label" parent="NonInteractiveFrame"]
+margin_right = 218.0
+margin_bottom = 47.0
+custom_fonts/font = SubResource( 1 )
+text = "Non interactive text"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
