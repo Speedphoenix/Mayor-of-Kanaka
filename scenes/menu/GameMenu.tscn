@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/menu/palette2/cfa892_rosé.png" type="Texture" id=11]
 
 [node name="GameMenu" type="Control"]
+pause_mode = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )

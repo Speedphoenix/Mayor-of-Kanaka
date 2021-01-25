@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/menu/palette2/c6ebc9_verttrèsclair.png" type="Texture" id=8]
 
 [node name="OptionMenu" type="Control"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 100.0
@@ -16,6 +17,18 @@ margin_top = 50.0
 margin_right = -100.0
 margin_bottom = -70.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 1.0
+margin_bottom = 1.00003
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -208,10 +221,10 @@ custom_constants/shadow_offset_y = 5
 text = "Options"
 align = 1
 valign = 1
-[connection signal="pressed" from="HBoxContainer/Colum1/SoundEffects" to="." method="_on_SonorEffects_pressed"]
 [connection signal="pressed" from="HBoxContainer/Colum1/SoundEffects" to="." method="_on_CheckButton_pressed"]
-[connection signal="pressed" from="HBoxContainer/Colum1/Music" to="." method="_on_SonorEffects_pressed"]
+[connection signal="pressed" from="HBoxContainer/Colum1/SoundEffects" to="." method="_on_SonorEffects_pressed"]
 [connection signal="pressed" from="HBoxContainer/Colum1/Music" to="." method="_on_CheckButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/Colum1/Music" to="." method="_on_SonorEffects_pressed"]
 [connection signal="pressed" from="HBoxContainer/Column2/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="pressed" from="HBoxContainer/Column2/HowToPlay" to="." method="_on_HowToPlay_pressed"]
 [connection signal="pressed" from="Exit/Exit" to="." method="_on_Exit_pressed"]

@@ -1,0 +1,155 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/menu/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/menu/textbuttonsoptionfont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/menu/button_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/menu/title_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/menu/palette2/cfa892_rosé.png" type="Texture" id=6]
+[ext_resource path="res://assets/menu/palette2/aa8976_marronrosé.png" type="Texture" id=7]
+[ext_resource path="res://assets/menu/palette2/c6ebc9_verttrèsclair.png" type="Texture" id=8]
+
+[node name="PauseMenu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 100.0
+margin_top = 50.0
+margin_right = -100.0
+margin_bottom = -70.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.439216, 0.686275, 0.521569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 85.0
+margin_right = -10.0
+margin_bottom = -98.0
+size_flags_horizontal = 3
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Column2" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 580.0
+margin_bottom = 100.0
+custom_constants/separation = 20
+
+[node name="Options" type="TextureButton" parent="HBoxContainer/Column2"]
+margin_right = 580.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+expand = true
+
+[node name="Label" type="Label" parent="HBoxContainer/Column2/Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.223529, 0.239216, 0.231373, 1 )
+text = "Options"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="TextureButton" parent="HBoxContainer/Column2"]
+margin_top = 60.0
+margin_right = 580.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 40 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+expand = true
+
+[node name="Label" type="Label" parent="HBoxContainer/Column2/MainMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.223529, 0.239216, 0.231373, 1 )
+text = "Main Menu"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="VBoxContainer" parent="."]
+anchor_left = 0.34
+anchor_top = 0.841
+anchor_right = 0.34
+anchor_bottom = 0.841
+margin_right = 201.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="TextureButton" parent="Resume"]
+margin_right = 201.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 8 )
+expand = true
+
+[node name="Label" type="Label" parent="Resume/Resume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 2.0
+margin_right = 1.52588e-05
+margin_bottom = -2.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.223529, 0.239216, 0.231373, 1 )
+custom_colors/font_color_shadow = Color( 0.776471, 0.921569, 0.788235, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 5
+text = "Resume"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -122.5
+margin_top = 5.0
+margin_right = 122.5
+margin_bottom = 47.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Title"]
+margin_right = 245.0
+margin_bottom = 47.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0.941176, 0.886275, 0.815686, 1 )
+custom_colors/font_color_shadow = Color( 0.32549, 0.34902, 0.337255, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 5
+text = "Pause"
+align = 1
+valign = 1
+[connection signal="pressed" from="HBoxContainer/Column2/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="HBoxContainer/Column2/MainMenu" to="." method="_on_MainMenu_pressed"]
+[connection signal="pressed" from="Resume/Resume" to="." method="_on_Exit_pressed"]

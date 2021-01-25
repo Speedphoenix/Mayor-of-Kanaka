@@ -1,20 +1,30 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/menu/title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/menu/palette2/cfa892_rosé.png" type="Texture" id=2]
+[ext_resource path="res://assets/menu/textfont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/menu/button_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scripts/menu/Credits.gd" type="Script" id=5]
 [ext_resource path="res://assets/menu/palette2/c6ebc9_verttrèsclair.png" type="Texture" id=6]
-[ext_resource path="res://assets/font/Revans-Medium.ttf" type="DynamicFontData" id=7]
-
-[sub_resource type="DynamicFont" id=1]
-size = 24
-font_data = ExtResource( 7 )
 
 [node name="Credits" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 6.10352e-05
+margin_bottom = 3.05176e-05
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 1.0
+margin_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -23,13 +33,16 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.439216, 0.686275, 0.521569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
 margin_right = -10.0
-custom_constants/separation = 20
+custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,11 +51,14 @@ __meta__ = {
 margin_right = 780.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="title" type="Label" parent="VBoxContainer"]
-margin_top = 40.0
+margin_top = 35.0
 margin_right = 780.0
-margin_bottom = 87.0
+margin_bottom = 82.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0.941176, 0.886275, 0.815686, 1 )
 custom_colors/font_color_shadow = Color( 0.32549, 0.34902, 0.337255, 1 )
@@ -53,10 +69,10 @@ align = 1
 valign = 1
 
 [node name="text" type="Label" parent="VBoxContainer"]
-margin_top = 107.0
+margin_top = 97.0
 margin_right = 780.0
-margin_bottom = 347.0
-custom_fonts/font = SubResource( 1 )
+margin_bottom = 301.0
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.941176, 0.886275, 0.815686, 1 )
 text = "Mayor of Kanaka                      Version 1.0
 
@@ -70,10 +86,14 @@ PFE n°43
 valign = 3
 
 [node name="ExitContainer" type="VBoxContainer" parent="."]
-margin_left = 586.0
-margin_top = 430.0
-margin_right = 786.0
-margin_bottom = 470.0
+anchor_left = 0.625
+anchor_top = 0.477
+anchor_right = 0.625
+anchor_bottom = 0.477
+margin_left = -2.5
+margin_top = 132.0
+margin_right = 197.5
+margin_bottom = 172.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -82,6 +102,8 @@ __meta__ = {
 margin_right = 200.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 200, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 2 )
 texture_hover = ExtResource( 6 )
@@ -93,7 +115,6 @@ anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.223529, 0.239216, 0.231373, 1 )
 custom_colors/font_color_shadow = Color( 0.776471, 0.921569, 0.788235, 1 )
-custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 5
 text = "Back"
 align = 1

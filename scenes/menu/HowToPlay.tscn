@@ -10,7 +10,21 @@
 [node name="HowToPlay" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 6.10352e-05
+margin_bottom = 3.05176e-05
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 1.0
+margin_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -57,17 +71,21 @@ valign = 1
 [node name="text" type="Label" parent="VBoxContainer"]
 margin_top = 97.0
 margin_right = 780.0
-margin_bottom = 121.0
+margin_bottom = 117.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.941176, 0.886275, 0.815686, 1 )
 text = "Blablblablabala"
 valign = 3
 
 [node name="ExitContainer" type="VBoxContainer" parent="."]
-margin_left = 586.0
-margin_top = 430.0
-margin_right = 786.0
-margin_bottom = 470.0
+anchor_left = 0.625
+anchor_top = 0.477
+anchor_right = 0.625
+anchor_bottom = 0.477
+margin_left = -2.5
+margin_top = 132.0
+margin_right = 197.5
+margin_bottom = 172.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
