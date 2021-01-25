@@ -33,5 +33,5 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	
 	description = ('Mayor, a trouble has occurred on '
 		+ street_name[rng.randi_range(0,street_name.size() - 1)] + ' Street.'
-		+ ' The necessary intervention will cost ' + str(work_cost * -1) + ' $')
+		+ ' The necessary intervention will cost ' + str(work_cost * -1) + 'K $')
 	accept_effects['on_gauges']['BUDGET'] = work_cost

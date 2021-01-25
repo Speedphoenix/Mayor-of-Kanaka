@@ -8,7 +8,6 @@ signal gauge_changed(gauge_name, new_value, old_value)
 # signal gauges_changed(new_gauges, old_gauges)
 
 # Emitted when a new gauge is created
-# TODO:
 signal gauge_created(gauge_name, value)
 
 export(bool) var emit_signal_on_identical_new_value = false
@@ -33,6 +32,9 @@ var _gauges: Dictionary = {
 static func get_gauge_controller(scene_tree: SceneTree) -> GaugeController:
 	# Not using GlobalObject.get_global_object because cyclic reference
 	return scene_tree.get_current_scene().get_node("GlobalObject/GaugeController") as GaugeController
+
+func gauge_exists(name: String) -> bool:
+	return _gauges.has(name)
 
 func create_gauge(name: String, initial_value: float = 0, limits := {}):
 	_gauges[name] = initial_value

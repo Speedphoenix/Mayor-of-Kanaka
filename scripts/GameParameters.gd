@@ -9,6 +9,10 @@ extends Resource
 # - The difficulty level, if it applies
 # - The initial state of the gauges
 
+# The random seed to use for this game
+# (does not apply to random number generators used internally by the events)
+export(int) var random_seed := 0
+
 export(Array, Resource) var initial_possible_events = []
 
 export(Dictionary) var initial_gauges := {
@@ -35,6 +39,10 @@ export(Dictionary) var gauge_limits: Dictionary = {
 
 
 func apply(scene_tree: SceneTree) -> void:
+	var rnd_seed = random_seed if random_seed != 0 else randi()
+	seed(rnd_seed)
+	print("Using random seed ", rnd_seed)
+	
 	var event_controller := EventController.get_event_controller(scene_tree)
 	var gauge_controller := GaugeController.get_gauge_controller(scene_tree)
 	

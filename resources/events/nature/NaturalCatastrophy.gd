@@ -38,7 +38,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	var preventive_measures_cost = rng.randi_range(-1000, -100)
 	
 	description = ('Nature is rebelling, Mayor. We must act immiditealy, or face unpleasant consequences.'
-		+ ' It will cost ' + str(preventive_measures_cost * -1) + ' $ for the city budget.' 
+		+ ' It will cost ' + str(preventive_measures_cost * -1) + 'K $ for the city budget.' 
 		+ ' The economic damage is yet unknown.')
 		
 	accept_effects['on_gauges']['BUDGET'] = preventive_measures_cost

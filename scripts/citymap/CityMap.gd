@@ -9,6 +9,7 @@ extends Node2D
 # when doing previews don't change the background tile until it's set in stone
 
 signal city_dimensions_changed(new_top_left, new_bottom_right)
+signal building_constructed(new_building_position, new_building_size)
 
 enum SurroundMode {
 	NO_SURROUND,
@@ -23,13 +24,15 @@ const BLOCK_OVERLAP_NONE := 0
 const BLOCK_OVERLAP_WEAK := 1
 const BLOCK_OVERLAP_STRONG := 2
 
+# How the tiles indicating construction work's names start
+# for example a 3 by 2 construction work is named constructing_3x2 
+const CONSTRUCTING_NAME := "constructing_"
+
 export(Vector2) var initial_townhall_position = Vector2(11, 7)
 # Could be added to the game params
 export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRONT_ONLY
 
-export(float, 0, 1) var new_house_probability := 0.5
-export(int) var max_city_length := 20000000
-export(int) var new_house_choices_max_count := 100
+export(int) var max_city_length := 20000
 
 export(float, 0, 1) var alternative_road_probability := 0.5
 
@@ -40,24 +43,6 @@ export(String) var tilename_background_empty_tile = "grass"
 export(String) var tilename_background_filled_tile = "concrete"
 export(String) var tilename_townhall = "townhall"
 
-export(Array, Dictionary) var houses := [
-	{
-		"tilename": "house",
-		"dimensions": Vector2(1, 1),
-		"weight": 8,
-	},
-	{
-		"tilename": "house_long_horizontal",
-		"dimensions": Vector2(2, 1),
-		"weight": 1,
-	},
-	{
-		"tilename": "house_long_vertical",
-		"dimensions": Vector2(1, 2),
-		"weight": 1,
-	},
-]
-
 var path_tiles: PathTilesManager
 
 var townhall_dims: Vector2
@@ -67,10 +52,6 @@ var top_left_map_corner := Vector2(0, 0)
 var bottom_right_map_corner := Vector2(0, 0)
 
 
-# This is a static background, could be a tilemap or an image.
-# It will not move and will likely not ever be used
-onready var background: Node2D = $Background
-
 onready var full_city: Node2D = $FullCity
 onready var background_city: TileMap = $FullCity/BackgroundCity
 onready var foreground_city: TileMap = $FullCity/ForegroundCity
@@ -79,18 +60,15 @@ onready var tile_set: TileSet = foreground_city.tile_set
 
 onready var cell_size: Vector2 = foreground_city.cell_size
 
-onready var turn_controller := TurnController.get_turn_controller(get_tree())
-
 onready var tileid_background_empty := tile_set.find_tile_by_name(tilename_background_empty_tile)
 onready var tileid_background_filled := tile_set.find_tile_by_name(tilename_background_filled_tile)
 
-# An iterator to go through each cell in order of manhattan distance
+static func get_city_map(scene_tree: SceneTree) -> CityMap:
+	return scene_tree.get_current_scene().get_node("CityMap") as CityMap
 
 func _ready():
 	assert(tile_set == foreground_city.tile_set && tile_set == background_city.tile_set)
 	path_tiles = PathTilesManager.new(tile_set)
-	turn_controller.connect("miniturn_changed", self, "_on_anyturn_changed")
-	turn_controller.connect("turn_changed", self, "_on_anyturn_changed")
 	townhall_dims = _get_tile_size(tilename_townhall)
 	reset_map()
 
@@ -117,24 +95,21 @@ func reset_map() -> void:
 			for pos in TaxiCabIterator.get_adjacent_coords(initial_townhall_position, townhall_dims, true):
 				add_road(pos.x, pos.y)
 
-# TODO:
-# - A more random choice (make it randomer)
-# - Take only spots that are contiguous to the rest of the city?
-# - Allow for different sizes of houses
-# - Make the steps above generic and usable for other buildings
-func add_random_house() -> bool:
-	assert(!houses.empty())
-	var chosen_house: Dictionary = WeightChoice.choose_dict_by_weight(houses)
-	assert(chosen_house.has("dimensions"))
-	var house_dims: Vector2 = chosen_house.dimensions
-	var spots := _get_available_spots(house_dims, initial_townhall_position,
-			new_house_choices_max_count, max_city_length)
-	if spots.size() > 0:
-		var chosen_spot = WeightChoice.choose_random_from_array(spots)
-		_add_tile_at(chosen_house.tilename, chosen_spot, house_dims)
-		construct_road_to(chosen_spot, house_dims)
-		return true
-	return false
+func remove_building(where: Vector2, dims: Vector2) -> void:
+	for i in range(dims.x):
+		for j in range(dims.y):
+			background_city.set_cellv(where + Vector2(i, j), tileid_background_empty)
+	foreground_city.set_cellv(where, -1)
+
+func add_construction_work(where: Vector2, dims: Vector2) -> void:
+	add_building(_get_construction_work_tilename(dims.x, dims.y), where, dims, false)
+
+func add_building(tile_name: String, where: Vector2, dims: Vector2, send_signal := true) -> void:
+	assert(_spot_is_available(where, dims))
+	_add_tile_at(tile_name, where, dims)
+	construct_road_to(where, dims)
+	if send_signal:
+		emit_signal("building_constructed", where, dims)
 
 # This will add roads leading to where, but not inside it
 # If there is already a road touching it, will return immediately
@@ -220,6 +195,31 @@ func add_road(x: int, y: int, neighbours_too := true) -> void:
 				# make sure the neighbours connect themselves
 				add_road(x + diff.x, y + diff.y, false)
 
+# Returns an array of Vector2 that indicate possible positions
+#
+# Note that it may return an array smaller than count
+# The returned array has the closest cell at the front
+# Remember to shuffle the array before using it
+# search_limit is inclusive and decides how far to look in terms of Manhattan distance
+func get_available_spots(
+	dims: Vector2,
+	around_where: Vector2,
+	count: int = 1,
+	overlapping_ignore_level: int = BLOCK_OVERLAP_NONE,
+	search_limit: int = max_city_length,
+	method: int = BFS_SEARCH,
+	starting_zone_dimensions: Vector2 = townhall_dims
+) -> Array:
+	match method:
+		TAXI_CAB_SEARCH:
+			return _get_available_spots_manhattan(dims, around_where, count, search_limit)
+		_, BFS_SEARCH:
+			return _get_available_spots_bfs(dims, around_where, count, search_limit,
+					starting_zone_dimensions, overlapping_ignore_level)
+
+func get_town_hall_center_position() -> Vector2:
+	return (initial_townhall_position + ((townhall_dims - Vector2.ONE) / 2)).floor()
+
 # Will attempt to move the map.
 func move_map(diff: Vector2) -> void:
 	full_city.position += diff
@@ -253,7 +253,7 @@ func _get_tile_size(tile_name: String) -> Vector2:
 		y += 1
 	return Vector2(x, y)
 
-func fill_expansion(start: Vector2, end: Vector2):
+func _fill_expansion(start: Vector2, end: Vector2):
 	for i in range(start.x, end.x + 1):
 		for j in range(start.y, end.y + 1):
 			if background_city.get_cell(i, j) == TileMap.INVALID_CELL:
@@ -264,22 +264,22 @@ func fill_expansion(start: Vector2, end: Vector2):
 func _expand_city_dims(where: Vector2):
 	var did_expand := false
 	if where.x - map_size_padding < top_left_map_corner.x:
-		fill_expansion(Vector2(where.x - map_size_padding, top_left_map_corner.y),
+		_fill_expansion(Vector2(where.x - map_size_padding, top_left_map_corner.y),
 				Vector2(top_left_map_corner.x, bottom_right_map_corner.y))
 		top_left_map_corner.x = where.x - map_size_padding
 		did_expand = true
 	if where.x + map_size_padding >= bottom_right_map_corner.x:
-		fill_expansion(Vector2(bottom_right_map_corner.x, top_left_map_corner.y),
+		_fill_expansion(Vector2(bottom_right_map_corner.x, top_left_map_corner.y),
 				Vector2(where.x + map_size_padding, bottom_right_map_corner.y))
 		bottom_right_map_corner.x = where.x + 1 + map_size_padding
 		did_expand = true
 	if where.y - map_size_padding < top_left_map_corner.y:
-		fill_expansion(Vector2(top_left_map_corner.x, where.y - map_size_padding),
+		_fill_expansion(Vector2(top_left_map_corner.x, where.y - map_size_padding),
 				Vector2(bottom_right_map_corner.x, top_left_map_corner.y))
 		top_left_map_corner.y = where.y - map_size_padding
 		did_expand = true
 	if where.y + map_size_padding >= bottom_right_map_corner.y:
-		fill_expansion(Vector2(top_left_map_corner.x, bottom_right_map_corner.y),
+		_fill_expansion(Vector2(top_left_map_corner.x, bottom_right_map_corner.y),
 				Vector2(bottom_right_map_corner.x, where.y + map_size_padding))
 		bottom_right_map_corner.y = where.y + 1 + map_size_padding
 		did_expand = true
@@ -301,16 +301,20 @@ func _cell_connects_to_city(x: int, y: int) -> bool:
 
 # Returns whether a building or road can be created here
 func _can_build_on_cell(x: int, y: int) -> bool:
-	return ! _cell_connects_to_city(x, y)
+	return !_cell_connects_to_city(x, y)
 
-# TODO: make this take into account roads and the like
-# (give roads a different background than buildings for this?)
 func _spot_is_available(pos: Vector2, dims: Vector2) -> bool:
 	for i in range(dims.x):
 		for j in range(dims.y):
 			if !_can_build_on_cell(pos.x + i, pos.y + j):
 				return false
 	return true
+
+func _spot_touches_city(pos: Vector2, dims: Vector2) -> bool:
+	for el in TaxiCabIterator.get_adjacent_coords(pos, dims):
+		if _cell_connects_to_city(el.x, el.y):
+			return true
+	return false
 
 # Will return an array of available spots (Vector2) that include included_cell
 # TODO: find a better name for this func
@@ -400,7 +404,8 @@ func _get_available_spots_bfs(
 			var skipped := false
 			for el in available:
 				if !ignore_rep.has(el):
-					to_add.append(el)
+					if _spot_touches_city(el, dims):
+						to_add.append(el)
 				elif overlapping_ignore_level == BLOCK_OVERLAP_STRONG:
 					skipped = true
 					break
@@ -410,7 +415,7 @@ func _get_available_spots_bfs(
 			if overlapping_ignore_level == BLOCK_OVERLAP_NONE: # may replace with a match in time
 				for el in to_add:
 					rep.append(el)
-					if rep.size() > count:
+					if rep.size() >= count:
 						break
 			elif !to_add.empty(): # BLOCK_OVERLAP_WEAK or STRONG
 				rep.append(to_add[0])
@@ -422,30 +427,6 @@ func _get_available_spots_bfs(
 					checked_already[to_add_cell] = true
 					next_cells.push_back(to_add_cell)
 	return rep
-
-# Returns an array of Vector2 that indicate possible positions
-#
-# Note that it may return an array smaller than count
-# The returned array has the closest cell at the front
-# Remember to shuffle the array before using it
-# search_limit is inclusive and decides how far to look in terms of Manhattan distance
-func _get_available_spots(
-	dims: Vector2,
-	around_where: Vector2,
-	count: int = 1,
-	search_limit: int = 5,
-	method: int = BFS_SEARCH
-) -> Array:
-	match method:
-		TAXI_CAB_SEARCH:
-			return _get_available_spots_manhattan(dims, around_where, count, search_limit)
-		_, BFS_SEARCH:
-			return _get_available_spots_bfs(dims, around_where, count, search_limit, townhall_dims)
-
-# TODO: add randomness (don't always add a house, add a random number...)
-func _on_anyturn_changed(turn_number, miniturn_number):
-	if randf() <= new_house_probability:
-		add_random_house()
 
 # Returns whether the cell contains a bit of road
 # TODO: rather if the cell is one of the possible road tiles
@@ -467,6 +448,9 @@ func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary):
 		current = passed_already[current]
 		if _can_build_on_cell(current.x, current.y):
 			add_road(current.x, current.y)
+
+func _get_construction_work_tilename(width: int, height: int) -> String:
+	return CONSTRUCTING_NAME + str(width) + "x" + str(height)
 
 func _on_DragInputArea_map_dragged(difference):
 	move_map(difference)

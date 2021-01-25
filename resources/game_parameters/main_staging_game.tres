@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=9 format=2]
 
 [ext_resource path="res://scripts/GameParameters.gd" type="Script" id=1]
 [ext_resource path="res://resources/events/laws-policies/privatisationOfPublicService.tres" type="Resource" id=2]
@@ -7,10 +7,12 @@
 [ext_resource path="res://resources/events/laws-policies/publicTroubelsomeLaw.tres" type="Resource" id=5]
 [ext_resource path="res://resources/events/construction-works/nonVisualConstruction.tres" type="Resource" id=6]
 [ext_resource path="res://resources/events/laws-policies/crimeLevelIncrease.tres" type="Resource" id=7]
+[ext_resource path="res://resources/events/construction-works/schoolConstruction.tres" type="Resource" id=8]
 
 [resource]
 script = ExtResource( 1 )
-initial_possible_events = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ) ]
+random_seed = 0
+initial_possible_events = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ]
 initial_gauges = {
 "BUDGET": 30,
 "HEALTH": 80,

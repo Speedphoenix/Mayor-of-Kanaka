@@ -17,24 +17,11 @@ default_params = ExtResource( 6 )
 inter_miniturn_delay = 0.1
 inter_turn_delay = 0.1
 
-[node name="CityMap" parent="." instance=ExtResource( 7 )]
+[node name="PopulationController" parent="GlobalObject/GameControllers" index="1"]
 new_house_probability = 1.0
+
+[node name="CityMap" parent="." instance=ExtResource( 7 )]
 max_city_length = 500
-new_house_choices_max_count = 500
-tilename_background_empty_tile = "dummy_grass"
-houses = [ {
-"dimensions": Vector2( 1, 1 ),
-"tilename": "house",
-"weight": 8
-}, {
-"dimensions": Vector2( 2, 1 ),
-"tilename": "house_long_horizontal",
-"weight": 1
-}, {
-"dimensions": Vector2( 1, 2 ),
-"tilename": "house_long_vertical",
-"weight": 1
-} ]
 
 [node name="TestLabel" type="Label" parent="."]
 visible = false
@@ -75,6 +62,7 @@ script = ExtResource( 3 )
 events = [ ExtResource( 4 ), ExtResource( 5 ) ]
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+visible = false
 margin_left = 467.426
 margin_top = 125.414
 margin_right = 651.426
@@ -122,3 +110,5 @@ text = "blabla"
 [connection signal="pressed" from="Button2" to="TestLabel" method="resumeit"]
 
 [editable path="GlobalObject"]
+
+[editable path="GlobalObject/GameControllers"]
