@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/events/non_interactive_events/ToxicRain.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+title = "Toxic Precipitation "
+description = "Toxic rain passed last night over the city. Ecological damage yet remains unknown."
+active_duration = 0
+accept_msg = "Accept"
+refuse_msg = "Refuse"
+weight = 100
+trigger_count = -1
+dismiss_msg = "I understand now"
