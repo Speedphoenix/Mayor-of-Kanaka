@@ -26,11 +26,21 @@ func _ready():
 		$BarsController/Health/HealthLabel.hide()
 		$BarsController/Nature/NatureLabel.hide()
 		$BarsController/Satisfation/SatisfactionLabel.hide()
+		
+		$BarsController/Budget/BudgetBar.show()
+		$BarsController/Health/HealthBar.show()
+		$BarsController/Nature/NatureBar.show()
+		$BarsController/Satisfation/SatisfactionBar.show()
 	else:
 		$BarsController/Budget/BudgetBar.hide()
 		$BarsController/Health/HealthBar.hide()
 		$BarsController/Nature/NatureBar.hide()
 		$BarsController/Satisfation/SatisfactionBar.hide()
+		
+		$BarsController/Budget/BudgetLabel.show()
+		$BarsController/Health/HealthLabel.show()
+		$BarsController/Nature/NatureLabel.show()
+		$BarsController/Satisfation/SatisfactionLabel.show()
 
 
 func _on_gauge_changed(gauge_name, new_value, old_value):
