@@ -66,7 +66,7 @@ func display_event():
 		if event is EventNonInteractive:
 			DecisionButtons.hide()
 			NonInteractiveButtons.show()
-			NonInteractiveButtons.change_non_interactive_label(event.accept_msg)
+			NonInteractiveButtons.change_non_interactive_label(event.dismiss_msg)
 		else:
 			NonInteractiveButtons.hide()
 			DecisionButtons.show()
@@ -74,7 +74,35 @@ func display_event():
 			DecisionButtons.change_refuse_label(event.refuse_msg)
 			
 		turn_controller.pause_turns()
+		remaining_time_label()
 		$SingleEventController.show()
+
+# Set the label of the remaining time in days
+func remaining_time_label():
+	var remaining_days_label := $SingleEventController/RemainingTimeController/RemainingDaysLabel
+	var _days_in_a_month := turn_controller.days_in_a_month
+	var _current_miniturn := turn_controller.current_miniturn_no
+	var event_remaining_turns := event.active_duration
+	# remaining time in days
+	var remaining_time = _days_in_a_month * event_remaining_turns + (_days_in_a_month - _current_miniturn)
+	if remaining_time > 1:
+		remaining_days_label.text = str(remaining_time) + " days"
+	else:
+		remaining_days_label.text = str(remaining_time) + " day"
+	#Add funky font color
+	var color: Color = Color.white
+	print(remaining_time)
+	if remaining_time <= 30:
+		color = Color(0.8, 0.2, 0)
+		print("red")
+	elif remaining_time <= 60:
+		color = Color(0.8, 0.45, 0)
+		print("orange")
+	else:
+		color = Color(0.45, 0.8, 0)
+		print("green")
+	print(color)
+	remaining_days_label.set("custom_colors/default_color", color)
 
 func close_window():
 	var Window = $SingleEventController
