@@ -6,8 +6,7 @@ func _init():
 	accept_effects = {
 		"on_gauges": {
 			#"BUDGET": added later in code
-			"NATURE": rng.randi_range(1, 2),
-			"SATISFACTION": rng.randi_range(1, 2) # may increase or not
+			"SATISFACTION": 10 # may increase or not
 		},
 	}
 	#on decline
@@ -16,3 +15,19 @@ func _init():
 		"on_gauges": {
 		},
 	}
+
+func on_triggered(scene_tree: SceneTree) -> void:
+	.on_triggered(scene_tree)
+	var total_cost := 45000
+	description += str(total_cost) + '$.'
+	accept_effects['on_gauges']['BUDGET'] = total_cost
+
+func on_accepted(scene_tree: SceneTree) -> void:
+	var monthly_effect = {
+		"on_gauges": {
+			'NATURE': 1
+		},
+	}
+	for month in range(1, 12):
+		yield(turn_controller, "turn_changed")
+		gauge_controller.apply_to_gauges(monthly_effect.on_gauges)
