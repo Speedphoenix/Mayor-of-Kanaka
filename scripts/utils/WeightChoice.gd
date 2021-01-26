@@ -42,3 +42,9 @@ static func choose_dict_by_weight(tab: Array) -> Dictionary:
 
 static func choose_random_from_array(tab: Array):
 	return tab[randi() % tab.size()]
+
+# Generates a pseudo-random 32-bit signed integer between from and to (inclusive).
+static func randi_range(from: int, to: int) -> int:
+	assert(to >= from)
+	return (randi() % (to - from + 1)) + from
+

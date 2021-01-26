@@ -21,7 +21,7 @@ export var days_in_a_month: int = 30
 export var inter_miniturn_delay := 0.7
 export var inter_turn_delay := 2.0
 export var trigger_first_miniturn: bool = false
-export var is_paused = false
+export var is_paused := false
 
 # Do we count from 1 or from 0? or something else?
 export var FIRST_MINITURN_NUMBER := 1

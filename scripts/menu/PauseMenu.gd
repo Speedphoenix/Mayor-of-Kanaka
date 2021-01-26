@@ -1,6 +1,14 @@
 extends Control
 
-const mainscene = preload("res://scenes/MainScene.tscn")
+signal ClosePauseMenu
+
+func _on_Exit_pressed():
+	emit_signal("ClosePauseMenu")
+	
+
+func _on_MainMenu_pressed():
+	get_tree().change_scene("res://scenes/menu/GameMenu.tscn")
+	get_tree().paused = false
 
 
 func _on_Options_pressed():
@@ -9,18 +17,6 @@ func _on_Options_pressed():
 	get_node("OptionMenu").connect("CloseOptionsMenu", self, "CloseOptionsMenu")
 	var language_bar_option = get_node("OptionMenu/HBoxContainer/Colum1/languageBar")
 	language_bar_option.add_item("English")
-	get_tree().paused = true
-	#get_tree().change_scene("res://scenes/menu/OptionMenu.tscn")
 
 func CloseOptionsMenu():
 	get_node("OptionMenu").queue_free()
-	get_tree().paused = false
-
-func _on_Exit_pressed():
-	get_tree().quit()
-
-
-func _on_NewGame_pressed():
-	get_tree().change_scene("res://scenes/MainScene.tscn")
-	queue_free()
-	

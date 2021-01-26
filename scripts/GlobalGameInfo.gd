@@ -13,7 +13,7 @@ func _ready():
 	randomize()
 
 func set_game_params(val: GameParameters):
-	assert(val is GameParameters)
+	assert(val == null || val is GameParameters)
 	game_params = val
 
 func get_game_params() -> GameParameters:

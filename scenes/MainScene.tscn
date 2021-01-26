@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/UI/MenuDisplayer.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node"]
+pause_mode = 1
 
 [node name="GlobalObject" parent="." instance=ExtResource( 7 )]
 

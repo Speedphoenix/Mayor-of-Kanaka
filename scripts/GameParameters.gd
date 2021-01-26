@@ -15,6 +15,11 @@ export(int) var random_seed := 0
 
 export(Array, Resource) var initial_possible_events = []
 
+# Decides how many houses shall be present at the start of the game
+# WARNING: using large values for this will make the game load noticeably slower
+# Avoid putting values higher than 100 for games that will be first launched by the player
+export(int) var initial_city_size := 1
+
 export(Dictionary) var initial_gauges := {
 	"HEALTH": 50,
 	"SATISFACTION": 50,
@@ -28,9 +33,6 @@ const PERCENT := {
 	"UPPER": 100,
 }
 export(Dictionary) var gauge_limits: Dictionary = {
-	"BUDGET": {
-		"LOWER": 0,
-	},
 	"HEALTH": PERCENT,
 	"SATISFACTION": PERCENT,
 	"NATURE": PERCENT,
@@ -45,6 +47,7 @@ func apply(scene_tree: SceneTree) -> void:
 	
 	var event_controller := EventController.get_event_controller(scene_tree)
 	var gauge_controller := GaugeController.get_gauge_controller(scene_tree)
+	var population_controller := PopulationController.get_population_controller(scene_tree)
 	
 	# Applying intial possible events
 	for event in initial_possible_events:
@@ -53,3 +56,9 @@ func apply(scene_tree: SceneTree) -> void:
 	# Applying initial gauges limits and values
 	gauge_controller.set_gauges_limits(gauge_limits)
 	gauge_controller.set_gauges(initial_gauges)
+	
+	# Instructions after this line rely on every node having had their _ready() called
+	yield(scene_tree, "idle_frame")
+	
+	population_controller.add_random_houses(initial_city_size)
+
