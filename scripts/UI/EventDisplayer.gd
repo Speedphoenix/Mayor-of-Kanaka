@@ -89,19 +89,15 @@ func remaining_time_label():
 		remaining_days_label.text = str(remaining_time) + " days"
 	else:
 		remaining_days_label.text = str(remaining_time) + " day"
-	#Add funky font color
+	#Add funky font color relative to the remaining time
 	var color: Color = Color.white
 	print(remaining_time)
 	if remaining_time <= 30:
 		color = Color(0.8, 0.2, 0)
-		print("red")
 	elif remaining_time <= 60:
 		color = Color(0.8, 0.45, 0)
-		print("orange")
 	else:
 		color = Color(0.45, 0.8, 0)
-		print("green")
-	print(color)
 	remaining_days_label.set("custom_colors/default_color", color)
 
 func close_window():

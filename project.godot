@@ -69,11 +69,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/citymap/PathTilesManager.gd"
 }, {
-"base": "Node",
-"class": "PopulationController",
-"language": "GDScript",
-"path": "res://scripts/GameControllers/PopulationController.gd"
-}, {
 "base": "Reference",
 "class": "TaxiCabIterator",
 "language": "GDScript",
@@ -102,7 +97,6 @@ _global_script_class_icons={
 "GlobalObject": "",
 "InterfaceController": "",
 "PathTilesManager": "",
-"PopulationController": "",
 "TaxiCabIterator": "",
 "TurnController": "",
 "WeightChoice": ""

@@ -43,11 +43,11 @@ export(Dictionary) var gauge_limits: Dictionary = {
 func apply(scene_tree: SceneTree) -> void:
 	var rnd_seed = random_seed if random_seed != 0 else randi()
 	seed(rnd_seed)
-	print("Using random seed ", rnd_seed)
+	#print("Using random seed ", rnd_seed)
 	
 	var event_controller := EventController.get_event_controller(scene_tree)
 	var gauge_controller := GaugeController.get_gauge_controller(scene_tree)
-	var population_controller := PopulationController.get_population_controller(scene_tree)
+	#var population_controller := PopulationController.get_population_controller(scene_tree)
 	
 	# Applying intial possible events
 	for event in initial_possible_events:
@@ -60,5 +60,5 @@ func apply(scene_tree: SceneTree) -> void:
 	# Instructions after this line rely on every node having had their _ready() called
 	yield(scene_tree, "idle_frame")
 	
-	population_controller.add_random_houses(initial_city_size)
+	#population_controller.add_random_houses(initial_city_size)
 
