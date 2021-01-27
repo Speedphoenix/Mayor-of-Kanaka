@@ -12,7 +12,7 @@ func _ready():
 		var acceptButton = $AcceptFrame/AcceptButton
 		
 		refuseButton.connect("pressed", eventDisplayer, "_on_RefuseButton_pressed")
-		acceptButton.connect("pressed", eventDisplayer, "_on_RefuseButton_pressed")
+		acceptButton.connect("pressed", eventDisplayer, "_on_AcceptButton_pressed")
 		
 func change_accept_label(new_text: String):
 	var acceptLabel = $AcceptFrame/AcceptLabel

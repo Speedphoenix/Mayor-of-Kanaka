@@ -13,6 +13,19 @@ school_construction_event = ExtResource( 2 )
 
 [node name="PopulationController" type="Node" parent="."]
 script = ExtResource( 3 )
+houses = [ {
+"dimensions": Vector2( 1, 1 ),
+"tilename": "house_1x1",
+"weight": 8
+}, {
+"dimensions": Vector2( 2, 1 ),
+"tilename": "house_2x1",
+"weight": 1
+}, {
+"dimensions": Vector2( 1, 2 ),
+"tilename": "house_1x2",
+"weight": 1
+} ]
 
 [node name="GameStateController" type="Node" parent="."]
 script = ExtResource( 4 )

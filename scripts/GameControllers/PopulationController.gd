@@ -1,4 +1,4 @@
-#class_name PopulationController
+class_name PopulationController
 extends Node
 
 export(String) var population_gauge_name := "POPULATION"
@@ -31,8 +31,8 @@ onready var turn_controller := TurnController.get_turn_controller(get_tree())
 onready var gauge_controller := GaugeController.get_gauge_controller(get_tree())
 onready var city_map := CityMap.get_city_map(get_tree())
 
-#static func get_population_controller(scene_tree: SceneTree) -> PopulationController:
-#	return scene_tree.get_current_scene().get_node("GlobalObject/GameControllers/PopulationController") as PopulationController
+static func get_population_controller(scene_tree: SceneTree) -> PopulationController:
+	return scene_tree.get_current_scene().get_node("GlobalObject/GameControllers/PopulationController") as PopulationController
 
 func _ready():
 	turn_controller.connect("miniturn_changed", self, "_on_miniturn_changed")
@@ -42,11 +42,15 @@ func _ready():
 			"LOWER": 0
 		})
 
+func add_random_houses(count: int) -> void:
+	var size_diff := 0
+	for i in range(count):
+		size_diff += _add_random_house()
+	gauge_controller.apply_to_gauge(population_gauge_name, _inhabitant_per_size(size_diff))
+
 # Randomly adds a house and returns its size
 # (0 for no house added, 2 for a 2x1 house etc...)
-# TODO:
-# - A more random choice (make it randomer)
-func add_random_house() -> int:
+func _add_random_house() -> int:
 	assert(!houses.empty())
 	var chosen_house: Dictionary = WeightChoice.choose_dict_by_weight(houses)
 	assert(chosen_house.has("dimensions"))
@@ -67,9 +71,9 @@ func _inhabitant_per_size(size: int) -> int:
 # TODO: add randomness (don't always add a house, add a random amount...)
 func _on_miniturn_changed(turn_number, miniturn_number):
 	if randf() <= new_house_probability:
-		var size = add_random_house()
+		var size = _add_random_house()
 		gauge_controller.apply_to_gauge(population_gauge_name, _inhabitant_per_size(size))
 
 func _on_turn_changed(turn_number, miniturn_number):
-	var size = add_random_house()
+	var size = _add_random_house()
 	gauge_controller.apply_to_gauge(population_gauge_name, _inhabitant_per_size(size))

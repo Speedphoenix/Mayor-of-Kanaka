@@ -1,14 +1,12 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/UI/EventDisplayer.gd" type="Script" id=2]
 [ext_resource path="res://scenes/UI/DecisionButtons.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/UI/NonInteractiveButtons.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/events/close_hover.png" type="Texture" id=5]
 [ext_resource path="res://assets/events/close.png" type="Texture" id=6]
-[ext_resource path="res://assets/additional_ui/accept_frame.png" type="Texture" id=7]
-[ext_resource path="res://assets/additional_ui/refuse_frame.png" type="Texture" id=8]
-[ext_resource path="res://assets/additional_ui/refuse_frame_hover.png" type="Texture" id=9]
-[ext_resource path="res://assets/additional_ui/accept_frame_hover.png" type="Texture" id=10]
+[ext_resource path="res://assets/additional_ui/clock.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -30,7 +28,7 @@ size = 12
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=6]
-size = 12
+size = 14
 font_data = ExtResource( 1 )
 
 [node name="EventDisplayer" type="CanvasLayer"]
@@ -57,8 +55,8 @@ __meta__ = {
 }
 
 [node name="Window" type="ColorRect" parent="SingleEventController"]
-margin_left = -1.0
-margin_right = 471.0
+margin_left = -1.5946
+margin_right = 470.405
 margin_bottom = 300.0
 color = Color( 0.372549, 0.145098, 0.0745098, 1 )
 __meta__ = {
@@ -78,9 +76,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -24.0555
-margin_top = 54.6689
+margin_top = 47.6689
 margin_right = 58.9445
-margin_bottom = 82.6689
+margin_bottom = 75.6689
 rect_pivot_offset = Vector2( -700.5, -123 )
 custom_fonts/font = SubResource( 1 )
 text = "Event :"
@@ -127,9 +125,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -38.7395
-margin_top = 133.492
+margin_top = 125.785
 margin_right = 68.2605
-margin_bottom = 153.492
+margin_bottom = 145.785
 rect_pivot_offset = Vector2( -700.5, -123 )
 custom_fonts/font = SubResource( 3 )
 text = "Description :"
@@ -163,6 +161,42 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RemainingTimeController" type="Control" parent="SingleEventController"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeIcon" type="TextureRect" parent="SingleEventController/RemainingTimeController"]
+margin_left = 52.9775
+margin_top = 162.188
+margin_right = 84.9775
+margin_bottom = 193.188
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLabel" type="Label" parent="SingleEventController/RemainingTimeController"]
+margin_left = 19.8921
+margin_top = 198.243
+margin_right = 122.892
+margin_bottom = 215.243
+custom_fonts/font = SubResource( 5 )
+text = "Remaining time :"
+
+[node name="RemainingDaysLabel" type="RichTextLabel" parent="SingleEventController/RemainingTimeController"]
+margin_left = 45.328
+margin_top = 211.987
+margin_right = 126.328
+margin_bottom = 238.987
+custom_fonts/normal_font = SubResource( 6 )
+custom_colors/default_color = Color( 0.898039, 0.419608, 0, 1 )
+text = "32 days"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButtonsController" type="Control" parent="SingleEventController"]
 __meta__ = {
 "_edit_use_anchors_": false
@@ -174,78 +208,8 @@ margin_top = 5.62158
 margin_right = 463.162
 margin_bottom = 36.6216
 texture_normal = ExtResource( 6 )
+texture_hover = ExtResource( 5 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RefuseFrame" type="ColorRect" parent="SingleEventController/ButtonsController"]
-visible = false
-margin_left = 5.0
-margin_top = 252.0
-margin_right = 226.0
-margin_bottom = 297.0
-color = Color( 0.32549, 0.0980392, 0.0980392, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RefuseButton" type="TextureButton" parent="SingleEventController/ButtonsController/RefuseFrame"]
-margin_left = 2.07266
-margin_top = 1.9545
-margin_right = 219.073
-margin_bottom = 42.9545
-texture_normal = ExtResource( 8 )
-texture_hover = ExtResource( 9 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RefuseLabel" type="Label" parent="SingleEventController/ButtonsController/RefuseFrame"]
-margin_left = 2.0
-margin_top = 3.0
-margin_right = 219.0
-margin_bottom = 42.0
-custom_fonts/font = SubResource( 5 )
-text = "Refuse text"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AcceptFrame" type="ColorRect" parent="SingleEventController/ButtonsController"]
-visible = false
-margin_left = 244.0
-margin_top = 252.0
-margin_right = 465.0
-margin_bottom = 297.0
-color = Color( 0.32549, 0.0980392, 0.0980392, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AcceptButton" type="TextureButton" parent="SingleEventController/ButtonsController/AcceptFrame"]
-margin_left = 2.2522
-margin_top = 2.3786
-margin_right = 219.252
-margin_bottom = 43.3786
-texture_normal = ExtResource( 7 )
-texture_hover = ExtResource( 10 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AcceptLabel" type="Label" parent="SingleEventController/ButtonsController/AcceptFrame"]
-margin_left = -1.0
-margin_right = 222.0
-margin_bottom = 46.0
-custom_fonts/font = SubResource( 6 )
-text = "Accept text"
-align = 1
-valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -258,5 +222,3 @@ visible = false
 [connection signal="mouse_entered" from="SingleEventController/Window" to="." method="_on_Window_mouse_entered"]
 [connection signal="mouse_exited" from="SingleEventController/Window" to="." method="_on_Window_mouse_exited"]
 [connection signal="pressed" from="SingleEventController/ButtonsController/CloseButton" to="." method="_on_CloseButton_pressed"]
-[connection signal="pressed" from="SingleEventController/ButtonsController/RefuseFrame/RefuseButton" to="." method="_on_RefuseButton_pressed"]
-[connection signal="pressed" from="SingleEventController/ButtonsController/AcceptFrame/AcceptButton" to="." method="_on_AcceptButton_pressed"]

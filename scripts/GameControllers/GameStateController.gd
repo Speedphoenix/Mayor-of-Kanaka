@@ -25,6 +25,9 @@ func _on_turn_changed(turn_number, miniturn_number):
 
 func _on_gauge_changed(gauge_name, new_value, old_value):
 	match gauge_name:
-		"HEALTH", "SATISFACTION", "NATURE", "STRESS":
-			if is_equal_approx(new_value, 0):
+		"HEALTH", "SATISFACTION", "NATURE":
+			if new_value <= 0:
+				emit_signal("game_ended", { "victory": false })
+		"STRESS":
+			if new_value >= 100:
 				emit_signal("game_ended", { "victory": false })
