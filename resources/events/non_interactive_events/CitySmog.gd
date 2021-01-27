@@ -13,8 +13,6 @@ func _init():
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	#gauge_controller.apply_to_gauges(trigger_effects.on_gauges)
-	#TODO
-	#for month in range(1, 12):
-		#yield(turn_controller, "turn_changed")
-		#gauge_controller.get_gauge_controller(scene_tree).apply_to_gauges(trigger_effects.on_gauges)
+	for month in range(1, 12):
+		yield(turn_controller, "turn_changed")
+		gauge_controller.apply_to_gauges(trigger_effects.on_gauges)

@@ -9,6 +9,6 @@ description = "Mayor, the city is covered with smog due to the large amount of C
 active_duration = 0
 accept_msg = "Accept"
 refuse_msg = "Refuse"
-weight = 500
+weight = 1
 trigger_count = -1
 dismiss_msg = "I understand now"

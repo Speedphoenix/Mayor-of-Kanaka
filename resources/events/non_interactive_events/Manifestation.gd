@@ -14,9 +14,8 @@ func _init():
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	
 	description = ("Mayor, people are manifestating on "
 	+ WeightChoice.choose_random_from_array(square_names) + " square"
 	+ ". The reason is Kanaka's " + WeightChoice.choose_random_from_array(manif_reasons) + '.')
-	#TODO
-	#gauge_controller.get_gauge_controller(scene_tree).apply_to_gauges(trigger_effects.on_gauges)
+	yield(turn_controller, "turn_changed")
+	gauge_controller.apply_to_gauges(trigger_effects.on_gauges)
