@@ -2,6 +2,7 @@ extends Control
 
 export(PackedScene) var options_menu = preload("res://scenes/menu/OptionMenu.tscn")
 
+
 func _on_Options_pressed():
 	var option_menu = options_menu.instance()
 	add_child(option_menu)
@@ -19,6 +20,3 @@ func _on_Exit_pressed():
 	get_tree().quit()
 
 
-func _on_NewGame_pressed():
-	pass
-	
