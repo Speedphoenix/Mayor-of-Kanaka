@@ -52,10 +52,10 @@ margin_bottom = 240.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.223529, 0.239216, 0.231373, 1 )
 text = "Budget : 100
-Santé : 100
-écologie : 100
-Satisfaction citoyens: 100
-Stress du maire : 0
+Health : 100
+Nature : 100
+Citizen satisfaction: 100
+Mayor Stress : 0
 "
 valign = 3
 __meta__ = {
