@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/TurnController.gd" type="Script" id=1]
 [ext_resource path="res://scripts/GlobalObject.gd" type="Script" id=2]
 [ext_resource path="res://scripts/EventController.gd" type="Script" id=3]
 [ext_resource path="res://resources/game_parameters/main_staging_game.tres" type="Resource" id=4]
 [ext_resource path="res://scripts/GaugeController.gd" type="Script" id=5]
+[ext_resource path="res://scenes/GameControllers.tscn" type="PackedScene" id=6]
 
 [node name="GlobalObject" type="Node"]
 script = ExtResource( 2 )
@@ -18,3 +19,5 @@ script = ExtResource( 3 )
 
 [node name="GaugeController" type="Node" parent="."]
 script = ExtResource( 5 )
+
+[node name="GameControllers" parent="." instance=ExtResource( 6 )]

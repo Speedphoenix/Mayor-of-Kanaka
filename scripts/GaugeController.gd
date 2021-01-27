@@ -8,17 +8,12 @@ signal gauge_changed(gauge_name, new_value, old_value)
 # signal gauges_changed(new_gauges, old_gauges)
 
 # Emitted when a new gauge is created
-# TODO:
 signal gauge_created(gauge_name, value)
 
 export(bool) var emit_signal_on_identical_new_value = false
 
 # This is set through the GameParameters
-var _gauge_limits: Dictionary = {
-	"BUDGET": {
-		"LOWER": 0,
-	}
-}
+var _gauge_limits: Dictionary = {}
 
 # These will generally be set through the game parameters
 var _gauges: Dictionary = {
@@ -29,11 +24,30 @@ var _gauges: Dictionary = {
 	"BUDGET": 50,
 }
 
+# Used for buffering the gauges, does not have use any limits
+var _next_gauges_state := {}
 
 static func get_gauge_controller(scene_tree: SceneTree) -> GaugeController:
 	# Not using GlobalObject.get_global_object because cyclic reference
 	return scene_tree.get_current_scene().get_node("GlobalObject/GaugeController") as GaugeController
 
+func _process(delta):
+	# idle_frame is triggered before _process is called on ever node.
+	# This ensures the following code is run before or after everything else
+	yield(get_tree(), "idle_frame")
+	if !_next_gauges_state.empty():
+		for name in _next_gauges_state:
+			var old_value = _gauges[name]
+			_set_gauge(name, _next_gauges_state[name])
+			var new_value = _gauges[name]
+			if emit_signal_on_identical_new_value || old_value != new_value:
+				emit_signal("gauge_changed", name, new_value, old_value)
+		_next_gauges_state.clear()
+
+func gauge_exists(name: String) -> bool:
+	return _gauges.has(name)
+
+# TODO: handle if the gauge already exists
 func create_gauge(name: String, initial_value: float = 0, limits := {}):
 	_gauges[name] = initial_value
 	if !limits.empty():
@@ -67,15 +81,13 @@ func get_gauges() -> Dictionary:
 # Sets gauge and emits the signal
 func set_gauge(name: String, value: float) -> void:
 	assert(name in _gauges)
-	var old_value = _gauges[name]
-	_gauges[name] = value
-	var new_value = _apply_limits(name)
-	if emit_signal_on_identical_new_value || old_value != new_value:
-		emit_signal("gauge_changed", name, new_value, old_value)
+	_next_gauges_state[name] = value
 
 func apply_to_gauge(name: String, diff: float) -> void:
 	assert(name in _gauges)
-	set_gauge(name, _gauges[name] + diff)
+	if !(name in _next_gauges_state):
+		_next_gauges_state[name] = _gauges[name]
+	_next_gauges_state[name] += diff
 
 func set_gauges(values: Dictionary) -> void:
 	for gauge_name in values:
@@ -84,6 +96,12 @@ func set_gauges(values: Dictionary) -> void:
 func apply_to_gauges(differences: Dictionary) -> void:
 	for gauge_name in differences:
 		apply_to_gauge(gauge_name, differences[gauge_name])
+
+# Actually sets the gauge, without passing through the buffer,
+# and applies the limits as well
+func _set_gauge(name: String, value: float):
+	_gauges[name] = value
+	_apply_limits(name)
 
 # limits should contain either "LOWER", "UPPER" or both
 func _set_gauge_limits(name: String, limits: Dictionary) -> void:

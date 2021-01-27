@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fake_townhall.png-b539ec4e5e0db4aa33e06a326405b032.stex"
+path="res://.import/buildings.png-7a2985a3d68ce4ff24bcdaf3f2dabcd0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dummyassets/fake_townhall.png"
-dest_files=[ "res://.import/fake_townhall.png-b539ec4e5e0db4aa33e06a326405b032.stex" ]
+source_file="res://assets/city_tiles/buildings.png"
+dest_files=[ "res://.import/buildings.png-7a2985a3d68ce4ff24bcdaf3f2dabcd0.stex" ]
 
 [params]
 
@@ -19,8 +19,8 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
-flags/filter=false
+flags/repeat=0
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

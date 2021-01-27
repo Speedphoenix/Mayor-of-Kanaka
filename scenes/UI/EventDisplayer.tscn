@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/UI/EventDisplayer.gd" type="Script" id=2]
+[ext_resource path="res://scenes/UI/DecisionButtons.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/UI/NonInteractiveButtons.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/events/close.png" type="Texture" id=6]
 [ext_resource path="res://assets/additional_ui/accept_frame.png" type="Texture" id=7]
 [ext_resource path="res://assets/additional_ui/refuse_frame.png" type="Texture" id=8]
@@ -177,7 +179,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FrameRefuse" type="ColorRect" parent="SingleEventController/ButtonsController"]
+[node name="RefuseFrame" type="ColorRect" parent="SingleEventController/ButtonsController"]
+visible = false
 margin_left = 5.0
 margin_top = 252.0
 margin_right = 226.0
@@ -187,7 +190,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RefuseButton" type="TextureButton" parent="SingleEventController/ButtonsController/FrameRefuse"]
+[node name="RefuseButton" type="TextureButton" parent="SingleEventController/ButtonsController/RefuseFrame"]
 margin_left = 2.07266
 margin_top = 1.9545
 margin_right = 219.073
@@ -199,7 +202,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RefuseLabel" type="Label" parent="SingleEventController/ButtonsController/FrameRefuse"]
+[node name="RefuseLabel" type="Label" parent="SingleEventController/ButtonsController/RefuseFrame"]
 margin_left = 2.0
 margin_top = 3.0
 margin_right = 219.0
@@ -212,7 +215,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FrameAccept" type="ColorRect" parent="SingleEventController/ButtonsController"]
+[node name="AcceptFrame" type="ColorRect" parent="SingleEventController/ButtonsController"]
+visible = false
 margin_left = 244.0
 margin_top = 252.0
 margin_right = 465.0
@@ -222,7 +226,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AcceptButton" type="TextureButton" parent="SingleEventController/ButtonsController/FrameAccept"]
+[node name="AcceptButton" type="TextureButton" parent="SingleEventController/ButtonsController/AcceptFrame"]
 margin_left = 2.2522
 margin_top = 2.3786
 margin_right = 219.252
@@ -234,7 +238,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AcceptLabel" type="Label" parent="SingleEventController/ButtonsController/FrameAccept"]
+[node name="AcceptLabel" type="Label" parent="SingleEventController/ButtonsController/AcceptFrame"]
 margin_left = -1.0
 margin_right = 222.0
 margin_bottom = 46.0
@@ -245,8 +249,14 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="DecisionButtons" parent="SingleEventController/ButtonsController" instance=ExtResource( 3 )]
+visible = false
+
+[node name="NonInteractiveButtons" parent="SingleEventController/ButtonsController" instance=ExtResource( 4 )]
+visible = false
 [connection signal="mouse_entered" from="SingleEventController/Window" to="." method="_on_Window_mouse_entered"]
 [connection signal="mouse_exited" from="SingleEventController/Window" to="." method="_on_Window_mouse_exited"]
 [connection signal="pressed" from="SingleEventController/ButtonsController/CloseButton" to="." method="_on_CloseButton_pressed"]
-[connection signal="pressed" from="SingleEventController/ButtonsController/FrameRefuse/RefuseButton" to="." method="_on_RefuseButton_pressed"]
-[connection signal="pressed" from="SingleEventController/ButtonsController/FrameAccept/AcceptButton" to="." method="_on_AcceptButton_pressed"]
+[connection signal="pressed" from="SingleEventController/ButtonsController/RefuseFrame/RefuseButton" to="." method="_on_RefuseButton_pressed"]
+[connection signal="pressed" from="SingleEventController/ButtonsController/AcceptFrame/AcceptButton" to="." method="_on_AcceptButton_pressed"]

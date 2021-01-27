@@ -24,6 +24,9 @@ var window_init_position: Vector2
 
 func _ready():
 	$SingleEventController.hide()
+	$SingleEventController/ButtonsController/DecisionButtons.hide()
+	$SingleEventController/ButtonsController/NonInteractiveButtons.hide()
+	
 	window_start_position = $SingleEventController.rect_position
 	window_init_position = $SingleEventController.rect_position
 # warning-ignore:return_value_discarded
@@ -50,18 +53,36 @@ func _on_event_to_display(ev: BaseEvent):
 
 func display_event():
 	if event != null:
+		var Window = $SingleEventController
+		# put the window back to its initial place
+		Window.rect_position = window_init_position
 		$SingleEventController/DescriptionController/Description.text = event.description
 		$SingleEventController/TitleController/Title.text = event.title
-		$SingleEventController/ButtonsController/FrameAccept/AcceptLabel.text = event.accept_msg
-		$SingleEventController/ButtonsController/FrameRefuse/RefuseLabel.text = event.refuse_msg
-		$SingleEventController.show()
-		turn_controller.pause_turns()
 		
+		# If the event is Non Interactive, there is just a button to accept it
+		# else it is just a regular event, both accept and refuse button are visible 
+		var DecisionButtons = $SingleEventController/ButtonsController/DecisionButtons
+		var NonInteractiveButtons = $SingleEventController/ButtonsController/NonInteractiveButtons
+		if event is EventNonInteractive:
+			DecisionButtons.hide()
+			NonInteractiveButtons.show()
+			NonInteractiveButtons.change_non_interactive_label(event.accept_msg)
+		else:
+			NonInteractiveButtons.hide()
+			DecisionButtons.show()
+			DecisionButtons.change_accept_label(event.accept_msg)
+			DecisionButtons.change_refuse_label(event.refuse_msg)
+			
+		turn_controller.pause_turns()
+		$SingleEventController.show()
+
 func close_window():
 	var Window = $SingleEventController
 	Window.hide()
 	# put the window back to its initial place
 	Window.rect_position = window_init_position
+	# end holding the window
+	holding_window = false
 	turn_controller.resume_turns()
 
 # drag and drop the event window with the mouse based on the Window ColorRect selection

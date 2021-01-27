@@ -2,6 +2,15 @@ extends Control
 
 signal CloseOptionsMenu
 
+
+func _enter_tree():
+	if get_parent().filename == "res://scenes/menu/GameMenu.tscn":
+		set_size(Vector2(600,360))
+		set_position(Vector2(100,50))
+	if get_parent().filename == "res://scenes/menu/PauseMenu.tscn":
+		set_size(Vector2(600,360))
+		set_position(Vector2(0,0))
+
 func _on_Exit_pressed():
 	emit_signal("CloseOptionsMenu")
 	
@@ -18,9 +27,9 @@ func CloseHowToPlay():
 func _on_SoundEffects_pressed():
 	pass # Replace with function body.
 	
+
 func _on_Music_pressed():
 	pass # Replace with function body.
-
 
 func _on_Credits_pressed():
 	var credits = load("res://scenes/menu/Credits.tscn").instance()

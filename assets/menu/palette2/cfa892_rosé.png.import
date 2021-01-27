@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/road_horizontal.png-4f102842513e56ea8ad9d566b2c9e596.stex"
+path="res://.import/cfa892_rosé.png-e1e13a40572c9a000aa3bfce48c884dc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dummyassets/road_horizontal.png"
-dest_files=[ "res://.import/road_horizontal.png-4f102842513e56ea8ad9d566b2c9e596.stex" ]
+source_file="res://assets/menu/palette2/cfa892_rosé.png"
+dest_files=[ "res://.import/cfa892_rosé.png-e1e13a40572c9a000aa3bfce48c884dc.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
