@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/menu/title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/menu/GameMenu.gd" type="Script" id=2]
 [ext_resource path="res://scenes/menu/NewGameButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/game_parameters/secondary_staging_game.tres" type="Resource" id=4]
 [ext_resource path="res://assets/menu/button_font.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/menu/Logo_Kanaka.png" type="Texture" id=7]
 [ext_resource path="res://assets/menu/palette2/c6ebc9_verttrèsclair.png" type="Texture" id=10]
@@ -99,6 +100,7 @@ __meta__ = {
 [node name="NewGame5" parent="HScrollBar/VBoxContainer" instance=ExtResource( 3 )]
 margin_left = 275.0
 margin_right = 535.0
+game_parameters = ExtResource( 4 )
 
 [node name="NewGame6" parent="HScrollBar/VBoxContainer" instance=ExtResource( 3 )]
 margin_left = 550.0
