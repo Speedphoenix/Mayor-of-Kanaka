@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/events/construction-works/HospitalConstruction.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+title = "Hospital construction"
+description = "In order to improve overall health situation in the city, we suggest constructing a new hospital. 
+This will cost us "
+active_duration = 0
+accept_msg = "Accept"
+refuse_msg = "Refuse"
+weight = 500
+trigger_count = -1
+no_space_description = ""
+tile_dimensions = Vector2( 3, 2 )
+tile_name = "hospital"
+possibility_count = 1
+possibilities_can_touch = true
