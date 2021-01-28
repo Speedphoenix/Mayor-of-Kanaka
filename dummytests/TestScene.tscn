@@ -19,6 +19,7 @@ inter_turn_delay = 0.1
 
 [node name="PopulationController" parent="GlobalObject/GameControllers" index="1"]
 new_house_probability = 1.0
+house_construction_works_duration = 5
 houses = [ {
 "dimensions": Vector2( 1, 1 ),
 "tilename": "house_1x1",
