@@ -14,7 +14,7 @@ func _init():
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	yield(turn_controller, "turn_changed")
+	#yield(turn_controller, "turn_changed")
 	description = ("Mayor, this night some people have "
 	+ WeightChoice.choose_random_from_array(vandal_action) + ".")
 	gauge_controller.apply_to_gauges(trigger_effects.on_gauges)
