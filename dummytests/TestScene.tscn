@@ -14,8 +14,8 @@
 default_params = ExtResource( 6 )
 
 [node name="TurnController" parent="GlobalObject" index="0"]
-inter_miniturn_delay = 0.1
-inter_turn_delay = 0.1
+inter_miniturn_delay = 0.2
+inter_turn_delay = 0.2
 
 [node name="PopulationController" parent="GlobalObject/GameControllers" index="1"]
 new_house_probability = 1.0

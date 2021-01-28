@@ -80,12 +80,16 @@ func _construct_house(house: Dictionary, position: Vector2) -> int:
 
 func _construct_delayed() -> int:
 	var rep := 0
+	var new_delays := []
 	for to_construct in build_on_next_miniturn:
 		to_construct.delay -= 1
 		if to_construct.delay <= 0:
 			# Removing the construction works first
 			city_map.remove_building(to_construct.position, to_construct.house.dimensions)
 			rep += _construct_house(to_construct.house, to_construct.position)
+		else:
+			new_delays.append(to_construct)
+	build_on_next_miniturn = new_delays
 	return rep
 
 func _inhabitant_per_size(size: int) -> int:

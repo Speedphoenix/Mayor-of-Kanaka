@@ -38,6 +38,7 @@ export(SurroundMode) var initial_townhall_surrounding_roads := SurroundMode.FRON
 
 export(int) var max_city_length := 20000
 
+export(int) var max_road_connection_distance := 7
 export(float, 0, 1) var alternative_road_probability := 0.5
 
 # Must be a positive value
@@ -123,7 +124,7 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 	var found_building := false
 	var closest_building: Vector2
 	var closest_road: Vector2
-	
+
 	# This is to be used as a queue, where the oldest and next in line is the front
 	var next_cells := []
 	# The keys to this are Vector2s that indicate cells that have already been checked or added
@@ -147,7 +148,7 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 		for j in range(where.y, where.y + dims.y):
 			passed_already[Vector2(i, j)] = Vector2(i, j)
 
-	while !found_road && !next_cells.empty():
+	while !next_cells.empty() && !found_road:
 		var current_cell: Vector2 = next_cells.pop_front()
 		# Look at directly adjacent cells
 		for diff in TaxiCabIterator.new(1, 1):
@@ -158,7 +159,6 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 			if _cell_is_connectable_road(to_add_cell.x, to_add_cell.y):
 				found_road = true
 				closest_road = to_add_cell
-				break
 			elif _cell_connects_to_city(to_add_cell.x, to_add_cell.y):
 				# Only set that as the found building if the track passes through available space first
 				if !found_building && !_cell_connects_to_city(current_cell.x, current_cell.y):
@@ -170,9 +170,12 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 					if _cell_connects_to_city(neighbour.x, neighbour.y):
 						next_cells.push_back(to_add_cell)
 						break
-	if found_road || found_building:
-		var last_empty: Vector2 = passed_already[closest_road if found_road else closest_building]
-		_trace_back_road_bfs(last_empty, passed_already)
+	if found_road:
+		var last_empty: Vector2 = passed_already[closest_road]
+		var end_road := _trace_back_road_bfs(last_empty, passed_already)
+		_connect_roads(end_road)
+	elif found_building:
+		_trace_back_road_bfs(passed_already[closest_building], passed_already)
 	else: # Somehow this building is alone, still gotta add one road if possible
 		for coord in TaxiCabIterator.get_adjacent_coords(where, dims):
 			if _can_build_on_cell(coord.x, coord.y):
@@ -442,8 +445,91 @@ func _cell_is_road(x: int, y: int) -> bool:
 func _cell_is_connectable_road(x: int, y: int) -> bool:
 	return _cell_is_road(x, y)
 
+
+# This will add roads leading to where, but not inside it
+# If there is already a road touching it, will return immediately
+# If there is no free space for roads, will return immediately
+func _connect_roads(where: Vector2):
+	var found_road := false
+	var curr_dist := 0
+
+	# This is to be used as a queue, where the oldest and next in line is the front
+	var next_cells := []
+	# The keys to this are Vector2s that indicate cells that have already been checked or added
+	# The values are Vector2s indicating where the path is coming from
+	# Or itself if it's the start of the search or invalid
+	var passed_already := {}
+	
+	# will contain roads that are within max_road_connection_distance
+	# then roads that touch the main constructed road will be removed
+	# The closest if first
+	var closest_roads := []
+	
+	var connected_roads: Array = _get_contiguous_roads(where)
+	
+	# Add initial cell
+	next_cells.push_back(where)
+	passed_already[where] = where
+
+	while !next_cells.empty() && (!found_road && curr_dist <= max_road_connection_distance):
+		var current_cell: Vector2 = next_cells.pop_front()
+		curr_dist = int(abs(where.x - current_cell.x)) + int(abs(where.y - current_cell.y))
+		# Look at directly adjacent cells
+		for diff in TaxiCabIterator.new(1, 1):
+
+			var to_add_cell: Vector2 = current_cell + diff
+			if passed_already.has(to_add_cell):
+				continue
+			passed_already[to_add_cell] = current_cell
+			
+			var is_road: bool = _cell_is_connectable_road(to_add_cell.x, to_add_cell.y)
+			if !is_road && _cell_connects_to_city(to_add_cell.x, to_add_cell.y):
+				continue
+			
+			var should_ignore = false
+			# Check if a neighbour is a road that already connects to where
+			for neighbour in TaxiCabIterator.get_adjacent_coords(to_add_cell, Vector2(1, 1)):
+				if neighbour != where && neighbour in connected_roads:
+					should_ignore = true
+					break
+			if !should_ignore:
+				if is_road:
+					found_road = true
+					closest_roads.append(to_add_cell)
+				next_cells.push_back(to_add_cell)
+	if found_road:
+		while closest_roads.size() > 0:
+			var last_empty: Vector2 = passed_already[closest_roads[0]]
+			_trace_back_road_bfs(last_empty, passed_already)
+			_remove_contiguous(closest_roads, closest_roads[0])
+
+func _get_contiguous_roads(where: Vector2, max_dist: int = (max_road_connection_distance + 1)) -> Array:
+	var rep := []
+	var curr_dist := 0
+	var next_cells: Array = [where]
+	while !next_cells.empty() && curr_dist <= max_dist:
+		var current_cell: Vector2 = next_cells.pop_front()
+		curr_dist = int(abs(where.x - current_cell.x)) + int(abs(where.y - current_cell.y))
+		if curr_dist > max_dist:
+			break
+		if _cell_is_connectable_road(current_cell.x, current_cell.y):
+			rep.append(current_cell)
+			for diff in TaxiCabIterator.new(1, 1):
+				if !((current_cell + diff) in rep):
+					next_cells.append(current_cell + diff)
+	return rep
+
+func _remove_contiguous(coords: Array, to_what: Vector2):
+	var index := coords.find(to_what)
+	if index == -1:
+		return
+	coords.remove(index)
+	for diff in TaxiCabIterator.new(1, 1):
+		_remove_contiguous(coords, to_what + diff)
+
+# Returns the last road position (should touch the starting point of construct_road_to)
 # TODO: add the possibility to do this over time with yields n' stuff
-func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary):
+func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary) -> Vector2:
 	var current := start
 	if _can_build_on_cell(current.x, current.y):
 		add_road(current.x, current.y)
@@ -451,6 +537,7 @@ func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary):
 		current = passed_already[current]
 		if _can_build_on_cell(current.x, current.y):
 			add_road(current.x, current.y)
+	return current
 
 func _get_construction_work_tilename(width: int, height: int) -> String:
 	return CONSTRUCTING_NAME + str(width) + "x" + str(height)
