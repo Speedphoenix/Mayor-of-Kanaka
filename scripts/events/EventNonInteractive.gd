@@ -13,5 +13,5 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	gauge_controller = GaugeController.get_instance(scene_tree)
 	event_controller = EventController.get_instance(scene_tree)
 
-func on_accepted(scene_tree: SceneTree) -> void:
+func on_accepted(_scene_tree: SceneTree) -> void:
 	pass

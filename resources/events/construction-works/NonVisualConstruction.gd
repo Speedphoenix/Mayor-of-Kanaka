@@ -44,12 +44,12 @@ func on_triggered(scene_tree: SceneTree) -> void:
 		+ ' The necessary intervention will cost ' + str(improvement_monthly_cost * -1) 
 		+ 'K $ monthly')
 	accept_effects['on_gauges']['BUDGET'] = improvement_monthly_cost
-	accept_effects['on_gauges']['SATISFACTION'] = improvement_monthly_cost
-	accept_effects['on_gauges']['NATURE'] = improvement_monthly_cost
+	accept_effects['on_gauges']['SATISFACTION'] = satisfaction_benefit
+	accept_effects['on_gauges']['NATURE'] = ecological_benefit
 
-func on_accepted(scene_tree: SceneTree) -> void:
-	#effects will take place for 6 to 12 months
-	for duration in range(1, WeightChoice.randi_range(6, 12)):
+func on_accepted(_scene_tree: SceneTree) -> void:
+	#effects will take place for 6 to 12 months, parent class on_accepted is NOT called
+	for _duration in range(1, WeightChoice.randi_range(6, 12)):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
 

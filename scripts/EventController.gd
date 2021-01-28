@@ -216,11 +216,11 @@ func _get_available_events(max_count: int = 1) -> Array:
 	trigger_now.shuffle()
 	for event in trigger_now:
 		if event.trigger_immediately >= needmore:
-			for i in range(needmore):
+			for _i in range(needmore):
 				rep.append(event)
 			needmore = 0
 		else:
-			for i in range(event.trigger_immediately):
+			for _i in range(event.trigger_immediately):
 				rep.append(event)
 			needmore -= event.trigger_immediately
 		if needmore == 0:
@@ -241,7 +241,7 @@ func _expire_events(to_expire: Array):
 	emit_signal("events_expired", expired_resources)
 	emit_signal("active_events_changed", active_events.duplicate())
 
-func _should_trigger_miniturn_event(turn_number, miniturn_number) -> int:
+func _should_trigger_miniturn_event(_turn_number, miniturn_number: int) -> int:
 	if use_dumb_event_generation && miniturn_number in [10, 20]:
 		return 1
 	if miniturn_number <= 1:
@@ -267,12 +267,12 @@ func _should_trigger_miniturn_event(turn_number, miniturn_number) -> int:
 		return WeightChoice.randi_range(1, count_ceiling)
 	return 0
 
-func _on_miniturn_changed(turn_number, miniturn_number):
+func _on_miniturn_changed(turn_number: int, miniturn_number: int):
 	var new_event_count = _should_trigger_miniturn_event(turn_number, miniturn_number)
 	if new_event_count > 0:
 		trigger_events(new_event_count)
 
-func _on_turn_changed(turn_number: int, miniturn_number: int):
+func _on_turn_changed(_turn_number: int, _miniturn_number: int):
 	current_turn_event_count = 0
 	var to_expire := []
 	for event in active_events:
@@ -283,7 +283,7 @@ func _on_turn_changed(turn_number: int, miniturn_number: int):
 		_expire_events(to_expire)
 	trigger_events(events_per_turn_start)
 	
-func _on_turn_ended(turn_number: int, miniturn_number: int):
+func _on_turn_ended(_turn_number: int, _miniturn_number: int):
 	var imminent := []
 	for event in active_events:
 		if event.remaining_turns == 0:

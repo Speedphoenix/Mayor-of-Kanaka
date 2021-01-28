@@ -44,7 +44,7 @@ func _ready():
 
 func add_random_houses(count: int) -> void:
 	var size_diff := 0
-	for i in range(count):
+	for _i in range(count):
 		size_diff += _add_random_house()
 	gauge_controller.apply_to_gauge(population_gauge_name, _inhabitant_per_size(size_diff))
 
@@ -69,11 +69,11 @@ func _inhabitant_per_size(size: int) -> int:
 	return size * 2
 
 # TODO: add randomness (don't always add a house, add a random amount...)
-func _on_miniturn_changed(turn_number, miniturn_number):
+func _on_miniturn_changed(_turn_number, _miniturn_number):
 	if randf() <= new_house_probability:
 		var size = _add_random_house()
 		gauge_controller.apply_to_gauge(population_gauge_name, _inhabitant_per_size(size))
 
-func _on_turn_changed(turn_number, miniturn_number):
+func _on_turn_changed(_turn_number, _miniturn_number):
 	var size = _add_random_house()
 	gauge_controller.apply_to_gauge(population_gauge_name, _inhabitant_per_size(size))

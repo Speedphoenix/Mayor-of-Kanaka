@@ -24,7 +24,7 @@ func _ready():
 func _on_gauge_changed(gauge_name, new_value, old_value):
 	match gauge_name:
 		"SCHOOL":
-			if triggerable_school_event.weight > 1:
+			if triggerable_school_event.weight > 1 && (new_value - old_value > 0):
 				triggerable_school_event.weight -= 1
 		"POPULATION":
 			pass

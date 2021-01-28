@@ -33,7 +33,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 		+ 'The duration is estimated to ' + str(greening_duration) + ' month.')
 	accept_effects['on_gauges']['BUDGET'] = monthly_cost
 
-func on_accepted(scene_tree: SceneTree) -> void:
-	for month in range(1, greening_duration):
+func on_accepted(_scene_tree: SceneTree) -> void:
+	for _month in range(1, greening_duration):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)

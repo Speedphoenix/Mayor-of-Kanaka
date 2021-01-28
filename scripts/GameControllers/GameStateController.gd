@@ -20,10 +20,10 @@ func _ready():
 	turn_controller.connect("turn_changed", self, "_on_turn_changed")
 	gauge_controller.connect("gauge_changed", self, "_on_gauge_changed")
 
-func _on_turn_changed(turn_number, miniturn_number):
+func _on_turn_changed(_turn_number, _miniturn_number):
 	gauge_controller.apply_to_gauge("BUDGET", new_turn_budget_diff)
 
-func _on_gauge_changed(gauge_name, new_value, old_value):
+func _on_gauge_changed(gauge_name, new_value, _old_value):
 	match gauge_name:
 		"HEALTH", "SATISFACTION", "NATURE":
 			if new_value <= 0:

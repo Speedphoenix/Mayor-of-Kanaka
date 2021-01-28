@@ -31,7 +31,7 @@ static func get_instance(scene_tree: SceneTree) -> GaugeController:
 	# Not using GlobalObject.get_instance because cyclic reference
 	return scene_tree.get_current_scene().get_node("GlobalObject/GaugeController") as GaugeController
 
-func _process(delta):
+func _process(_delta):
 	# idle_frame is triggered before _process is called on ever node.
 	# This ensures the following code is run before or after everything else
 	yield(get_tree(), "idle_frame")
@@ -125,10 +125,9 @@ func _gauges_are_different(gauges1: Dictionary, gauges2: Dictionary):
 			return true
 	return false
 
-func _apply_limits(name: String) -> float:
+func _apply_limits(name: String):
 	if _gauge_limits.has(name):
 		if _gauge_limits[name].has("LOWER") && _gauges[name] < _gauge_limits[name].LOWER:
 			_gauges[name] = _gauge_limits[name].LOWER
 		if _gauge_limits[name].has("UPPER") && _gauges[name] > _gauge_limits[name].UPPER:
 			_gauges[name] = _gauge_limits[name].UPPER
-	return _gauges[name]

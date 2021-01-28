@@ -33,17 +33,18 @@ func _init():
 # These functions should be overridden
 
 # Called when the event is created, before the player has interracted with it
-func on_triggered(scene_tree: SceneTree) -> void:
+func on_triggered(_scene_tree: SceneTree) -> void:
 	pass
 
-func on_accepted(scene_tree: SceneTree) -> void:
+func on_accepted(_scene_tree: SceneTree) -> void:
 	pass
 	
-func on_refused(scene_tree: SceneTree) -> void:
+func on_refused(_scene_tree: SceneTree) -> void:
 	pass
 
-func on_expired(scene_tree: SceneTree) -> void:
+func on_expired(_scene_tree: SceneTree) -> void:
 	pass
 
-func budget_check() -> void: 
-	pass
+# Returns true if the event can be accepted (eg The current budget is sufficient)
+func can_accept() -> bool: 
+	return true

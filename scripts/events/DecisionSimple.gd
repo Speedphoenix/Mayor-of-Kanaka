@@ -16,7 +16,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	gauge_controller = GaugeController.get_instance(scene_tree)
 	event_controller = EventController.get_instance(scene_tree)
 
-func on_accepted(scene_tree: SceneTree) -> void:
+func on_accepted(_scene_tree: SceneTree) -> void:
 	yield(turn_controller, "turn_changed")
 	gauge_controller.apply_to_gauges(accept_effects.on_gauges)
 
@@ -24,13 +24,13 @@ func _apply_refuse_expire():
 	yield(turn_controller, "turn_changed")
 	gauge_controller.apply_to_gauges(refuse_or_expire_effects.on_gauges)
 
-func on_refused(scene_tree: SceneTree) -> void:
+func on_refused(_scene_tree: SceneTree) -> void:
 	_apply_refuse_expire()
 
-func on_expired(scene_tree: SceneTree) -> void:
+func on_expired(_scene_tree: SceneTree) -> void:
 	_apply_refuse_expire()
 
-func budget_check():
+func can_accept() -> bool:
 	if(accept_effects['on_gauges']['BUDGET'] && accept_effects['on_gauges']['BUDGET'] < 0):
 		if(accept_effects['on_gauges']['BUDGET'] * -1 >= gauge_controller.get_gauge("BUDGET")):
 			return false

@@ -22,12 +22,12 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	description += str(total_cost) + '$.'
 	accept_effects['on_gauges']['BUDGET'] = total_cost
 
-func on_accepted(scene_tree: SceneTree) -> void:
+func on_accepted(_scene_tree: SceneTree) -> void:
 	var monthly_effect = {
 		"on_gauges": {
 			'NATURE': 1
 		},
 	}
-	for month in range(1, 12):
+	for _month in range(1, 12):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(monthly_effect.on_gauges)

@@ -27,9 +27,9 @@ static func get_adjacent_coords(where: Vector2, dims: Vector2, include_corners :
 
 # Use -1 to not set any maximum distance
 # max_distance is included in the iteration
-func _init(max_distance := -1, start_distance := 0):
-	self.max_distance = max_distance
-	self.start_distance = start_distance
+func _init(max_dist := -1, start_dist := 0):
+	self.max_distance = max_dist
+	self.start_distance = start_dist
 
 func should_continue() -> bool:
 	return max_distance == -1 || curr_distance <= max_distance

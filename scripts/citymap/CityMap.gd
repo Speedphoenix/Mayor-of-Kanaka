@@ -76,7 +76,7 @@ func _ready():
 func reset_map() -> void:
 	background_city.clear()
 	foreground_city.clear()
-	var townhall_dims = _get_tile_size(tilename_townhall)
+	townhall_dims = _get_tile_size(tilename_townhall)
 	top_left_map_corner = Vector2(0, 0)
 	bottom_right_map_corner = ((get_viewport_rect().size / cell_size) / full_city.transform.get_scale()).ceil()
 	
@@ -262,27 +262,22 @@ func _fill_expansion(start: Vector2, end: Vector2):
 # This will not expand the city, but rather change its dimensions
 # if the new position was outside the previous dimensions
 func _expand_city_dims(where: Vector2):
-	var did_expand := false
 	if where.x - map_size_padding < top_left_map_corner.x:
 		_fill_expansion(Vector2(where.x - map_size_padding, top_left_map_corner.y),
 				Vector2(top_left_map_corner.x, bottom_right_map_corner.y))
 		top_left_map_corner.x = where.x - map_size_padding
-		did_expand = true
 	if where.x + map_size_padding >= bottom_right_map_corner.x:
 		_fill_expansion(Vector2(bottom_right_map_corner.x, top_left_map_corner.y),
 				Vector2(where.x + map_size_padding, bottom_right_map_corner.y))
 		bottom_right_map_corner.x = where.x + 1 + map_size_padding
-		did_expand = true
 	if where.y - map_size_padding < top_left_map_corner.y:
 		_fill_expansion(Vector2(top_left_map_corner.x, where.y - map_size_padding),
 				Vector2(bottom_right_map_corner.x, top_left_map_corner.y))
 		top_left_map_corner.y = where.y - map_size_padding
-		did_expand = true
 	if where.y + map_size_padding >= bottom_right_map_corner.y:
 		_fill_expansion(Vector2(top_left_map_corner.x, bottom_right_map_corner.y),
 				Vector2(bottom_right_map_corner.x, where.y + map_size_padding))
 		bottom_right_map_corner.y = where.y + 1 + map_size_padding
-		did_expand = true
 	emit_signal("city_dimensions_changed", top_left_map_corner, bottom_right_map_corner)
 
 func _add_tile_at(tile_name: String, where: Vector2, dims: Vector2):
@@ -367,7 +362,7 @@ func _get_available_spots_manhattan(
 
 # around_where must be a full cell,
 # else the returned array will only contain spots icluding with that cell
-# TODO: implement a ignore_overlapping parameter
+# TODO: implement the starting dims, as in start withall tiles of a rect
 func _get_available_spots_bfs(
 	dims: Vector2,
 	around_where: Vector2,

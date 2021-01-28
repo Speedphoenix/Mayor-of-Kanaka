@@ -49,7 +49,7 @@ func _ready():
 		$BarsController/Stress/StressLabel.show()
 
 
-func _on_gauge_changed(gauge_name, new_value, old_value):
+func _on_gauge_changed(gauge_name, new_value, _old_value):
 	match gauge_name:
 		"BUDGET":
 			$BarsController/Budget/BudgetBar.value = new_value

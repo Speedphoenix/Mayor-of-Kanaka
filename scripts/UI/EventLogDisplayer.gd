@@ -31,7 +31,7 @@ func _process(_delta):
 func _display_eventslist(events: Array):
 	var eventsCounter = 0
 	var eventListContainer = $EventDetailsController/DetailsMenuController/ScrollContainer/MarginContainer/EventListContainer
-	for ev in active_events:
+	for ev in events:
 		if ev is EventController.TriggeredEvent:
 			eventsCounter += 1
 			var event = ev.event_resource

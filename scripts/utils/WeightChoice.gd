@@ -14,7 +14,7 @@ static func choose_by_weight(tab: Array, count := 1) -> Array:
 	for el in tab_dup:
 		assert(el >= 0)
 		full_weight += el
-	for i in range(count):
+	for _i in range(count):
 		var rand_pos: int = randi() % full_weight
 		var index: int = 0
 		while rand_pos > 0 && index < tab_dup.size():
