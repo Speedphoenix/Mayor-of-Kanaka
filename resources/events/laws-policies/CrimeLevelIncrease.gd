@@ -8,25 +8,25 @@ func _init():
 	#spending extra budget money to enforce local police patrols
 	accept_effects = {
 		"on_gauges": {
-			"BUDGET": rng.randi_range(-80, -150),
-			"STRESS": rng.randi_range(-10, -15),
+			"BUDGET": WeightChoice.randi_range(-20, -10),
+			"STRESS": WeightChoice.randi_range(-5, -3),
 		},
 	}
 	#on decline
 	# Citizens are unsatisfied by the City Hall's passiveness
 	refuse_or_expire_effects = {
 		"on_gauges": {
-			"SATISFACTION": rng.randi_range(-20, -15),
-			"STRESS": rng.randi_range(5, 10)
+			"SATISFACTION": WeightChoice.randi_range(-10, -5),
+			"STRESS": WeightChoice.randi_range(3, 5)
 		},
 	}
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	description = (
-		'Mayor, crime level in ' +
-		district_name[rng.randi_range(0, district_name.size() - 1)] + 
-		' District has severly increased.\nWe must act in order to protect our citizens.'
+		'Mayor, crime level in ' 
+		+ WeightChoice.choose_random_from_array(district_name)
+		+' District has severly increased.\nWe must act in order to protect our citizens.'
 	)
 
 func on_refused(scene_tree: SceneTree) -> void:
