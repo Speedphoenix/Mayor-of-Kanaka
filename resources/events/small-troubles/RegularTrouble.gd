@@ -11,27 +11,25 @@ func _init():
 	accept_effects = {
 		"on_gauges": {
 			#BUDGET is added in on_triggered
-			"SATISFACTION": rng.randi_range(5, 15),
+			"SATISFACTION": WeightChoice.randi_range(5, 15),
 		},
 	}
-	
 	#on decline
 	#in case of refusing, satisfaction will go down
 	refuse_or_expire_effects = {
 		"on_gauges": {
-			"SATISFACTION": rng.randi_range(-15, -10),
+			"SATISFACTION": WeightChoice.randi_range(-10, -7),
 		},
 	}
-	
+
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	
 	#ex: Pipe broken
-	title = trouble_name[rng.randi_range(0, trouble_name.size() - 1)]
+	title = WeightChoice.choose_random_from_array(trouble_name)
 	#Amount of money to spent r repairs
-	var work_cost = rng.randi_range(-100, -20)
-	
+	var work_cost = WeightChoice.randi_range(-60, -10)
 	description = ('Mayor, a trouble has occurred on '
-		+ street_name[rng.randi_range(0, street_name.size() - 1)] + ' Street.'
+		+ WeightChoice.choose_random_from_array(street_name) 
+		+ ' Street.'
 		+ ' The necessary intervention will cost ' + str(work_cost * -1) + 'K $')
 	accept_effects['on_gauges']['BUDGET'] = work_cost
