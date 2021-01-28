@@ -20,7 +20,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	city_map = CityMap.get_instance(scene_tree)
 	var overlap_level: int = CityMap.BLOCK_OVERLAP_WEAK if possibilities_can_touch else CityMap.BLOCK_OVERLAP_STRONG
 	possible_positions = city_map.get_available_spots(tile_dimensions,
-			city_map.get_town_hall_center_position(), possibility_count, overlap_level)
+			city_map.get_town_hall_position(), possibility_count, overlap_level)
 	possible_positions.shuffle()
 	if possible_positions.empty():
 		can_build_it = false

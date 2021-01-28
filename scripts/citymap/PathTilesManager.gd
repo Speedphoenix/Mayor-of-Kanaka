@@ -147,11 +147,15 @@ func get_tileid_from_neighbours(neighbours: Array, alt_probability := 0.0) -> in
 
 # TODO: take direction into account for stuff like bus stops that can't be changed
 # (you can only connect to a bus stop road tile if you're ahead or behind it)
+# add the parameters current_pos: Vector2, tarteg_pos: Vector2
 # TODO: specialize depending on current tile (road vs water etc)
-func cell_can_connect_to(current_tile: int, target_tileid: int, current_pos: Vector2, tarteg_pos: Vector2) -> bool:
+func cell_can_connect_to(current_tile: int, target_tileid: int) -> bool:
 	return (current_tile == PathType.ROAD || current_tile == PathType.ANYPATH) && target_tileid in road_tiles_list
 	
 func tile_is_path(tileid: int, path_type := PathType.ANYPATH) -> bool:
+	# TODO: implement waterways n stuff
+	if not path_type in [PathType.ANYPATH, PathType.ROAD]:
+		return false
 	for el in tiles:
 		if el.tileid == tileid:
 			return true

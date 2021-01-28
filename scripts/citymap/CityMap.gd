@@ -8,6 +8,10 @@ extends Node2D
 #	check roads around it, update their tile and itself
 # when doing previews don't change the background tile until it's set in stone
 
+# Ignoring narrowing conversion warnings (unprotected float to int conversions)
+# This file uses a large amount of Vector2, and handles many of their values as ints 
+# warning-ignore-all:narrowing_conversion
+
 signal city_dimensions_changed(new_top_left, new_bottom_right)
 signal building_constructed(new_building_position, new_building_size)
 
@@ -217,6 +221,9 @@ func get_available_spots(
 			return _get_available_spots_bfs(dims, around_where, count, search_limit,
 					starting_zone_dimensions, overlapping_ignore_level)
 
+func get_town_hall_position() -> Vector2:
+	return initial_townhall_position
+
 func get_town_hall_center_position() -> Vector2:
 	return (initial_townhall_position + ((townhall_dims - Vector2.ONE) / 2)).floor()
 
@@ -238,8 +245,8 @@ func move_map(diff: Vector2) -> void:
 
 func _get_neighbor_connectivity(x: int, y: int, xdiff: int, ydiff: int) -> int:
 	var target_id = foreground_city.get_cell(x + xdiff, y + ydiff)
-	return int(path_tiles.cell_can_connect_to(PathTilesManager.PathType.ROAD,
-			target_id, Vector2(x, y), Vector2(x + xdiff, y + ydiff)))
+	return int(path_tiles.cell_can_connect_to(PathTilesManager.PathType.ROAD, target_id))
+			# Vector2(x, y), Vector2(x + xdiff, y + ydiff)))
 
 # Preferably do not use this, but rather receive the information from other sources...
 func _get_tile_size(tile_name: String) -> Vector2:
@@ -383,9 +390,10 @@ func _get_available_spots_bfs(
 	# Elements of this array are also keys to checked_already
 	var rep := []
 
-	
-	next_cells.push_back(around_where)
-	checked_already[around_where] = true
+	for i in range(around_where.x, around_where.x + starting_dims.x):
+		for j in range(around_where.y, around_where.y + starting_dims.y):
+			next_cells.push_back(Vector2(i, j))
+			checked_already[Vector2(i, j)] = true
 	
 	while rep.size() < count && !next_cells.empty():
 		var current_cell: Vector2 = next_cells.pop_front()

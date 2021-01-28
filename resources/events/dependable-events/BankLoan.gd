@@ -58,9 +58,7 @@ func on_accepted(scene_tree: SceneTree) -> void:
 	while month_passed != loan_month_term:
 		yield(turn_controller, "turn_changed")
 		month_passed += 1
-		monthly_debt_amount = round((loan_amount + round(loan_amount * loan_percent)) / loan_month_term)
+		monthly_debt_amount = int(round((loan_amount + round(loan_amount * loan_percent)) / loan_month_term))
 		loan_amount -= monthly_debt_amount
 		monthly_effect['on_gauges']['BUDGET'] = monthly_debt_amount
 		gauge_controller.apply_to_gauges(monthly_effect.on_gauges)
-		print(monthly_debt_amount)
-		print(loan_amount)

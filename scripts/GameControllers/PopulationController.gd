@@ -55,7 +55,7 @@ func _add_random_house() -> int:
 	var chosen_house: Dictionary = WeightChoice.choose_dict_by_weight(houses)
 	assert(chosen_house.has("dimensions"))
 	var house_dims: Vector2 = chosen_house.dimensions
-	var spots := city_map.get_available_spots(house_dims, city_map.get_town_hall_center_position(),
+	var spots := city_map.get_available_spots(house_dims, city_map.get_town_hall_position(),
 			new_house_choices_max_count, CityMap.BLOCK_OVERLAP_NONE)
 	if spots.size() > 0:
 		var chosen_spot = WeightChoice.choose_random_from_array(spots)
