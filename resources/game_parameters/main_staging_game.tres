@@ -20,12 +20,12 @@
 script = ExtResource( 1 )
 random_seed = 0
 initial_possible_events = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ]
-initial_city_size = 30
+initial_city_size = 1
 initial_gauges = {
-"BUDGET": 30,
+"BUDGET": 175,
 "HEALTH": 80,
 "NATURE": 75,
-"SATISFACTION": 28,
+"SATISFACTION": 65,
 "STRESS": 8
 }
 gauge_limits = {

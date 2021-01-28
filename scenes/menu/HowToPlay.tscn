@@ -1,11 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/menu/title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/menu/palette2/cfa892_rosé.png" type="Texture" id=2]
-[ext_resource path="res://assets/menu/textfont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/font/Revans-Medium.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/menu/button_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scripts/menu/HowToPlay.gd" type="Script" id=5]
 [ext_resource path="res://assets/menu/palette2/c6ebc9_verttrèsclair.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 3 )
 
 [node name="HowToPlay" type="Control"]
 anchor_right = 1.0
@@ -37,18 +41,49 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control" type="Control" parent="."]
+anchor_top = 0.202
+anchor_bottom = 0.202
+margin_left = 20.0
+margin_top = 22.04
+margin_right = 580.0
+margin_bottom = 207.04
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="RichTextLabel" parent="Control"]
+margin_right = 560.0
+margin_bottom = 185.0
+custom_fonts/normal_font = SubResource( 1 )
+text = "Mayor of Kanaka se joue en tour par tour.
+Chaque tour correspond à 1 mois du calendrier.
+Durant chaque tour, des événements se présentent à vous.
+Il vous faudra alors décider d'accepter ou de refuser ces évènements. Vous pouvez aussi choisir de garder cet évènement en réserve temporairement en fermant la fenêtre.
+Les décisions que vous prenez influent sur les différents pourcentages, ainsi que le budget de la ville, durant les tours suivants.
+Ces pourcentages correspondent à :
+Nature (pollution)
+Satisfaction des citoyens
+Santé
+Stress du maire
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
-margin_right = -10.0
+margin_right = -14.0001
+margin_bottom = -392.0
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_right = 780.0
+margin_right = 775.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 __meta__ = {
@@ -57,7 +92,7 @@ __meta__ = {
 
 [node name="title" type="Label" parent="VBoxContainer"]
 margin_top = 35.0
-margin_right = 780.0
+margin_right = 775.0
 margin_bottom = 82.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0.941176, 0.886275, 0.815686, 1 )
@@ -68,24 +103,13 @@ text = "How to play"
 align = 1
 valign = 1
 
-[node name="text" type="Label" parent="VBoxContainer"]
-margin_top = 97.0
-margin_right = 780.0
-margin_bottom = 117.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0.941176, 0.886275, 0.815686, 1 )
-text = "Blablblablabala"
-valign = 3
-
 [node name="ExitContainer" type="VBoxContainer" parent="."]
-anchor_left = 0.625
-anchor_top = 0.477
-anchor_right = 0.625
-anchor_bottom = 0.477
-margin_left = -2.5
-margin_top = 132.0
-margin_right = 197.5
-margin_bottom = 172.0
+anchor_left = 0.614
+anchor_top = 0.83
+anchor_right = 0.614
+anchor_bottom = 0.83
+margin_right = 200.0
+margin_bottom = -374.72
 __meta__ = {
 "_edit_use_anchors_": false
 }

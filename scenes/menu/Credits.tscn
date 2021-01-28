@@ -71,7 +71,7 @@ valign = 1
 [node name="text" type="Label" parent="VBoxContainer"]
 margin_top = 97.0
 margin_right = 780.0
-margin_bottom = 301.0
+margin_bottom = 283.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.941176, 0.886275, 0.815686, 1 )
 text = "Mayor of Kanaka                      Version 1.0

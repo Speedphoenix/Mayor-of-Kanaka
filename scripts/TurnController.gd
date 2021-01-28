@@ -13,6 +13,9 @@ signal turn_ended(turn_number, miniturn_number)
 # turn_number is the number of the new turn
 signal turn_changed(turn_number, miniturn_number)
 
+# Sent if the pause state has changed
+signal pause_changed(pause_state)
+
 # A miniturn is a 'day', the intermediary turns inside a 'month' (a full 'turn')
 export var days_in_a_month: int = 30
 export var inter_miniturn_delay := 0.7
@@ -23,8 +26,8 @@ export var is_paused := false
 # Do we count from 1 or from 0? or something else?
 export var FIRST_MINITURN_NUMBER := 1
 
-var current_turn_no = 0
-var current_miniturn_no = FIRST_MINITURN_NUMBER
+var current_turn_no := 0
+var current_miniturn_no := FIRST_MINITURN_NUMBER
 var _turn_timer: Timer
 var _miniturn_timer: Timer
 
@@ -85,7 +88,8 @@ func pause_turns():
 	_turn_timer.stop()
 	_miniturn_timer.stop()
 	is_paused = true
-	#print("pause turns")
+	emit_signal("pause_changed", is_paused)
+
 
 # This will also reset the time left to next turn
 func resume_turns(force_timer_reset: bool = false):
@@ -93,6 +97,5 @@ func resume_turns(force_timer_reset: bool = false):
 		return
 	is_paused = false
 	launch_next_timers()
-	#print("resume turns")
-	
+	emit_signal("pause_changed", is_paused)
 	

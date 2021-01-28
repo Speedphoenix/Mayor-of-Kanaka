@@ -15,22 +15,38 @@ func _ready():
 	$BarsController/Health/HealthBar.value = curr_gauges.HEALTH
 	$BarsController/Nature/NatureBar.value = curr_gauges.NATURE
 	$BarsController/Satisfation/SatisfactionBar.value = curr_gauges.SATISFACTION
-	#$BarsController/Stress/StressBar.value = curr_gauges.STRESS
+	$BarsController/Stress/StressBar.value = curr_gauges.STRESS
+	
 	$BarsController/Budget/BudgetLabel.text = str(curr_gauges.BUDGET) + "k $"
 	$BarsController/Health/HealthLabel.text = str(curr_gauges.HEALTH) + " %"
 	$BarsController/Nature/NatureLabel.text = str(curr_gauges.NATURE) + " %"
 	$BarsController/Satisfation/SatisfactionLabel.text = str(curr_gauges.SATISFACTION) + " %"
+	$BarsController/Stress/StressLabel.text = str(curr_gauges.STRESS) + " %"
 	
 	if gaugesAsBars:
 		$BarsController/Budget/BudgetLabel.hide()
 		$BarsController/Health/HealthLabel.hide()
 		$BarsController/Nature/NatureLabel.hide()
 		$BarsController/Satisfation/SatisfactionLabel.hide()
+		$BarsController/Stress/StressLabel.hide()
+		
+		$BarsController/Budget/BudgetBar.show()
+		$BarsController/Health/HealthBar.show()
+		$BarsController/Nature/NatureBar.show()
+		$BarsController/Satisfation/SatisfactionBar.show()
+		$BarsController/Stress/StressBar.show()
 	else:
 		$BarsController/Budget/BudgetBar.hide()
 		$BarsController/Health/HealthBar.hide()
 		$BarsController/Nature/NatureBar.hide()
 		$BarsController/Satisfation/SatisfactionBar.hide()
+		$BarsController/Stress/StressBar.hide()
+		
+		$BarsController/Budget/BudgetLabel.show()
+		$BarsController/Health/HealthLabel.show()
+		$BarsController/Nature/NatureLabel.show()
+		$BarsController/Satisfation/SatisfactionLabel.show()
+		$BarsController/Stress/StressLabel.show()
 
 
 func _on_gauge_changed(gauge_name, new_value, old_value):
@@ -48,5 +64,5 @@ func _on_gauge_changed(gauge_name, new_value, old_value):
 			$BarsController/Nature/NatureBar.value = new_value
 			$BarsController/Nature/NatureLabel.text = str(new_value) + " %"
 		"STRESS":
-#			$BarsController/Stress/StressBar.value = new_value
-			pass
+			$BarsController/Stress/StressBar.value = new_value
+			$BarsController/Stress/StressLabel.text = str(new_value) + " %"
