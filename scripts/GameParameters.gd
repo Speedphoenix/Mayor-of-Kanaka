@@ -9,6 +9,12 @@ extends Resource
 # - The difficulty level, if it applies
 # - The initial state of the gauges
 
+# note that manually triggering events with trigger_events()
+# may bring the triggered event count over the limit
+export(int) var max_events_per_turn := 6
+export(int) var target_events_per_turn := 3
+export(int) var min_events_per_turn := 2
+
 # The random seed to use for this game
 # (does not apply to random number generators used internally by the events)
 export(int) var random_seed := 0
@@ -51,6 +57,10 @@ func apply(scene_tree: SceneTree) -> void:
 	var gauge_controller := GaugeController.get_instance(scene_tree)
 	var population_controller := PopulationController.get_instance(scene_tree)
 	var game_state_controller := GameStateController.get_instance(scene_tree)
+	
+	event_controller.target_events_per_turn = self.target_events_per_turn
+	event_controller.max_events_per_turn = self.max_events_per_turn
+	event_controller.min_events_per_turn = self.min_events_per_turn
 	
 	# Applying intial possible events
 	for event in initial_possible_events:

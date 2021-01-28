@@ -36,10 +36,10 @@ export(int) var max_events_per_miniturn := 1
 # TODO:
 # export(bool) var should_fix_event_count_per_turn = true
 
-export(int) var target_events_per_turn := 3
 # note that manually triggering events with trigger_events() may bring triggered events over the limit
-export(int) var max_events_per_turn := 6
-export(int) var min_events_per_turn := 2
+var max_events_per_turn := 6
+var target_events_per_turn := 3
+var min_events_per_turn := 2
 
 # If this is set to true, events will only be triggered on days 10 and 20
 export(bool) var use_dumb_event_generation := false

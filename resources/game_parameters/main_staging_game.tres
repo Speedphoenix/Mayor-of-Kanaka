@@ -18,6 +18,9 @@
 
 [resource]
 script = ExtResource( 1 )
+max_events_per_turn = 6
+target_events_per_turn = 3
+min_events_per_turn = 2
 random_seed = 0
 game_can_end = true
 initial_possible_events = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ]
