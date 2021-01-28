@@ -34,7 +34,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	)
 	loan_amount = rng.randi_range(500, 5000)
 	loan_percent = stepify(rand_range(0.01, 0.05), 0.01) #will round our foat number until 0.01 precision
-	loan_month_term = rng.randi_range(12,24) # 12-24 month
+	loan_month_term = rng.randi_range(12, 24) # 12-24 month
 	accept_effects['on_gauges']['BUDGET'] = loan_amount
 	# ex: Loan amount: 1000$ Loan term: 14 month Loan percentage: 5% 
 	description = (
@@ -55,11 +55,11 @@ func on_accepted(scene_tree: SceneTree) -> void:
 	}
 	#each month the city budget will loose a certain amount of money 
 	#corresponding to it's monthly bank debt
-	while (month_passed!=loan_month_term):
+	while month_passed != loan_month_term:
 		yield(turn_controller, "turn_changed")
 		month_passed += 1
 		monthly_debt_amount = round((loan_amount + round(loan_amount * loan_percent)) / loan_month_term)
-		loan_amount -=monthly_debt_amount
+		loan_amount -= monthly_debt_amount
 		monthly_effect['on_gauges']['BUDGET'] = monthly_debt_amount
 		gauge_controller.apply_to_gauges(monthly_effect.on_gauges)
 		print(monthly_debt_amount)

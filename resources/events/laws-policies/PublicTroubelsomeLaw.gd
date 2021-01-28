@@ -1,7 +1,7 @@
 #This event generates an unpopular public law preserving nature/ecology
 extends DecisionSimple
 
-export(Array,Array,String) var possible_title_and_description := [
+export(Array, Array, String) var possible_title_and_description := [
 	['Implement a curfew', 'Restrict citizen mobility between 8PM and 6AM' ],
 	[
 		'Add restrictions in order to limit CO2 emissions',
