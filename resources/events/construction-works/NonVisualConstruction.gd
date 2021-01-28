@@ -23,21 +23,21 @@ func _init():
 	# Citizens are unsatisfied by City Hall's passiveness
 	refuse_or_expire_effects = {
 		"on_gauges": {
-			"SATISFACTION": rng.randi_range(-20,-15),
+			"SATISFACTION": WeightChoice.randi_range(-20,-15),
 		},
 	}
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	
-	var event_chosen = rng.randi_range(0, event_title_description.size() - 1)
+	var event_chosen = WeightChoice.randi_range(0, event_title_description.size() - 1)
 	title = event_title_description[event_chosen][0]
 	#money spent mothly to conduct the improvement
-	var improvement_monthly_cost = rng.randi_range(-50, -15)
+	var improvement_monthly_cost = WeightChoice.randi_range(-50, -15)
 	#monthly ecological benefit from the improvement
-	var ecological_benefit = rng.randi_range(2, 3)
+	var ecological_benefit = WeightChoice.randi_range(2, 3)
 	#monthly citiznes satisfaction benefit from the improvement
-	var satisfaction_benefit = rng.randi_range(1, 3)
+	var satisfaction_benefit = WeightChoice.randi_range(1, 3)
 	
 	description = ('Mayor, our ' + title + ' needs an improvement. ' 
 		+ event_title_description[event_chosen][1]
@@ -49,7 +49,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 
 func on_accepted(scene_tree: SceneTree) -> void:
 	#effects will take place for 6 to 12 months
-	for duration in range(1, rng.randi_range(6, 12)):
+	for duration in range(1, WeightChoice.randi_range(6, 12)):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
 
