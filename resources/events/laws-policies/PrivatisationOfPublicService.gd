@@ -13,9 +13,9 @@ func _init():
 	#some little citizens mood fluctuation
 	accept_effects = {
 		"on_gauges": {
-			"BUDGET": rng.randi_range(80, 140),
-			"STRESS": rng.randi_range(-2, 2),
-			"SATISFACTION": rng.randi_range(-2, 2),
+			"BUDGET": WeightChoice.randi_range(200, 900),
+			"STRESS": WeightChoice.randi_range(-1, 1),
+			"SATISFACTION": WeightChoice.randi_range(-1, 1),
 		},
 	}
 	
@@ -23,38 +23,37 @@ func _init():
 	#some small fluctuations in citizens minds 
 	refuse_or_expire_effects = {
 		"on_gauges": {
-			"STRESS": rng.randi_range(-2, 2),
-			"SATISFACTION": rng.randi_range(-2, 2),
+			"STRESS": WeightChoice.randi_range(-1, 1),
+			"SATISFACTION": WeightChoice.randi_range(-1, 1),
 		},
 	}
 	
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	
 	# ex: Outsource public transport
 	title = (
 		'Outsource public '
-		+ service_name[rng.randi_range(0, service_name.size() - 1)]
+		+ WeightChoice.choose_random_from_array(service_name)
 	)
 	# ex: Zbubski company is willing to offer its services to the City Hall
 	description = (
 		'The '
-		+ company_name[rng.randi_range(0, company_name.size() - 1)]
-		+ company_suffix[rng.randi_range(0, company_suffix.size() - 1)]
-		+ ' company is willing to offer its services to the City Hall'
+		+ WeightChoice.choose_random_from_array(company_name)
+		+ WeightChoice.choose_random_from_array(company_suffix)
+		+ ' company is willing to offer its services to the City Hall.'
 	)
 	
 func on_accepted(_scene_tree: SceneTree) -> void:
 	#Supposing it's a long term decision, the effects will take place for 6 to 12 months
-	for _duration in range(1, rng.randi_range(6, 12)):
+	for _duration in range(1, WeightChoice.randi_range(6, 12)):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
 	#Final hidden consequences
 	var sudden_effects = {
 		"on_gauges": {
-			"NATURE": rng.randi_range(-30, -10),
-			"STRESS": rng.randi_range(-10, -5),
-			"SATISFACTION": rng.randi_range(-20, -10),
+			"NATURE": WeightChoice.randi_range(-20, -5),
+			"STRESS": WeightChoice.randi_range(3, 7),
+			"SATISFACTION": WeightChoice.randi_range(-15, -5),
 		},
 	}
 	#Final negative effect
