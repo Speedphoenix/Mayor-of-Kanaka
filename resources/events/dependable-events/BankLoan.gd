@@ -29,12 +29,12 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	# ex: Loan offer in Rothser Bank
 	title = (
 		'Loan offer in '
-		+ bank_name[rng.randi_range(0, bank_name.size() - 1)]
+		+ WeightChoice.choose_random_from_array(bank_name)
 		+ ' Bank'
 	)
-	loan_amount = rng.randi_range(500, 5000)
+	loan_amount = WeightChoice.randi_range(200, 1000)
 	loan_percent = stepify(rand_range(0.01, 0.05), 0.01) #will round our foat number until 0.01 precision
-	loan_month_term = rng.randi_range(12, 24) # 12-24 month
+	loan_month_term = WeightChoice.randi_range(12, 24) # 12-24 month
 	accept_effects['on_gauges']['BUDGET'] = loan_amount
 	# ex: Loan amount: 1000$ Loan term: 14 month Loan percentage: 5% 
 	description = (

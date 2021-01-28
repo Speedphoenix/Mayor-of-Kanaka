@@ -14,30 +14,27 @@ func _init():
 	accept_effects = {
 		"on_gauges": {
 			#BUDGET is added in on_triggered
-			"STRESS": rng.randi_range(-5, 0),
-			"SATISFACTION": rng.randi_range(5, 15),
+			"STRESS": WeightChoice.randi_range(-5, 0),
+			"SATISFACTION": WeightChoice.randi_range(5, 15),
 		},
 	}
 	#on decline
 	#no preventive measures taken, crisis strikes at it's full strength
 	refuse_or_expire_effects = {
 		"on_gauges": {
-			"STRESS": rng.randi_range(-15, -10),
-			"SATISFACTION": rng.randi_range(-15, -10),
+			"STRESS": rng.randi_range(2, 5),
+			"SATISFACTION": rng.randi_range(-10, -5),
 			"BUDGET": rng.randi_range(-1000, -100),
 		},
 	}
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-
 	#ex: Hurricane Incomming !!!
-	title = catastrophy_title[rng.randi_range(0, catastrophy_title.size() - 1)]
+	title = WeightChoice.choose_random_from_array(catastrophy_title)
 	#Amount of money to spent if we want to softeh crisis concsequences
-	var preventive_measures_cost = rng.randi_range(-1000, -100)
-	
+	var preventive_measures_cost = WeightChoice.randi_range(-400, -100)
 	description = ('Nature is rebelling, Mayor. We must act immiditealy, or face unpleasant consequences.'
 		+ ' It will cost ' + str(preventive_measures_cost * -1) + 'K $ for the city budget.' 
 		+ ' The economic damage is yet unknown.')
-		
 	accept_effects['on_gauges']['BUDGET'] = preventive_measures_cost
