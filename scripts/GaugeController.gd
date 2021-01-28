@@ -10,6 +10,8 @@ signal gauge_changed(gauge_name, new_value, old_value)
 # Emitted when a new gauge is created
 signal gauge_created(gauge_name, value)
 
+signal expected_diff_changed(gauge_name, new_value)
+
 export(bool) var emit_signal_on_identical_new_value = false
 
 # This is set through the GameParameters
@@ -27,9 +29,15 @@ var _gauges: Dictionary = {
 # Used for buffering the gauges, does not have use any limits
 var _next_gauges_state := {}
 
+# Note that this may be innacurate depending on which events have just resolved
+var expected_next_turn_gauge_diff := {}
+
 static func get_instance(scene_tree: SceneTree) -> GaugeController:
 	# Not using GlobalObject.get_instance because cyclic reference
 	return scene_tree.get_current_scene().get_node("GlobalObject/GaugeController") as GaugeController
+
+func _ready():
+	TurnController.get_instance(get_tree()).connect("turn_changed", self, "_on_turn_changed")
 
 func _process(_delta):
 	# idle_frame is triggered before _process is called on ever node.
@@ -96,6 +104,24 @@ func set_gauges(values: Dictionary) -> void:
 func apply_to_gauges(differences: Dictionary) -> void:
 	for gauge_name in differences:
 		apply_to_gauge(gauge_name, differences[gauge_name])
+
+func announce_gauge_diff(name: String, diff: float) -> void:
+	if is_equal_approx(diff, 0):
+		return
+	if !(name in expected_next_turn_gauge_diff):
+		expected_next_turn_gauge_diff[name] = 0
+	expected_next_turn_gauge_diff[name] += diff
+	emit_signal("expected_diff_changed", name, expected_next_turn_gauge_diff[name])
+	
+func announce_gauges_diff(differences: Dictionary) -> void:
+	for gauge_name in differences:
+		announce_gauge_diff(gauge_name, differences[gauge_name])
+
+func reset_expected_diffs() -> void:
+	expected_next_turn_gauge_diff.clear()
+
+func _on_turn_changed(_turn_number, _miniturn_number):
+	reset_expected_diffs()
 
 # Actually sets the gauge, without passing through the buffer,
 # and applies the limits as well

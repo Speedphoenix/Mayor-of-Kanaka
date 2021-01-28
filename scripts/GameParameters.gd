@@ -13,6 +13,8 @@ extends Resource
 # (does not apply to random number generators used internally by the events)
 export(int) var random_seed := 0
 
+export(bool) var game_can_end := true
+
 export(Array, Resource) var initial_possible_events = []
 
 # Decides how many houses shall be present at the start of the game
@@ -48,6 +50,7 @@ func apply(scene_tree: SceneTree) -> void:
 	var event_controller := EventController.get_instance(scene_tree)
 	var gauge_controller := GaugeController.get_instance(scene_tree)
 	var population_controller := PopulationController.get_instance(scene_tree)
+	var game_state_controller := GameStateController.get_instance(scene_tree)
 	
 	# Applying intial possible events
 	for event in initial_possible_events:
@@ -56,6 +59,8 @@ func apply(scene_tree: SceneTree) -> void:
 	# Applying initial gauges limits and values
 	gauge_controller.set_gauges_limits(gauge_limits)
 	gauge_controller.set_gauges(initial_gauges)
+	
+	game_state_controller.game_can_end = self.game_can_end
 	
 	# Instructions after this line rely on every node having had their _ready() called
 	yield(scene_tree, "idle_frame")

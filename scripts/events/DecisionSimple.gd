@@ -17,10 +17,12 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	event_controller = EventController.get_instance(scene_tree)
 
 func on_accepted(_scene_tree: SceneTree) -> void:
+	gauge_controller.announce_gauges_diff(accept_effects.on_gauges)
 	yield(turn_controller, "turn_changed")
 	gauge_controller.apply_to_gauges(accept_effects.on_gauges)
 
 func _apply_refuse_expire():
+	gauge_controller.announce_gauges_diff(refuse_or_expire_effects.on_gauges)
 	yield(turn_controller, "turn_changed")
 	gauge_controller.apply_to_gauges(refuse_or_expire_effects.on_gauges)
 

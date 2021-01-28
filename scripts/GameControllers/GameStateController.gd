@@ -10,6 +10,10 @@ export(float) var new_turn_budget_diff := 20
 # Will trigger game over if one of the 4 main gauges falls to zero
 export(bool) var end_on_empty_gauge := true
 
+# If set to false (through the game parameters),
+# a gauge reaching critical values will not trigger game_ended
+var game_can_end := true
+
 onready var turn_controller := TurnController.get_instance(get_tree())
 onready var gauge_controller := GaugeController.get_instance(get_tree())
 
@@ -24,6 +28,8 @@ func _on_turn_changed(_turn_number, _miniturn_number):
 	gauge_controller.apply_to_gauge("BUDGET", new_turn_budget_diff)
 
 func _on_gauge_changed(gauge_name, new_value, _old_value):
+	if !game_can_end:
+		return
 	match gauge_name:
 		"HEALTH", "SATISFACTION", "NATURE":
 			if new_value <= 0:

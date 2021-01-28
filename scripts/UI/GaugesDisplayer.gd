@@ -2,12 +2,15 @@ extends CanvasLayer
 
 
 onready var gauge_controller := GaugeController.get_instance(get_tree())
+onready var turn_controller := TurnController.get_instance(get_tree())
 export(bool) var gaugesAsBars := false
 # TODO: use a tween to make the changes animated (except the first one)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	gauge_controller.connect("gauge_changed", self, "_on_gauge_changed")
+	gauge_controller.connect("expected_diff_changed", self, "_on_expected_gauge_diff_changed")
+	turn_controller.connect("turn_changed", self, "_on_turn_changed")
 
 	var curr_gauges := gauge_controller.get_gauges()
 	# Setting the bars' initial values
@@ -66,3 +69,11 @@ func _on_gauge_changed(gauge_name, new_value, _old_value):
 		"STRESS":
 			$BarsController/Stress/StressBar.value = new_value
 			$BarsController/Stress/StressLabel.text = str(new_value) + " %"
+
+func _on_expected_gauge_diff_changed(gauge_name, new_value):
+	print("expecting the next turn to cause a difference of ", new_value,
+			" on gauge ", gauge_name)
+
+func _on_turn_changed(_turn_number, _miniturn_number):
+	# TODO: reset/hide the stuff concerning the expected changes
+	pass
