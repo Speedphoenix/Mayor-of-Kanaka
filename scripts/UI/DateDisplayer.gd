@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var DateLabel: Label
 
-onready var turn_controller := TurnController.get_turn_controller(get_tree())
+onready var turn_controller := TurnController.get_instance(get_tree())
 
 func _ready():
 	turn_controller.connect("miniturn_changed", self, "_on_anyturn_changed")

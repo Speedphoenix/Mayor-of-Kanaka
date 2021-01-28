@@ -63,7 +63,7 @@ onready var cell_size: Vector2 = foreground_city.cell_size
 onready var tileid_background_empty := tile_set.find_tile_by_name(tilename_background_empty_tile)
 onready var tileid_background_filled := tile_set.find_tile_by_name(tilename_background_filled_tile)
 
-static func get_city_map(scene_tree: SceneTree) -> CityMap:
+static func get_instance(scene_tree: SceneTree) -> CityMap:
 	return scene_tree.get_current_scene().get_node("CityMap") as CityMap
 
 func _ready():

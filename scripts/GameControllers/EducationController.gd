@@ -6,8 +6,8 @@ export(Resource) var school_construction_event: Resource
 
 var triggerable_school_event: EventController.TriggerableEvent
 
-onready var event_controller := EventController.get_event_controller(get_tree())
-onready var gauge_controller := GaugeController.get_gauge_controller(get_tree())
+onready var event_controller := EventController.get_instance(get_tree())
+onready var gauge_controller := GaugeController.get_instance(get_tree())
 
 func _ready():
 	assert(school_construction_event is BaseEvent)

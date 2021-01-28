@@ -31,8 +31,8 @@ var current_miniturn_no := FIRST_MINITURN_NUMBER
 var _turn_timer: Timer
 var _miniturn_timer: Timer
 
-static func get_turn_controller(scene_tree: SceneTree) -> TurnController:
-	# Not using GlobalObject.get_global_object because cyclic reference
+static func get_instance(scene_tree: SceneTree) -> TurnController:
+	# Not using GlobalObject.get_instance because cyclic reference
 	return scene_tree.get_current_scene().get_node("GlobalObject/TurnController") as TurnController
 
 # Called when the node enters the scene tree for the first time.

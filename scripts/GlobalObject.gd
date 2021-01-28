@@ -10,7 +10,7 @@ var game_params: GameParameters
 
 onready var global_game_info: GlobalGameInfo = get_node("/root/GlobalGameInfo")
 
-static func get_global_object(scene_tree: SceneTree) -> GlobalObject:
+static func get_instance(scene_tree: SceneTree) -> GlobalObject:
 	return scene_tree.get_current_scene().get_node("GlobalObject") as GlobalObject
 
 func _ready():

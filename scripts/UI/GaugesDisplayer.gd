@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-onready var gauge_controller := GaugeController.get_gauge_controller(get_tree())
+onready var gauge_controller := GaugeController.get_instance(get_tree())
 export(bool) var gaugesAsBars := false
 # TODO: use a tween to make the changes animated (except the first one)
 

@@ -27,8 +27,8 @@ var _gauges: Dictionary = {
 # Used for buffering the gauges, does not have use any limits
 var _next_gauges_state := {}
 
-static func get_gauge_controller(scene_tree: SceneTree) -> GaugeController:
-	# Not using GlobalObject.get_global_object because cyclic reference
+static func get_instance(scene_tree: SceneTree) -> GaugeController:
+	# Not using GlobalObject.get_instance because cyclic reference
 	return scene_tree.get_current_scene().get_node("GlobalObject/GaugeController") as GaugeController
 
 func _process(delta):

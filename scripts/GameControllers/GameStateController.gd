@@ -10,10 +10,10 @@ export(float) var new_turn_budget_diff := 20
 # Will trigger game over if one of the 4 main gauges falls to zero
 export(bool) var end_on_empty_gauge := true
 
-onready var turn_controller := TurnController.get_turn_controller(get_tree())
-onready var gauge_controller := GaugeController.get_gauge_controller(get_tree())
+onready var turn_controller := TurnController.get_instance(get_tree())
+onready var gauge_controller := GaugeController.get_instance(get_tree())
 
-static func get_game_state_controller(scene_tree: SceneTree) -> GameStateController:
+static func get_instance(scene_tree: SceneTree) -> GameStateController:
 	return scene_tree.get_current_scene().get_node("GlobalObject/GameControllers/GameStateController") as GameStateController
 
 func _ready():

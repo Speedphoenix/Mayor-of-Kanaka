@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-onready var turn_controller := TurnController.get_turn_controller(get_tree())
+onready var turn_controller := TurnController.get_instance(get_tree())
 export(Texture) var pause_icon
 export(Texture) var play_icon
 

@@ -2,8 +2,8 @@ extends CanvasLayer
 
 export(bool) var draggable := false
 
-onready var turn_controller := TurnController.get_turn_controller(get_tree())
-onready var event_controller := EventController.get_event_controller(get_tree())
+onready var turn_controller := TurnController.get_instance(get_tree())
+onready var event_controller := EventController.get_instance(get_tree())
 # the interface controller is the immediate parent node
 onready var interface_controller : InterfaceController = get_parent()
 

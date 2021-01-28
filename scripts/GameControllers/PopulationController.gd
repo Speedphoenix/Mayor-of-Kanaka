@@ -27,11 +27,11 @@ var inhabitants_per_house_size := {
 	2: 5, # two tiles, contains a family?
 }
 
-onready var turn_controller := TurnController.get_turn_controller(get_tree())
-onready var gauge_controller := GaugeController.get_gauge_controller(get_tree())
-onready var city_map := CityMap.get_city_map(get_tree())
+onready var turn_controller := TurnController.get_instance(get_tree())
+onready var gauge_controller := GaugeController.get_instance(get_tree())
+onready var city_map := CityMap.get_instance(get_tree())
 
-static func get_population_controller(scene_tree: SceneTree) -> PopulationController:
+static func get_instance(scene_tree: SceneTree) -> PopulationController:
 	return scene_tree.get_current_scene().get_node("GlobalObject/GameControllers/PopulationController") as PopulationController
 
 func _ready():

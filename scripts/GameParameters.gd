@@ -45,9 +45,9 @@ func apply(scene_tree: SceneTree) -> void:
 	seed(rnd_seed)
 	print("Using random seed ", rnd_seed)
 	
-	var event_controller := EventController.get_event_controller(scene_tree)
-	var gauge_controller := GaugeController.get_gauge_controller(scene_tree)
-	var population_controller := PopulationController.get_population_controller(scene_tree)
+	var event_controller := EventController.get_instance(scene_tree)
+	var gauge_controller := GaugeController.get_instance(scene_tree)
+	var population_controller := PopulationController.get_instance(scene_tree)
 	
 	# Applying intial possible events
 	for event in initial_possible_events:
