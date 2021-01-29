@@ -20,7 +20,7 @@ text = "k"
 
 [node name="ArrowContainer" parent="MainContainer" index="3"]
 margin_left = 356.0
-margin_right = 448.0
+margin_right = 447.0
 
 [node name="Arrow" parent="MainContainer/ArrowContainer" index="0"]
 texture = ExtResource( 3 )
