@@ -1,9 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/UI/NonInteractiveButtons.gd" type="Script" id=1]
-[ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/additional_ui/non_interactivec_frame.png" type="Texture" id=3]
 [ext_resource path="res://assets/additional_ui/non_interactivec_frame_hover.png" type="Texture" id=4]
+
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 12

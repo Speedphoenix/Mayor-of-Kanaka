@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/GaugesFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/UI/Gauge.gd" type="Script" id=2]
+[ext_resource path="res://assets/bars/Arrows/stress.png" type="Texture" id=3]
+[ext_resource path="res://assets/bars/icons/Mental.png" type="Texture" id=4]
+
+[node name="Stress" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -640.0
+margin_bottom = -448.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 160.0
+margin_bottom = 32.0
+color = Color( 0, 0, 0, 0.156863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+rect_scale = Vector2( 0.3, 0.3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconContainer" type="MarginContainer" parent="MainContainer"]
+margin_right = 140.0
+margin_bottom = 110.0
+custom_constants/margin_right = 40
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="MainContainer/IconContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 100.0
+margin_bottom = 100.0
+texture = ExtResource( 4 )
+stretch_mode = 4
+
+[node name="Value" type="Label" parent="MainContainer"]
+margin_left = 144.0
+margin_top = 10.0
+margin_right = 302.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.847059, 0, 0.835294, 1 )
+text = "20.6"
+
+[node name="ScaleUnit" type="Label" parent="MainContainer"]
+margin_left = 306.0
+margin_top = 10.0
+margin_right = 306.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.847059, 0, 0.835294, 1 )
+
+[node name="ArrowContainer" type="MarginContainer" parent="MainContainer"]
+margin_left = 310.0
+margin_right = 402.0
+margin_bottom = 110.0
+custom_constants/margin_right = 1
+custom_constants/margin_top = 10
+custom_constants/margin_left = 1
+custom_constants/margin_bottom = 10
+
+[node name="Arrow" type="TextureRect" parent="MainContainer/ArrowContainer"]
+margin_left = 1.0
+margin_top = 10.0
+margin_right = 91.0
+margin_bottom = 100.0
+texture = ExtResource( 3 )
+stretch_mode = 4
+
+[node name="Unit" type="Label" parent="MainContainer"]
+margin_left = 406.0
+margin_top = 10.0
+margin_right = 475.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.847059, 0, 0.835294, 1 )
+text = "%"

@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/GaugesFont_old.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/bars/progression_bar_empty_yellow.png" type="Texture" id=2]
+[ext_resource path="res://assets/bars/progression_bar_full_yellow.png" type="Texture" id=3]
+[ext_resource path="res://assets/bars/icons/Mental.png" type="Texture" id=4]
+
+[node name="Stress" type="Control"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_left = 287.0
+margin_top = 399.0
+margin_right = 446.0
+margin_bottom = 432.0
+color = Color( 0, 0, 0, 0.156863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StressBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = 329.916
+margin_top = 406.517
+margin_right = 492.916
+margin_bottom = 424.517
+max_value = 200.0
+value = 70.0
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StressIcon" type="TextureRect" parent="."]
+margin_left = 291.787
+margin_top = 401.366
+margin_right = 321.787
+margin_bottom = 429.366
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StressLabel" type="Label" parent="."]
+margin_left = 340.402
+margin_top = 401.321
+margin_right = 414.402
+margin_bottom = 433.321
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.847059, 0, 0.835294, 1 )
+text = "20.3 %"
+__meta__ = {
+"_edit_use_anchors_": false
+}

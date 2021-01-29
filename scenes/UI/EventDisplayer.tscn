@@ -1,12 +1,14 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/UI/EventDisplayer.gd" type="Script" id=2]
 [ext_resource path="res://scenes/UI/DecisionButtons.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/UI/NonInteractiveButtons.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/events/close_hover.png" type="Texture" id=5]
 [ext_resource path="res://assets/events/close.png" type="Texture" id=6]
 [ext_resource path="res://assets/additional_ui/clock.png" type="Texture" id=7]
+
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 24

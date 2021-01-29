@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/bars/progression_bar_empty_blue.png" type="Texture" id=1]
 [ext_resource path="res://assets/bars/progression_bar_full_blue.png" type="Texture" id=2]
@@ -13,8 +13,14 @@
 [ext_resource path="res://assets/bars/icons/Argent.png" type="Texture" id=11]
 [ext_resource path="res://assets/bars/progression_bar_full_yellow.png" type="Texture" id=12]
 [ext_resource path="res://scripts/UI/GaugesDisplayer.gd" type="Script" id=13]
-[ext_resource path="res://assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://assets/bars/icons/Mental.png" type="Texture" id=15]
+[ext_resource path="res://scenes/UI/gauges/Satisfation.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/UI/gauges/Health.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/fonts/GaugesFont_old.tres" type="DynamicFont" id=18]
+[ext_resource path="res://scenes/UI/gauges/Budget.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/UI/gauges/Stress.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/UI/gauges/Nature.tscn" type="PackedScene" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -47,16 +53,45 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stress" type="Control" parent="BarsController"]
-margin_left = -45.4359
-margin_top = -2.67273
-margin_right = -45.4359
-margin_bottom = -2.67273
+[node name="Stress" parent="BarsController" instance=ExtResource( 20 )]
+margin_left = 245.0
+margin_top = 398.0
+margin_right = 245.0
+margin_bottom = 398.0
+
+[node name="Health" parent="BarsController" instance=ExtResource( 17 )]
+margin_left = 420.0
+margin_top = 398.0
+margin_right = 420.0
+margin_bottom = 398.0
+
+[node name="Satisfation" parent="BarsController" instance=ExtResource( 16 )]
+margin_left = 245.0
+margin_top = 437.0
+margin_right = 245.0
+margin_bottom = 437.0
+
+[node name="Nature" parent="BarsController" instance=ExtResource( 21 )]
+margin_left = 420.0
+margin_top = 437.0
+margin_right = 420.0
+margin_bottom = 437.0
+
+[node name="Budget" parent="BarsController" instance=ExtResource( 19 )]
+margin_left = 605.0
+margin_top = 420.0
+margin_right = 605.0
+margin_bottom = 420.0
+
+[node name="Stress_old" type="Control" parent="BarsController"]
+visible = false
+margin_left = -45.0
+margin_top = -1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="BarsController/Stress"]
+[node name="Background" type="ColorRect" parent="BarsController/Stress_old"]
 margin_left = 287.0
 margin_top = 399.0
 margin_right = 446.0
@@ -66,7 +101,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StressBar" type="TextureProgress" parent="BarsController/Stress"]
+[node name="StressBar" type="TextureProgress" parent="BarsController/Stress_old"]
 visible = false
 margin_left = 329.916
 margin_top = 406.517
@@ -81,7 +116,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StressIcon" type="TextureRect" parent="BarsController/Stress"]
+[node name="StressIcon" type="TextureRect" parent="BarsController/Stress_old"]
 margin_left = 291.787
 margin_top = 401.366
 margin_right = 321.787
@@ -92,19 +127,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StressLabel" type="Label" parent="BarsController/Stress"]
+[node name="StressLabel" type="Label" parent="BarsController/Stress_old"]
 margin_left = 340.402
 margin_top = 401.321
 margin_right = 414.402
 margin_bottom = 433.321
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 18 )
 custom_colors/font_color = Color( 0.847059, 0, 0.835294, 1 )
 text = "20.3 %"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Health" type="Control" parent="BarsController"]
+[node name="Health_old" type="Control" parent="BarsController"]
+visible = false
 margin_left = -45.4359
 margin_top = -2.67273
 margin_right = -45.4359
@@ -113,7 +149,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="BarsController/Health"]
+[node name="Background" type="ColorRect" parent="BarsController/Health_old"]
 margin_left = 465.0
 margin_top = 399.0
 margin_right = 629.0
@@ -123,7 +159,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBar" type="TextureProgress" parent="BarsController/Health"]
+[node name="HealthBar" type="TextureProgress" parent="BarsController/Health_old"]
 visible = false
 margin_left = 541.693
 margin_top = 406.517
@@ -138,7 +174,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthIcon" type="TextureRect" parent="BarsController/Health"]
+[node name="HealthIcon" type="TextureRect" parent="BarsController/Health_old"]
 margin_left = 468.844
 margin_top = 402.315
 margin_right = 498.844
@@ -149,7 +185,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthLabel" type="Label" parent="BarsController/Health"]
+[node name="HealthLabel" type="Label" parent="BarsController/Health_old"]
 margin_left = 514.419
 margin_top = 402.251
 margin_right = 592.419
@@ -161,7 +197,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Satisfation" type="Control" parent="BarsController"]
+[node name="Satisfation_old" type="Control" parent="BarsController"]
+visible = false
 margin_left = -45.4359
 margin_top = -2.67273
 margin_right = -45.4359
@@ -170,7 +207,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="BarsController/Satisfation"]
+[node name="Background" type="ColorRect" parent="BarsController/Satisfation_old"]
 margin_left = 288.0
 margin_top = 437.0
 margin_right = 446.0
@@ -180,7 +217,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SatisfactionBar" type="TextureProgress" parent="BarsController/Satisfation"]
+[node name="SatisfactionBar" type="TextureProgress" parent="BarsController/Satisfation_old"]
 visible = false
 margin_left = 329.916
 margin_top = 445.517
@@ -195,7 +232,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SatisfactionIcon" type="TextureRect" parent="BarsController/Satisfation"]
+[node name="SatisfactionIcon" type="TextureRect" parent="BarsController/Satisfation_old"]
 margin_left = 290.717
 margin_top = 439.221
 margin_right = 322.717
@@ -206,7 +243,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SatisfactionLabel" type="Label" parent="BarsController/Satisfation"]
+[node name="SatisfactionLabel" type="Label" parent="BarsController/Satisfation_old"]
 margin_left = 341.567
 margin_top = 439.731
 margin_right = 419.567
@@ -218,7 +255,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Nature" type="Control" parent="BarsController"]
+[node name="Nature_old" type="Control" parent="BarsController"]
+visible = false
 margin_left = -46.4359
 margin_top = -2.67273
 margin_right = -45.4359
@@ -227,7 +265,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="BarsController/Nature"]
+[node name="Background" type="ColorRect" parent="BarsController/Nature_old"]
 margin_left = 466.0
 margin_top = 437.0
 margin_right = 630.0
@@ -237,7 +275,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NatureBar" type="TextureProgress" parent="BarsController/Nature"]
+[node name="NatureBar" type="TextureProgress" parent="BarsController/Nature_old"]
 visible = false
 margin_left = 545.391
 margin_top = 443.777
@@ -252,7 +290,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NatureIcon" type="TextureRect" parent="BarsController/Nature"]
+[node name="NatureIcon" type="TextureRect" parent="BarsController/Nature_old"]
 margin_left = 471.14
 margin_top = 438.895
 margin_right = 501.14
@@ -263,7 +301,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NatureLabel" type="Label" parent="BarsController/Nature"]
+[node name="NatureLabel" type="Label" parent="BarsController/Nature_old"]
 margin_left = 516.637
 margin_top = 439.849
 margin_right = 595.637
@@ -275,14 +313,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Budget" type="Control" parent="BarsController"]
+[node name="Budget_old" type="Control" parent="BarsController"]
+visible = false
 margin_left = 13.3635
 margin_right = 13.3635
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="BarsController/Budget"]
+[node name="Background" type="ColorRect" parent="BarsController/Budget_old"]
 margin_left = 593.0
 margin_top = 415.0
 margin_right = 745.0
@@ -292,7 +331,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BudgetBar" type="TextureProgress" parent="BarsController/Budget"]
+[node name="BudgetBar" type="TextureProgress" parent="BarsController/Budget_old"]
 visible = false
 margin_left = 329.916
 margin_top = 406.517
@@ -307,7 +346,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BudgetIcon" type="TextureRect" parent="BarsController/Budget"]
+[node name="BudgetIcon" type="TextureRect" parent="BarsController/Budget_old"]
 margin_left = 598.257
 margin_top = 418.293
 margin_right = 628.257
@@ -318,7 +357,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BudgetLabel" type="Label" parent="BarsController/Budget"]
+[node name="BudgetLabel" type="Label" parent="BarsController/Budget_old"]
 margin_left = 646.872
 margin_top = 418.248
 margin_right = 720.872

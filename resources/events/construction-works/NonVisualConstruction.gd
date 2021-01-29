@@ -49,9 +49,16 @@ func on_triggered(scene_tree: SceneTree) -> void:
 
 func on_accepted(_scene_tree: SceneTree) -> void:
 	#effects will take place for 6 to 12 months, parent class on_accepted is NOT called
+	
+	# Manually announce differences
+	gauge_controller.announce_gauges_diff(accept_effects.on_gauges)
 	for _duration in range(1, WeightChoice.randi_range(6, 12)):
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
+		
+		# Make sure the next diff is announced after the previous turn is over
+		yield(_scene_tree, "idle_frame")
+		gauge_controller.announce_gauges_diff(accept_effects.on_gauges)
 
 func on_refused(scene_tree: SceneTree) -> void:
 	.on_refused(scene_tree)
