@@ -39,7 +39,7 @@ margin_left = 746.068
 margin_top = 50.5488
 margin_right = 781.068
 margin_bottom = 79.5488
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

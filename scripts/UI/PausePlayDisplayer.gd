@@ -15,6 +15,6 @@ func _on_PausePlayButton_toggled(button_pressed):
 
 func _on_pause_changed(pause_state: bool):
 	if pause_state == true:
-		$PausePlayIcon.texture = pause_icon
-	else:
 		$PausePlayIcon.texture = play_icon
+	else:
+		$PausePlayIcon.texture = pause_icon
