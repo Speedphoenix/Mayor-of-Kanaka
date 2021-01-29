@@ -15,6 +15,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Tween" type="Tween" parent="."]
+
 [node name="Background" type="ColorRect" parent="."]
 margin_right = 160.0
 margin_bottom = 32.0

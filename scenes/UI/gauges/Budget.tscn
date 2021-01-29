@@ -5,6 +5,7 @@
 [ext_resource path="res://assets/bars/Arrows/budget.png" type="Texture" id=3]
 
 [node name="Budget" instance=ExtResource( 2 )]
+step = 1.0
 
 [node name="Icon" parent="MainContainer/IconContainer" index="0"]
 texture = ExtResource( 1 )

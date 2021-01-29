@@ -1,10 +1,10 @@
 extends CanvasLayer
 
+export(bool) var gaugesAsBars := false
 
 onready var gauge_controller := GaugeController.get_instance(get_tree())
 onready var turn_controller := TurnController.get_instance(get_tree())
-export(bool) var gaugesAsBars := false
-# TODO: use a tween to make the changes animated (except the first one)
+onready var global_object := GlobalObject.get_instance(get_tree())
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,44 +14,7 @@ func _ready():
 
 	var curr_gauges := gauge_controller.get_gauges()
 
-#	# Setting the bars' initial values
-#	$BarsController/Budget/BudgetBar.value = curr_gauges.BUDGET
-#	$BarsController/Health/HealthBar.value = curr_gauges.HEALTH
-#	$BarsController/Nature/NatureBar.value = curr_gauges.NATURE
-#	$BarsController/Satisfation/SatisfactionBar.value = curr_gauges.SATISFACTION
-#	$BarsController/Stress/StressBar.value = curr_gauges.STRESS
-#
-#	$BarsController/Budget/BudgetLabel.text = str(curr_gauges.BUDGET) + "k $"
-#	$BarsController/Health/HealthLabel.text = str(curr_gauges.HEALTH) + " %"
-#	$BarsController/Nature/NatureLabel.text = str(curr_gauges.NATURE) + " %"
-#	$BarsController/Satisfation/SatisfactionLabel.text = str(curr_gauges.SATISFACTION) + " %"
-#	$BarsController/Stress/StressLabel.text = str(curr_gauges.STRESS) + " %"
-#
-#	if gaugesAsBars:
-#		$BarsController/Budget/BudgetLabel.hide()
-#		$BarsController/Health/HealthLabel.hide()
-#		$BarsController/Nature/NatureLabel.hide()
-#		$BarsController/Satisfation/SatisfactionLabel.hide()
-#		$BarsController/Stress/StressLabel.hide()
-#
-#		$BarsController/Budget/BudgetBar.show()
-#		$BarsController/Health/HealthBar.show()
-#		$BarsController/Nature/NatureBar.show()
-#		$BarsController/Satisfation/SatisfactionBar.show()
-#		$BarsController/Stress/StressBar.show()
-#	else:
-#		$BarsController/Budget/BudgetBar.hide()
-#		$BarsController/Health/HealthBar.hide()
-#		$BarsController/Nature/NatureBar.hide()
-#		$BarsController/Satisfation/SatisfactionBar.hide()
-#		$BarsController/Stress/StressBar.hide()
-#
-#		$BarsController/Budget/BudgetLabel.show()
-#		$BarsController/Health/HealthLabel.show()
-#		$BarsController/Nature/NatureLabel.show()
-#		$BarsController/Satisfation/SatisfactionLabel.show()
-#		$BarsController/Stress/StressLabel.show()
-
+	# Setting the bars' initial values
 	$BarsController/Budget.value = curr_gauges.BUDGET
 	$BarsController/Health.value = curr_gauges.HEALTH
 	$BarsController/Nature.value = curr_gauges.NATURE
@@ -60,34 +23,25 @@ func _ready():
 
 
 func _on_gauge_changed(gauge_name, new_value, _old_value):
+	var on_gauge: Node = null
 	match gauge_name:
 		"BUDGET":
-			$BarsController/Budget.value = new_value
+			on_gauge = $BarsController/Budget
 		"HEALTH":
-			$BarsController/Health.value = new_value
+			on_gauge = $BarsController/Health
 		"SATISFACTION":
-			$BarsController/Satisfation.value = new_value
+			on_gauge = $BarsController/Satisfation
 		"NATURE":
-			$BarsController/Nature.value = new_value
+			on_gauge = $BarsController/Nature
 		"STRESS":
-			$BarsController/Stress.value = new_value
-#	match gauge_name:
-#		"BUDGET":
-#			$BarsController/Budget/BudgetBar.value = new_value
-#			$BarsController/Budget/BudgetLabel.text = str(new_value) + "k $"
-#		"HEALTH":
-#			$BarsController/Health/HealthBar.value = new_value
-#			$BarsController/Health/HealthLabel.text = str(new_value) + " %"
-#		"SATISFACTION":
-#			$BarsController/Satisfation/SatisfactionBar.value = new_value
-#			$BarsController/Satisfation/SatisfactionLabel.text = str(new_value) + " %"
-#		"NATURE":
-#			$BarsController/Nature/NatureBar.value = new_value
-#			$BarsController/Nature/NatureLabel.text = str(new_value) + " %"
-#		"STRESS":
-#			$BarsController/Stress2.value = new_value
-#			$BarsController/Stress/StressBar.value = new_value
-#			$BarsController/Stress/StressLabel.text = str(new_value) + " %"
+			on_gauge = $BarsController/Stress
+	
+	if on_gauge != null:
+		if !global_object.initialization_did_finish:
+			# This will NOT animate it with the tween
+			on_gauge.value = new_value
+		else:
+			on_gauge.set_value(new_value)
 
 func _on_expected_gauge_diff_changed(gauge_name, diff):
 	match gauge_name:

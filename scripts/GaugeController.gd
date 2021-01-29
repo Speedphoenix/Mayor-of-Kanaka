@@ -43,14 +43,8 @@ func _process(_delta):
 	# idle_frame is triggered before _process is called on ever node.
 	# This ensures the following code is run before or after everything else
 	yield(get_tree(), "idle_frame")
-	if !_next_gauges_state.empty():
-		for name in _next_gauges_state:
-			var old_value = _gauges[name]
-			_set_gauge(name, _next_gauges_state[name])
-			var new_value = _gauges[name]
-			if emit_signal_on_identical_new_value || old_value != new_value:
-				emit_signal("gauge_changed", name, new_value, old_value)
-		_next_gauges_state.clear()
+	_handle_next_gauges_state()
+	
 
 func gauge_exists(name: String) -> bool:
 	return _gauges.has(name)
@@ -97,9 +91,11 @@ func apply_to_gauge(name: String, diff: float) -> void:
 		_next_gauges_state[name] = _gauges[name]
 	_next_gauges_state[name] += diff
 
-func set_gauges(values: Dictionary) -> void:
+func set_gauges(values: Dictionary, is_initialization := false) -> void:
 	for gauge_name in values:
 		set_gauge(gauge_name, values[gauge_name])
+	if is_initialization:
+		_handle_next_gauges_state()
 
 func apply_to_gauges(differences: Dictionary) -> void:
 	for gauge_name in differences:
@@ -119,6 +115,16 @@ func announce_gauges_diff(differences: Dictionary) -> void:
 
 func reset_expected_diffs() -> void:
 	expected_next_turn_gauge_diff.clear()
+
+func _handle_next_gauges_state():
+	if !_next_gauges_state.empty():
+		for name in _next_gauges_state:
+			var old_value = _gauges[name]
+			_set_gauge(name, _next_gauges_state[name])
+			var new_value = _gauges[name]
+			if emit_signal_on_identical_new_value || old_value != new_value:
+				emit_signal("gauge_changed", name, new_value, old_value)
+		_next_gauges_state.clear()
 
 func _on_turn_changed(_turn_number, _miniturn_number):
 	reset_expected_diffs()

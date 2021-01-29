@@ -68,7 +68,7 @@ func apply(scene_tree: SceneTree) -> void:
 	
 	# Applying initial gauges limits and values
 	gauge_controller.set_gauges_limits(gauge_limits)
-	gauge_controller.set_gauges(initial_gauges)
+	gauge_controller.set_gauges(initial_gauges, true)
 	
 	game_state_controller.game_can_end = self.game_can_end
 	
