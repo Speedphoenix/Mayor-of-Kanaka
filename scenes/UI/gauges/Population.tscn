@@ -7,7 +7,7 @@
 [node name="Population" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -640.0
+margin_right = -709.0
 margin_bottom = -448.0
 script = ExtResource( 2 )
 __meta__ = {
@@ -28,6 +28,7 @@ __meta__ = {
 
 [node name="MainContainer" type="HBoxContainer" parent="."]
 rect_scale = Vector2( 0.3, 0.3 )
+alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
