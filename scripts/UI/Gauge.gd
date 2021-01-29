@@ -14,7 +14,8 @@ onready var tween: Tween = $Tween
 
 func _ready():
 	_set_value(value)
-	set_expected_diff(0)
+	if arrow_texture_rect != null:
+		set_expected_diff(0)
 
 func set_value(new_val: float) -> void:
 	tween.interpolate_property(self, "value", value, new_val, tween_duration)

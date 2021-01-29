@@ -20,6 +20,8 @@ func _ready():
 	$BarsController/Nature.value = curr_gauges.NATURE
 	$BarsController/Satisfation.value = curr_gauges.SATISFACTION
 	$BarsController/Stress.value = curr_gauges.STRESS
+	if curr_gauges.has("POPULATION"):
+		$BarsController/Population.value = curr_gauges.POPULATION
 
 
 func _on_gauge_changed(gauge_name, new_value, _old_value):
@@ -35,6 +37,8 @@ func _on_gauge_changed(gauge_name, new_value, _old_value):
 			on_gauge = $BarsController/Nature
 		"STRESS":
 			on_gauge = $BarsController/Stress
+		"POPULATION":
+			on_gauge = $BarsController/Population
 	
 	if on_gauge != null:
 		if !global_object.initialization_did_finish:

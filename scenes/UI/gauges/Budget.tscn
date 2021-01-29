@@ -26,7 +26,7 @@ margin_right = 447.0
 texture = ExtResource( 3 )
 
 [node name="Unit" parent="MainContainer" index="4"]
-margin_left = 452.0
-margin_right = 503.0
+margin_left = 451.0
+margin_right = 502.0
 custom_colors/font_color = Color( 0.00392157, 0.603922, 0, 1 )
 text = "$"

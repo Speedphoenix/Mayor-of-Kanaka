@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/bars/progression_bar_empty_blue.png" type="Texture" id=1]
 [ext_resource path="res://assets/bars/progression_bar_full_blue.png" type="Texture" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://scenes/UI/gauges/Budget.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/UI/gauges/Stress.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/UI/gauges/Nature.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/UI/gauges/Population.tscn" type="PackedScene" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -78,10 +79,17 @@ margin_right = 420.0
 margin_bottom = 437.0
 
 [node name="Budget" parent="BarsController" instance=ExtResource( 19 )]
-margin_left = 605.0
-margin_top = 420.0
-margin_right = 605.0
-margin_bottom = 420.0
+margin_left = 595.0
+margin_top = 430.0
+margin_right = 595.0
+margin_bottom = 430.0
+
+[node name="Population" parent="BarsController" instance=ExtResource( 22 )]
+margin_left = 705.0
+margin_top = 395.0
+margin_right = 705.0
+margin_bottom = 395.0
+rect_scale = Vector2( 0.9, 0.9 )
 
 [node name="Stress_old" type="Control" parent="BarsController"]
 visible = false

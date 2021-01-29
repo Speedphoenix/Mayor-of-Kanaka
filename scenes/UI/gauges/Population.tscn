@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/fonts/GaugesFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/UI/Gauge.gd" type="Script" id=2]
+[ext_resource path="res://assets/bars/icons/Pop_icon_outlined.png" type="Texture" id=3]
+
+[node name="Population" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -640.0
+margin_bottom = -448.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+step = 1.0
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Background" type="ColorRect" parent="."]
+visible = false
+margin_right = 160.0
+margin_bottom = 32.0
+color = Color( 0, 0, 0, 0.156863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+rect_scale = Vector2( 0.3, 0.3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="MainContainer"]
+margin_top = 15.0
+margin_right = 158.0
+margin_bottom = 105.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "20.6"
+
+[node name="IconContainer" type="MarginContainer" parent="MainContainer"]
+margin_left = 162.0
+margin_right = 336.0
+margin_bottom = 120.0
+custom_constants/margin_right = 40
+custom_constants/margin_top = 0
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 20
+
+[node name="Icon" type="TextureRect" parent="MainContainer/IconContainer"]
+margin_left = 10.0
+margin_right = 134.0
+margin_bottom = 100.0
+texture = ExtResource( 3 )
+stretch_mode = 4
