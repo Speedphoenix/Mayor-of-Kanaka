@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/menu/title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/menu/GameMenu.gd" type="Script" id=2]
 [ext_resource path="res://scenes/menu/NewGameButton.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resources/game_parameters/Kanacago_staging_game.tres" type="Resource" id=4]
+[ext_resource path="res://resources/game_parameters/Kanacago_game.tres" type="Resource" id=4]
 [ext_resource path="res://assets/menu/button_font.tres" type="DynamicFont" id=5]
-[ext_resource path="res://resources/game_parameters/NewKanaka_staging_game.tres" type="Resource" id=6]
+[ext_resource path="res://resources/game_parameters/Kanaka_game.tres" type="Resource" id=6]
 [ext_resource path="res://assets/menu/Logo_Kanaka.png" type="Texture" id=7]
-[ext_resource path="res://resources/game_parameters/Kanaka_staging_game.tres" type="Resource" id=8]
+[ext_resource path="res://resources/game_parameters/NewKanaka_game.tres" type="Resource" id=8]
+[ext_resource path="res://resources/game_parameters/Kanak_game.tres" type="Resource" id=9]
 [ext_resource path="res://assets/menu/palette2/c6ebc9_verttrèsclair.png" type="Texture" id=10]
 [ext_resource path="res://assets/menu/palette2/cfa892_rosé.png" type="Texture" id=11]
 
@@ -89,7 +90,7 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="HBoxContainer" parent="HScrollBar"]
-margin_right = 810.0
+margin_right = 1085.0
 margin_bottom = 255.0
 rect_min_size = Vector2( 0, 255 )
 custom_constants/separation = 15
@@ -98,35 +99,26 @@ __meta__ = {
 }
 
 [node name="NewGame" parent="HScrollBar/VBoxContainer" instance=ExtResource( 3 )]
-game_parameters = ExtResource( 8 )
+game_parameters = ExtResource( 6 )
 title = "Kanaka"
-budget = "300"
-health = "70"
-nature = "40"
-satisfaction = "60"
-mayor = "0"
 
 [node name="NewGame5" parent="HScrollBar/VBoxContainer" instance=ExtResource( 3 )]
 margin_left = 275.0
 margin_right = 535.0
-game_parameters = ExtResource( 6 )
+game_parameters = ExtResource( 8 )
 title = "New Kanaka"
-budget = "830"
-health = "50"
-nature = "50"
-satisfaction = "40"
-mayor = "30"
 
 [node name="NewGame6" parent="HScrollBar/VBoxContainer" instance=ExtResource( 3 )]
 margin_left = 550.0
 margin_right = 810.0
 game_parameters = ExtResource( 4 )
 title = "Kanacago"
-budget = "150"
-health = "80"
-nature = "80"
-satisfaction = "90"
-mayor = "0"
+
+[node name="NewGame7" parent="HScrollBar/VBoxContainer" instance=ExtResource( 3 )]
+margin_left = 825.0
+margin_right = 1085.0
+game_parameters = ExtResource( 9 )
+title = "KanaK"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="."]
 margin_left = 4.0

@@ -1,0 +1,52 @@
+[gd_resource type="Resource" load_steps=16 format=2]
+
+[ext_resource path="res://scripts/GameParameters.gd" type="Script" id=1]
+[ext_resource path="res://resources/events/laws-policies/privatisationOfPublicService.tres" type="Resource" id=2]
+[ext_resource path="res://resources/events/nature/naturalCatastrophy.tres" type="Resource" id=3]
+[ext_resource path="res://resources/events/small-troubles/regularTrouble.tres" type="Resource" id=4]
+[ext_resource path="res://resources/events/laws-policies/publicTroubelsomeLaw.tres" type="Resource" id=5]
+[ext_resource path="res://resources/events/construction-works/nonVisualConstruction.tres" type="Resource" id=6]
+[ext_resource path="res://resources/events/laws-policies/crimeLevelIncrease.tres" type="Resource" id=7]
+[ext_resource path="res://resources/events/nature/cityGreening.tres" type="Resource" id=8]
+[ext_resource path="res://resources/events/non_interactive_events/manifestation.tres" type="Resource" id=9]
+[ext_resource path="res://resources/events/non_interactive_events/vandalism.tres" type="Resource" id=10]
+[ext_resource path="res://resources/events/nature/civilSolarEnergy.tres" type="Resource" id=11]
+[ext_resource path="res://resources/events/non_interactive_events/toxicRain.tres" type="Resource" id=12]
+[ext_resource path="res://resources/events/non_interactive_events/citySmog.tres" type="Resource" id=13]
+[ext_resource path="res://resources/events/construction-works/schoolConstruction.tres" type="Resource" id=14]
+[ext_resource path="res://resources/events/construction-works/hospitalConstruction.tres" type="Resource" id=15]
+
+[resource]
+script = ExtResource( 1 )
+max_events_per_turn = 6
+target_events_per_turn = 3
+min_events_per_turn = 2
+random_seed = 0
+game_can_end = true
+initial_possible_events = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ]
+initial_city_size = 200
+initial_gauges = {
+"BUDGET": 100,
+"HEALTH": 80,
+"NATURE": 80,
+"SATISFACTION": 90,
+"STRESS": 0
+}
+gauge_limits = {
+"HEALTH": {
+"LOWER": 0,
+"UPPER": 100
+},
+"NATURE": {
+"LOWER": 0,
+"UPPER": 100
+},
+"SATISFACTION": {
+"LOWER": 0,
+"UPPER": 100
+},
+"STRESS": {
+"LOWER": 0,
+"UPPER": 100
+}
+}
