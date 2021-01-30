@@ -115,11 +115,11 @@ func drag_and_drop_window(ev: InputEvent):
 	
 	if ev is InputEventMouseButton and ev.is_pressed() and hover_window == true:
 		mouse_start_position = ev.position
+		window_start_position = Window.rect_position
 		holding_window = true
 		
 	elif ev is InputEventMouseButton and !ev.is_pressed() and hover_window == true :
 		holding_window = false
-		window_start_position = Window.rect_position
 		
 	elif ev is InputEventMouseMotion and holding_window == true:
 		var mouse_current_position: Vector2 = ev.position
