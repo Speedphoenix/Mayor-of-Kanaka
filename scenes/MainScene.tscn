@@ -16,6 +16,7 @@ pause_mode = 1
 [node name="GlobalObject" parent="." instance=ExtResource( 7 )]
 
 [node name="CityMap" parent="." instance=ExtResource( 6 )]
+position = Vector2( 0, 0.707108 )
 
 [node name="InterfaceController" type="Control" parent="."]
 script = ExtResource( 1 )

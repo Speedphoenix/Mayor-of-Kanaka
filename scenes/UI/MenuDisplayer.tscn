@@ -8,10 +8,10 @@
 script = ExtResource( 3 )
 
 [node name="Background" type="TextureRect" parent="."]
-margin_left = -14.0
-margin_top = -13.0
-margin_right = 96.0
-margin_bottom = 75.0
+margin_left = -16.5582
+margin_top = -13.8767
+margin_right = 93.4418
+margin_bottom = 74.1233
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
@@ -19,10 +19,10 @@ __meta__ = {
 }
 
 [node name="BackMenuButton" type="TextureButton" parent="."]
-margin_left = 14.1091
-margin_top = 6.0
-margin_right = 68.1091
-margin_bottom = 58.0
+margin_left = 15.2983
+margin_top = 3.91889
+margin_right = 69.2983
+margin_bottom = 55.9189
 texture_normal = ExtResource( 2 )
 expand = true
 __meta__ = {
