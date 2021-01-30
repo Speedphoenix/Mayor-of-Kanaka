@@ -33,12 +33,6 @@ export(int) var available_trigger_count := -1
 # supposed to contain a dependable event
 export(Resource) var depending_event
 
-#will generate a random number to chose event's title/description from an array
-var rng = RandomNumberGenerator.new()
-
-func _init():
-	rng.randomize()
-
 # These functions should be overridden
 
 # Called when the event is created, before the player has interracted with it
@@ -55,5 +49,5 @@ func on_expired(_scene_tree: SceneTree) -> void:
 	pass
 
 # Returns true if the event can be accepted (eg The current budget is sufficient)
-func can_accept() -> bool: 
+func can_accept(_scene_tree: SceneTree) -> bool:
 	return true

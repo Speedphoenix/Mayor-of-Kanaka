@@ -32,7 +32,7 @@ func on_refused(_scene_tree: SceneTree) -> void:
 func on_expired(_scene_tree: SceneTree) -> void:
 	_apply_refuse_expire()
 
-func can_accept() -> bool:
+func can_accept(_scene_tree: SceneTree) -> bool:
 	if(accept_effects['on_gauges']['BUDGET'] && accept_effects['on_gauges']['BUDGET'] < 0):
 		if(accept_effects['on_gauges']['BUDGET'] * -1 >= gauge_controller.get_gauge("BUDGET")):
 			return false
