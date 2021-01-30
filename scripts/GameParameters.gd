@@ -15,6 +15,10 @@ export(int) var max_events_per_turn := 6
 export(int) var target_events_per_turn := 3
 export(int) var min_events_per_turn := 2
 
+# Put a value greater than 30 to wait until the second month
+# Use -1 to disable, and randomly have events at any time
+export(int) var day_of_first_event := 10
+
 # The random seed to use for this game
 # (does not apply to random number generators used internally by the events)
 export(int) var random_seed := 0
@@ -61,6 +65,7 @@ func apply(scene_tree: SceneTree) -> void:
 	event_controller.target_events_per_turn = self.target_events_per_turn
 	event_controller.max_events_per_turn = self.max_events_per_turn
 	event_controller.min_events_per_turn = self.min_events_per_turn
+	event_controller.day_of_first_event = self.day_of_first_event
 	
 	# Applying intial possible events
 	for event in initial_possible_events:

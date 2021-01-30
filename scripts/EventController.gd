@@ -30,11 +30,9 @@ signal new_triggerable_event_added(new_triggerable)
 export(int) var events_per_turn_start := 1
 export(int) var max_events_per_miniturn := 1
 
-# Need a better name for this
-# Whether the game should aim to fulfill a certain amount of events per turn
-# (count potentially result in machine gun events near the end of the turn)
-# TODO:
-# export(bool) var should_fix_event_count_per_turn = true
+# Put a value greater than 30 to wait until the second month
+# Use -1 to disable, and randomly have events at any time
+var day_of_first_event := 10
 
 # note that manually triggering events with trigger_events() may bring triggered events over the limit
 var max_events_per_turn := 6
@@ -241,9 +239,16 @@ func _expire_events(to_expire: Array):
 	emit_signal("events_expired", expired_resources)
 	emit_signal("active_events_changed", active_events.duplicate())
 
-func _should_trigger_miniturn_event(_turn_number, miniturn_number: int) -> int:
+func _should_trigger_miniturn_event(turn_number, miniturn_number: int) -> int:
 	if use_dumb_event_generation && miniturn_number in [10, 20]:
 		return 1
+	var days_in_a_month := turn_controller.days_in_a_month
+	var day_count = turn_number * days_in_a_month + miniturn_number
+	if day_of_first_event != -1 && day_count <= day_of_first_event:
+		if day_count < day_of_first_event:
+			return 0
+		if day_count == day_of_first_event:
+			return 1
 	if miniturn_number <= 1:
 		return 0
 	var pending_immediate: int = _pending_immediate_event_count()
@@ -252,7 +257,6 @@ func _should_trigger_miniturn_event(_turn_number, miniturn_number: int) -> int:
 		return int(clamp(pending_immediate, 0, max_events_per_miniturn))
 	if max_remaining_events <= 0:
 		return 0
-	var days_in_a_month := turn_controller.days_in_a_month
 	
 	# + 1 because miniturn number counts from 1 to 30, not 0 to 29
 	var remaining_days: int = days_in_a_month - miniturn_number + 1

@@ -48,6 +48,8 @@ func _ready():
 	_turn_timer.one_shot = true # We may need to stop it often
 	_turn_timer.connect("timeout", self, "on_turn_timeout")
 	launch_next_timers()
+	if trigger_first_miniturn:
+		trigger_next_miniturn()
 	
 # prevent memory leak
 func _exit_tree():

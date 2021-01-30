@@ -8,8 +8,8 @@ export(float) var step := 0.1
 
 var value: float = 0 setget _set_value, _get_value
 
+onready var arrow_texture_rect: TextureRect = get_node_or_null("MainContainer/ArrowContainer/Arrow")
 onready var value_label: Label = $MainContainer/Value
-onready var arrow_texture_rect: TextureRect = $MainContainer/ArrowContainer/Arrow
 onready var tween: Tween = $Tween
 
 func _ready():
@@ -31,6 +31,11 @@ func _get_value() -> float:
 	return value
 
 func set_expected_diff(diff: float) -> void:
+	# This shouldn't happen since the gauge displayer wouldn't call this
+	# But you never know
+	if arrow_texture_rect == null:
+		push_warning("Tried setting the diff stonks for a gauge without one")
+		return
 	if is_equal_approx(diff, 0):
 		arrow_texture_rect.visible = false
 	elif diff > 0:
