@@ -7,8 +7,6 @@
 [ext_resource path="res://scripts/menu/HowToPlay.gd" type="Script" id=5]
 [ext_resource path="res://assets/menu/palette2/c6ebc9_verttrèsclair.png" type="Texture" id=6]
 
-
-
 [sub_resource type="DynamicFont" id=1]
 size = 20
 font_data = ExtResource( 3 )
@@ -55,20 +53,19 @@ __meta__ = {
 }
 
 [node name="text" type="RichTextLabel" parent="Control"]
-margin_right = 560.0
+margin_left = 0.5
+margin_right = 560.5
 margin_bottom = 185.0
 custom_fonts/normal_font = SubResource( 1 )
-text = "Mayor of Kanaka se joue en tour par tour.
-Chaque tour correspond à 1 mois du calendrier.
-Durant chaque tour, des événements se présentent à vous.
-Il vous faudra alors décider d'accepter ou de refuser ces évènements. Vous pouvez aussi choisir de garder cet évènement en réserve temporairement en fermant la fenêtre.
-Les décisions que vous prenez influent sur les différents pourcentages, ainsi que le budget de la ville, durant les tours suivants.
-Ces pourcentages correspondent à :
+text = "Mayor of Kanaka is a turn-based game, where each month that passes by on the calendar leads to the next turn.
+Throughout each month, various events will be brought to you.
+You will need to decide whether to accept or to refuse each of these events. You may also choose to put an event on hold by closing the event window, and come back to that event later.
+The decisions you take have an effect on the city you manage. These effects are seen on the budget as well as on the displayed percentage values that represent the state of the city.
+These values are:
 Nature (pollution)
-Satisfaction des citoyens
-Santé
-Stress du maire
-"
+Citizens’ satisfaction
+Citizens’ health
+The mayor’s (your) stress"
 __meta__ = {
 "_edit_use_anchors_": false
 }
