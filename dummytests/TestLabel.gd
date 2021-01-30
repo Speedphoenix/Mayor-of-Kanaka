@@ -10,6 +10,8 @@ func _ready():
 #	print("Health" in test_dictionary)
 #	for key in test_dictionary:
 #		print(key)
+#	for i in range(0, 100):
+#		print(ease(float(i) / 100, 0.5))
 	pass
 
 func showmachin(newturn, newday = 1):

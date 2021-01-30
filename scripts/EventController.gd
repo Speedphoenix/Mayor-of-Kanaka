@@ -30,6 +30,9 @@ signal new_triggerable_event_added(new_triggerable)
 export(int) var events_per_turn_start := 1
 export(int) var max_events_per_miniturn := 1
 
+# If this is set to true, events will only be triggered on days 10 and 20
+export(bool) var use_dumb_event_generation := false
+
 # Put a value greater than 30 to wait until the second month
 # Use -1 to disable, and randomly have events at any time
 var day_of_first_event := 10
@@ -39,10 +42,11 @@ var max_events_per_turn := 6
 var target_events_per_turn := 3
 var min_events_per_turn := 2
 
-# If this is set to true, events will only be triggered on days 10 and 20
-export(bool) var use_dumb_event_generation := false
+# How many events were sent since the start of the turn
+var current_turn_event_count := 0
 
-var current_turn_event_count: int = 0
+# How many times events have been triggered so far during the game
+var current_game_trigger_count := 0
 
 # An array of TriggerableEvents
 var triggerable_events: Array
@@ -64,6 +68,10 @@ class TriggerableEvent:
 	var last_trigger_turn := -1
 	var last_trigger_miniturn := -1
 	
+	# The value of current_game_trigger_count when this event was last triggered
+	# TODO: find a better name for this
+	var last_trigger_number := -1
+	
 	# The number of times this event has left to be triggered.
 	# Use -1 for an even that does not have a trigger limit
 	var remaing_triggers := -1
@@ -83,7 +91,7 @@ class TriggerableEvent:
 			weight = use_weight
 		else:
 			weight = from.weight
-		remaing_triggers = from.trigger_count
+		remaing_triggers = from.available_trigger_count
 
 # An event that has been instantiated and triggered.
 # It might be active or closed
@@ -185,8 +193,10 @@ func trigger_events(max_count: int = 1) -> void:
 			event.past_triggers_count += 1
 			event.last_trigger_turn = curr_turn_number
 			event.last_trigger_miniturn = curr_miniturn_number
+			event.last_trigger_number = current_game_trigger_count
 			triggered.event_resource.on_triggered(get_tree())
 		current_turn_event_count += to_send.size()
+		current_game_trigger_count += 1
 		emit_signal("events_arrived", to_send)
 		emit_signal("active_events_changed", active_events.duplicate())
 
@@ -200,6 +210,7 @@ func _pending_immediate_event_count() -> int:
 
 # returns an array of valid usable TriggerableEvents
 # Note that multiple events could have the same reference
+# if it was set to trigger immediately multiple times
 func _get_available_events(max_count: int = 1) -> Array:
 	var possible_events := []
 	var trigger_now := []
@@ -224,7 +235,23 @@ func _get_available_events(max_count: int = 1) -> Array:
 		if needmore == 0:
 			break
 	if needmore > 0 && !possible_events.empty():
-		var possible_weights := WeightChoice.get_weights_from_dicts(possible_events)
+		var possible_weights := []
+		# Assembling an array of weights
+		# Not using WeightChoice.get_weights_from_dicts here to ease certain weights
+		for event in possible_events:
+			var ease_duration: int = event.event_resource.weight_ease_duration
+			var triggers_since_last: int = (
+				current_game_trigger_count - event.last_trigger_number
+				if event.last_trigger_number != -1 else
+				ease_duration
+			)
+			if triggers_since_last >= ease_duration:
+				possible_weights.append(event.weight)
+			else:
+				var eased_value := ease(float(triggers_since_last) / ease_duration,
+						event.event_resource.weight_ease_exponent)
+				var eased_weight := int(round(eased_value * event.weight))
+				possible_weights.append(eased_weight)
 		var chosen_possibles := WeightChoice.choose_by_weight(possible_weights, needmore)
 		for chosen_index in chosen_possibles:
 			rep.append(possible_events[chosen_index])

@@ -22,9 +22,9 @@ func _init():
 	#no preventive measures taken, crisis strikes at it's full strength
 	refuse_or_expire_effects = {
 		"on_gauges": {
-			"STRESS": rng.randi_range(2, 5),
-			"SATISFACTION": rng.randi_range(-10, -5),
-			"BUDGET": rng.randi_range(-1000, -100),
+			"STRESS": WeightChoice.randi_range(2, 5),
+			"SATISFACTION": WeightChoice.randi_range(-10, -5),
+			"BUDGET": WeightChoice.randi_range(-1000, -100),
 		},
 	}
 

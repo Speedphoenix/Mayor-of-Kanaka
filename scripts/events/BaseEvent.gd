@@ -17,9 +17,18 @@ export(String) var refuse_msg := "Refuse"
 
 export(int) var weight := 1
 
+# The number of *other* event triggers over which the weight of *this* event 
+# eases back to normal after it has been triggered
+#
+# For example, with an ease duration of 10, after having been triggered
+# the next 9 random event triggers will have reduced chances of picking this one
+export(int) var weight_ease_duration := 5
+# This will be passed as second parameter to the ease function
+export(float) var weight_ease_exponent: float = 4
+
 # -1 to trigger as many times as needed,
 # a positive value to define how many times it should be triggered at most
-export(int) var trigger_count := -1
+export(int) var available_trigger_count := -1
 
 # supposed to contain a dependable event
 export(Resource) var depending_event

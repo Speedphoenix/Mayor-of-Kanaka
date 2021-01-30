@@ -10,4 +10,6 @@ active_duration = 0
 accept_msg = "Act"
 refuse_msg = "Do nothing"
 weight = 1
-trigger_count = -1
+weight_ease_duration = 5
+weight_ease_exponent = 4.0
+available_trigger_count = -1
