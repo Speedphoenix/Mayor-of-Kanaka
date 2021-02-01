@@ -34,14 +34,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PausePlayIcon" type="TextureRect" parent="."]
-margin_left = 746.068
-margin_top = 50.5488
-margin_right = 781.068
-margin_bottom = 79.5488
-texture = ExtResource( 5 )
+[node name="PausePlayIcon" type="TextureButton" parent="."]
+margin_left = 744.378
+margin_top = 49.7838
+margin_right = 783.378
+margin_bottom = 83.7838
+toggle_mode = true
+texture_normal = ExtResource( 5 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="toggled" from="PausePlayButton" to="." method="_on_PausePlayButton_toggled"]
+[connection signal="toggled" from="PausePlayIcon" to="." method="_on_PausePlayButton_toggled"]
