@@ -114,6 +114,9 @@ func close_window():
 	# end holding the window
 	holding_window = false
 	turn_controller.resume_turns()
+	# If the event is non interactive, closing window is like accepting the event 
+	if event is EventNonInteractive:
+		event_controller.accept_event(event)
 
 # drag and drop the event window with the mouse based on the Window ColorRect selection
 # TODO : improve the selection of the window (not based on background)

@@ -104,7 +104,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/GameControllers/PopulationController.gd"
 }, {
-"base": "Reference",
+"base": "BaseEffect",
 "class": "PopulationEffect",
 "language": "GDScript",
 "path": "res://scripts/events/Effects/PopulationEffect.gd"
