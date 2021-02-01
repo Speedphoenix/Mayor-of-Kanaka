@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://resources/events/laws-policies/GarbageSorting.gd" type="Script" id=1]
-[ext_resource path="res://resources/events/dependable-events/BankLoan.gd" type="Script" id=2]
+[ext_resource path="res://resources/events/dependable-events/bankLoan.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )

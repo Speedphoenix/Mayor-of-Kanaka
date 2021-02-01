@@ -7,7 +7,8 @@ func _init():
 	#this is a monthly effect
 	trigger_effects = {
 		"on_gauges": {
-			"NATURE": -3,
+			"NATURE": WeightChoice.randi_range(-5, -1),
+			"HEALTH": WeightChoice.randi_range(-8, -3)
 		},
 	}
 

@@ -20,6 +20,7 @@ func _init():
 			"STRESS": WeightChoice.randi_range(5, 20),
 			"NATURE": WeightChoice.randi_range(10, 20),
 			"SATISFACTION": WeightChoice.randi_range(-10, -5),
+			"HEALTH": WeightChoice.randi_range(3, 5)
 		},
 	}
 	
