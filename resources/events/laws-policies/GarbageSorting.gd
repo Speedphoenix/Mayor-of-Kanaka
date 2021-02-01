@@ -23,13 +23,13 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	#6 - 12 months
 	effect_duration = WeightChoice.randi_range(6, 12)
-	var cost = WeightChoice.randi_range(150, 400)
+	var cost = WeightChoice.randi_range(-400, -150)
 	#will be payed once
 	accept_effects['on_gauges']["BUDGET"] = cost
 	description = (
 		"Mayor, we suggest to conduct the city garbage sorting project."
 		+ " Our initial investment will be "
-		+ str(cost) + "K $."
+		+ str(cost * -1) + "K $."
 		+ "This will certainly help us with garbage recycling."
 		)
 	monthyl_effects = {

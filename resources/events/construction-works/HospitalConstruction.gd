@@ -23,7 +23,7 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	var cunstruction_cost := WeightChoice.randi_range(-1200, -800)
-	description += str(cunstruction_cost) + ' $.'
+	description += str(cunstruction_cost * -1) + ' $.'
 	accept_effects['on_gauges']['BUDGET'] = cunstruction_cost
 
 func on_accepted(scene_tree: SceneTree) -> void:
