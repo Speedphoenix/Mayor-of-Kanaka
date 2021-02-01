@@ -1,0 +1,34 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://scripts/events/effects/ConstructionEffect.gd" type="Script" id=1]
+[ext_resource path="res://scripts/events/DecisionWithEffects.gd" type="Script" id=2]
+[ext_resource path="res://scripts/events/effects/GaugeEffect.gd" type="Script" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 3 )
+gauge_diffs = {
+"BUDGET": -100.0,
+"SCHOOL": 1
+}
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 1 )
+delay = 3
+which_resolves = [ 0 ]
+tile_dimensions = Vector2( 3, 2 )
+tile_name = "school"
+possibility_count = 1
+possibilities_can_touch = true
+
+[resource]
+script = ExtResource( 2 )
+title = "Well, maybe build a school?"
+description = "No really people are dumb, change that please."
+active_duration = 0
+accept_msg = "Accept"
+refuse_msg = "Refuse"
+weight = 1
+weight_ease_duration = 5
+weight_ease_exponent = 4.0
+available_trigger_count = -1
+effects = [ SubResource( 1 ), SubResource( 2 ) ]

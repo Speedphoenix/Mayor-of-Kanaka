@@ -154,7 +154,7 @@ func cell_can_connect_to(current_tile: int, target_tileid: int) -> bool:
 	
 func tile_is_path(tileid: int, path_type := PathType.ANYPATH) -> bool:
 	# TODO: implement waterways n stuff
-	if not path_type in [PathType.ANYPATH, PathType.ROAD]:
+	if not (path_type in [PathType.ANYPATH, PathType.ROAD]):
 		return false
 	for el in tiles:
 		if el.tileid == tileid:
