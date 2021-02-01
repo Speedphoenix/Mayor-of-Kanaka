@@ -6,10 +6,15 @@
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 3 )
+delay = 1
+which_resolves = [ 0 ]
 gauge_diffs = {
 "BUDGET": -100.0,
 "SCHOOL": 1
 }
+announce_first_turn_effects = true
+block_accept_on_no_budget = true
+create_gauge_if_needed = true
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 1 )
