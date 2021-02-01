@@ -15,7 +15,7 @@ func _ready():
 	var nature = str(stepify(game_parameters.initial_gauges["NATURE"], 0.1))
 	$GameTitle.text = title
 	$GameInfos.text = ("Budget: " + budget + "K$\nHealth: " + health + "\nEcology: "
-			+ nature + "\nCitizen satisfaction: " + satisfaction + "\nMayor Stress: " + stress)
+			+ nature + "\nCitizen satisfaction: " + satisfaction + "\nMayor's Stress: " + stress)
 	assert(game_parameters is GameParameters or game_parameters == null)
 
 func _pressed():
