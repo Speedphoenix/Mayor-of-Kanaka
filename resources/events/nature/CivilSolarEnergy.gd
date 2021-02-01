@@ -31,4 +31,5 @@ func on_accepted(_scene_tree: SceneTree) -> void:
 	}
 	for _month in range(1, 12):
 		yield(turn_controller, "turn_changed")
+		gauge_controller.announce_gauges_diff(monthly_effect.on_gauges)
 		gauge_controller.apply_to_gauges(monthly_effect.on_gauges)

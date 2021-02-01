@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-title = "A school must be contructed"
+title = "A school must be constructed"
 description = "The citizens are uneducated, we must build a school."
 active_duration = 3
 accept_msg = "Accept"

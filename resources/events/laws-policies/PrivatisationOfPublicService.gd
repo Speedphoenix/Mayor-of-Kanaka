@@ -46,6 +46,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 func on_accepted(_scene_tree: SceneTree) -> void:
 	#Supposing it's a long term decision, the effects will take place for 6 to 12 months
 	for _duration in range(1, WeightChoice.randi_range(6, 12)):
+		gauge_controller.announce_gauges_diff(accept_effects.on_gauges)
 		yield(turn_controller, "turn_changed")
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
 	#Final hidden consequences
