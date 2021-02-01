@@ -34,8 +34,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	accept_effects['on_gauges']['BUDGET'] = monthly_cost
 
 func on_accepted(_scene_tree: SceneTree) -> void:
-	
 	for _month in range(1, greening_duration):
 		yield(turn_controller, "turn_changed")
-		gauge_controller.announce_gauges_diff(accept_effects.on_gauges)		
+		gauge_controller.announce_gauges_diff(accept_effects.on_gauges)
 		gauge_controller.apply_to_gauges(accept_effects.on_gauges)
