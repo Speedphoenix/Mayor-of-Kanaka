@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Gunshot.wav-f4f32b3e631360b13c9de149546a86ad.sample"
+path="res://.import/gunshot.wav-e0ecf47f80ec0abdcb613fb4c85af292.sample"
 
 [deps]
 
-source_file="res://assets/musics/sound effects/Gunshot.wav"
-dest_files=[ "res://.import/Gunshot.wav-f4f32b3e631360b13c9de149546a86ad.sample" ]
+source_file="res://assets/audio/sound effects/gunshot.wav"
+dest_files=[ "res://.import/gunshot.wav-e0ecf47f80ec0abdcb613fb4c85af292.sample" ]
 
 [params]
 

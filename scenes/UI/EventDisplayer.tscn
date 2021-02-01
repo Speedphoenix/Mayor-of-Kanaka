@@ -8,8 +8,6 @@
 [ext_resource path="res://assets/events/close.png" type="Texture" id=6]
 [ext_resource path="res://assets/additional_ui/clock.png" type="Texture" id=7]
 
-
-
 [sub_resource type="DynamicFont" id=1]
 size = 24
 font_data = ExtResource( 1 )

@@ -11,6 +11,7 @@
 [node name="GlobalObject" type="Node"]
 script = ExtResource( 2 )
 default_params = ExtResource( 4 )
+music_starts_immediatly = true
 
 [node name="TurnController" type="Node" parent="."]
 script = ExtResource( 1 )

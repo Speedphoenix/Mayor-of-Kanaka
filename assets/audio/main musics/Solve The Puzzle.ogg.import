@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Solve The Puzzle.ogg-9b6f46191ead8fb0d0d3875756aeb1f4.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/main musics/Solve The Puzzle.ogg"
+dest_files=[ "res://.import/Solve The Puzzle.ogg-9b6f46191ead8fb0d0d3875756aeb1f4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -27,8 +27,6 @@ __meta__ = {
 [node name="EventDisplayer" parent="InterfaceController" instance=ExtResource( 3 )]
 
 [node name="DateDisplayer" parent="InterfaceController" instance=ExtResource( 2 )]
-bounce_duration = 0.25
-bounce_scale = 1.75
 
 [node name="GaugesDisplayer" parent="InterfaceController" instance=ExtResource( 4 )]
 
