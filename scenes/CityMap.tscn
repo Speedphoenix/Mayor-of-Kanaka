@@ -32,7 +32,6 @@ format = 1
 tile_data = PoolIntArray( 524308, 55, 0, 589840, 10, 0, 589841, 2, 0, 589842, 2, 0, 589843, 13, 0, 655376, 4, 0, 655377, 49, 0, 655379, 11, 0, 655380, 13, 0, 720912, 4, 0, 720915, 52, 0, 720916, 4, 0, 786448, 11, 0, 786449, 2, 0, 786450, 2, 0, 786451, 2, 0, 786452, 12, 0 )
 
 [node name="DragInputArea" type="Area2D" parent="."]
-visible = false
 script = ExtResource( 5 )
 
 [node name="FullViewportShape" type="CollisionShape2D" parent="DragInputArea"]
