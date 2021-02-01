@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/events/non_interactive_events/LetterToMayor.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+title = "Letters received"
+description = "Mayor we have treated a bunch of letters received from our citizens. For the monment people seem to be "
+active_duration = 0
+accept_msg = "Accept"
+refuse_msg = "Refuse"
+weight = 3
+weight_ease_duration = 5
+weight_ease_exponent = 4.0
+available_trigger_count = -1
+dismiss_msg = "Good to know"
