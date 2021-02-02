@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/citymap/CityMap.gd"
 }, {
-"base": "Reference",
+"base": "BaseEffect",
 "class": "ConstructionEffect",
 "language": "GDScript",
 "path": "res://scripts/events/effects/ConstructionEffect.gd"
@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/events/DecisionWithEffects.gd"
 }, {
-"base": "Reference",
+"base": "BaseEffect",
 "class": "EventAdderEffect",
 "language": "GDScript",
 "path": "res://scripts/events/effects/EventAdderEffect.gd"
@@ -74,7 +74,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/GaugeController.gd"
 }, {
-"base": "Reference",
+"base": "BaseEffect",
 "class": "GaugeEffect",
 "language": "GDScript",
 "path": "res://scripts/events/effects/GaugeEffect.gd"
@@ -104,7 +104,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/GameControllers/PopulationController.gd"
 }, {
-"base": "Reference",
+"base": "BaseEffect",
 "class": "PopulationEffect",
 "language": "GDScript",
 "path": "res://scripts/events/effects/PopulationEffect.gd"
