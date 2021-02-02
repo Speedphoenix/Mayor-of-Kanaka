@@ -4,6 +4,7 @@ export(bool) var draggable := false
 
 onready var turn_controller := TurnController.get_instance(get_tree())
 onready var event_controller := EventController.get_instance(get_tree())
+onready var music_controller := MusicController.get_instance(get_tree())
 # the interface controller is the immediate parent node
 onready var interface_controller : InterfaceController = get_parent()
 
@@ -73,9 +74,15 @@ func display_event():
 			DecisionButtons.change_accept_label(event.accept_msg)
 			DecisionButtons.change_refuse_label(event.refuse_msg)
 			
+		# stop time
 		turn_controller.pause_turns()
 		remaining_time_label()
+		
+		#play the sound effect music
+		music_controller.play_event_sound_effect()
+		
 		$SingleEventController.show()
+		
 
 # Set the label of the remaining time in days
 func remaining_time_label():
@@ -107,6 +114,9 @@ func close_window():
 	# end holding the window
 	holding_window = false
 	turn_controller.resume_turns()
+	# If the event is non interactive, closing window is like accepting the event 
+	if event is EventNonInteractive:
+		event_controller.accept_event(event)
 
 # drag and drop the event window with the mouse based on the Window ColorRect selection
 # TODO : improve the selection of the window (not based on background)

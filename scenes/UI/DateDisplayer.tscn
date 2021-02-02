@@ -19,10 +19,10 @@ __meta__ = {
 }
 
 [node name="CircleBackground" type="TextureRect" parent="DateController"]
-margin_left = 293.178
-margin_top = -36.1784
-margin_right = 495.178
-margin_bottom = 77.8216
+margin_left = 291.0
+margin_top = -40.0
+margin_right = 493.0
+margin_bottom = 67.0
 texture = ExtResource( 2 )
 expand = true
 __meta__ = {
@@ -30,10 +30,10 @@ __meta__ = {
 }
 
 [node name="CalendarIcon" type="TextureRect" parent="DateController"]
-margin_left = 327.227
-margin_top = 4.94054
-margin_right = 386.227
-margin_bottom = 56.9405
+margin_left = 329.893
+margin_top = 0.310382
+margin_right = 388.893
+margin_bottom = 52.3103
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
@@ -41,10 +41,10 @@ __meta__ = {
 }
 
 [node name="DateLabel" type="Label" parent="DateController"]
-margin_left = 392.0
-margin_top = 26.0
-margin_right = 472.0
-margin_bottom = 45.0
+margin_left = 393.964
+margin_top = 19.2652
+margin_right = 473.964
+margin_bottom = 38.2652
 rect_pivot_offset = Vector2( 40, 9.5 )
 custom_fonts/font = SubResource( 1 )
 text = "0 m 0 d"

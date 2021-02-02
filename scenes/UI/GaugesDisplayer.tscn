@@ -36,7 +36,7 @@ __meta__ = {
 }
 
 [node name="Frame" type="ColorRect" parent="BarsController"]
-margin_top = 386.0
+margin_top = 396.0
 margin_right = 800.0
 margin_bottom = 480.0
 color = Color( 0.32549, 0.0980392, 0.0980392, 1 )
@@ -46,7 +46,7 @@ __meta__ = {
 
 [node name="Background" type="ColorRect" parent="BarsController"]
 margin_left = 7.0
-margin_top = 392.0
+margin_top = 402.0
 margin_right = 793.0
 margin_bottom = 474.0
 color = Color( 0.439216, 0.133333, 0.133333, 1 )
@@ -56,39 +56,39 @@ __meta__ = {
 
 [node name="Stress" parent="BarsController" instance=ExtResource( 20 )]
 margin_left = 245.0
-margin_top = 398.0
+margin_top = 404.0
 margin_right = 245.0
-margin_bottom = 398.0
+margin_bottom = 404.0
 
 [node name="Health" parent="BarsController" instance=ExtResource( 17 )]
 margin_left = 420.0
-margin_top = 398.0
+margin_top = 404.0
 margin_right = 420.0
-margin_bottom = 398.0
+margin_bottom = 404.0
 
 [node name="Satisfation" parent="BarsController" instance=ExtResource( 16 )]
 margin_left = 245.0
-margin_top = 437.0
+margin_top = 440.0
 margin_right = 245.0
-margin_bottom = 437.0
+margin_bottom = 440.0
 
 [node name="Nature" parent="BarsController" instance=ExtResource( 21 )]
 margin_left = 420.0
-margin_top = 437.0
+margin_top = 440.0
 margin_right = 420.0
-margin_bottom = 437.0
+margin_bottom = 440.0
 
 [node name="Budget" parent="BarsController" instance=ExtResource( 19 )]
 margin_left = 595.0
-margin_top = 430.0
+margin_top = 435.0
 margin_right = 595.0
-margin_bottom = 430.0
+margin_bottom = 435.0
 
 [node name="Population" parent="BarsController" instance=ExtResource( 22 )]
 margin_left = 705.0
-margin_top = 395.0
+margin_top = 403.0
 margin_right = 705.0
-margin_bottom = 395.0
+margin_bottom = 403.0
 rect_scale = Vector2( 0.9, 0.9 )
 
 [node name="Stress_old" type="Control" parent="BarsController"]

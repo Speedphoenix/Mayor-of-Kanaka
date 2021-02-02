@@ -1,27 +1,29 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=8 format=2]
 
-[ext_resource path="res://scripts/events/DecisionNotSoSimple.gd" type="Script" id=1]
-[ext_resource path="res://scripts/events/Effects/GaugeEffect.gd" type="Script" id=2]
-[ext_resource path="res://scripts/events/Effects/EventAdderEffect.gd" type="Script" id=3]
+[ext_resource path="res://scripts/events/DecisionWithEffects.gd" type="Script" id=1]
+[ext_resource path="res://scripts/events/effects/EventAdderEffect.gd" type="Script" id=2]
+[ext_resource path="res://scripts/events/effects/GaugeEffect.gd" type="Script" id=3]
 [ext_resource path="res://resources/events/dummy/earthquake.tres" type="Resource" id=4]
+[ext_resource path="res://resources/events/dummy/armyChaos.tres" type="Resource" id=5]
 
 [sub_resource type="Resource" id=1]
-script = ExtResource( 3 )
-delays = [ 0 ]
-which_resolves = [ 0, 1, 2 ]
-depending_events = [ ExtResource( 4 ) ]
+script = ExtResource( 2 )
+delay = 1
+which_resolves = [ 0 ]
+depending_events = [ ExtResource( 4 ), ExtResource( 5 ) ]
 depending_is_immediate = true
 
 [sub_resource type="Resource" id=2]
-script = ExtResource( 2 )
-delays = [ 1 ]
-which_resolves = [ 0 ]
+script = ExtResource( 3 )
+delay = 1
+which_resolves = [ 0, 1, 2 ]
 gauge_diffs = {
 "BUDGET": -30.0,
 "SATISFACTION": 10.0
 }
 announce_first_turn_effects = true
 block_accept_on_no_budget = true
+create_gauge_if_needed = true
 
 [resource]
 script = ExtResource( 1 )
@@ -32,7 +34,7 @@ Accepting this event will bring help to the people.
 active_duration = 0
 accept_msg = "Accept"
 refuse_msg = "Refuse"
-weight = 600
+weight = 1
 weight_ease_duration = 5
 weight_ease_exponent = 4.0
 available_trigger_count = -1

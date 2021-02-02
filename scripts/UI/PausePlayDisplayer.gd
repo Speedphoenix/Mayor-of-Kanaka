@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 onready var turn_controller := TurnController.get_instance(get_tree())
+onready var music_controller := MusicController.get_instance(get_tree())
+
 export(Texture) var pause_icon
 export(Texture) var play_icon
 
@@ -15,6 +17,9 @@ func _on_PausePlayButton_toggled(button_pressed):
 
 func _on_pause_changed(pause_state: bool):
 	if pause_state == true:
-		$PausePlayIcon.texture = play_icon
+		$PausePlayIcon.texture_normal = play_icon
+		music_controller.reduce_volume()
 	else:
-		$PausePlayIcon.texture = pause_icon
+		$PausePlayIcon.texture_normal = pause_icon
+		music_controller.normal_volume()
+

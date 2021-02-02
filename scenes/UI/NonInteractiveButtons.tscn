@@ -5,8 +5,6 @@
 [ext_resource path="res://assets/additional_ui/non_interactivec_frame.png" type="Texture" id=3]
 [ext_resource path="res://assets/additional_ui/non_interactivec_frame_hover.png" type="Texture" id=4]
 
-
-
 [sub_resource type="DynamicFont" id=1]
 size = 12
 font_data = ExtResource( 2 )
