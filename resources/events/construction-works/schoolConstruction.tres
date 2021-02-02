@@ -10,7 +10,7 @@ This will cost us "
 active_duration = 3
 accept_msg = "Accept"
 refuse_msg = "Refuse"
-weight = 4
+weight = 400
 weight_ease_duration = 5
 weight_ease_exponent = 4.0
 available_trigger_count = -1

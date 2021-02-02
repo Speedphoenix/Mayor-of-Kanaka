@@ -18,7 +18,6 @@
 [ext_resource path="res://resources/events/non_interactive_events/letterToMayor.tres" type="Resource" id=16]
 [ext_resource path="res://resources/events/laws-policies/garbageSorting.tres" type="Resource" id=17]
 
-
 [resource]
 script = ExtResource( 1 )
 max_events_per_turn = 6
