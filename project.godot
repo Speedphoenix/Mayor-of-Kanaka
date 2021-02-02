@@ -9,10 +9,10 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Resource",
 "class": "BaseEffect",
 "language": "GDScript",
-"path": "res://scripts/events/Effects/BaseEffect.gd"
+"path": "res://scripts/events/effects/BaseEffect.gd"
 }, {
 "base": "Resource",
 "class": "BaseEvent",
@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "ConstructionEffect",
 "language": "GDScript",
-"path": "res://scripts/events/Effects/ConstructionEffect.gd"
+"path": "res://scripts/events/effects/ConstructionEffect.gd"
 }, {
 "base": "DecisionSimple",
 "class": "ConstructionEvent",
@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "EventAdderEffect",
 "language": "GDScript",
-"path": "res://scripts/events/Effects/EventAdderEffect.gd"
+"path": "res://scripts/events/effects/EventAdderEffect.gd"
 }, {
 "base": "Node",
 "class": "EventController",
@@ -77,7 +77,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "GaugeEffect",
 "language": "GDScript",
-"path": "res://scripts/events/Effects/GaugeEffect.gd"
+"path": "res://scripts/events/effects/GaugeEffect.gd"
 }, {
 "base": "Node",
 "class": "GlobalObject",
@@ -104,10 +104,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/GameControllers/PopulationController.gd"
 }, {
-"base": "BaseEffect",
+"base": "Reference",
 "class": "PopulationEffect",
 "language": "GDScript",
-"path": "res://scripts/events/Effects/PopulationEffect.gd"
+"path": "res://scripts/events/effects/PopulationEffect.gd"
 }, {
 "base": "Reference",
 "class": "TaxiCabIterator",
