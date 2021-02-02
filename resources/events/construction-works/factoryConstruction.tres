@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/events/construction-works/FactoryConstruction.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+title = "Factory Construction"
+description = ""
+active_duration = 0
+accept_msg = "Accept"
+refuse_msg = "Refuse"
+weight = 300
+weight_ease_duration = 5
+weight_ease_exponent = 4.0
+available_trigger_count = -1
+no_space_description = ""
+tile_dimensions = Vector2( 3, 2 )
+tile_name = "factory"
+possibility_count = 1
+possibilities_can_touch = true
