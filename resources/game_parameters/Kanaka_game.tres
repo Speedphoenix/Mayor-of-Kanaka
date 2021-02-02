@@ -8,7 +8,7 @@
 [ext_resource path="res://resources/events/construction-works/nonVisualConstruction.tres" type="Resource" id=6]
 [ext_resource path="res://resources/events/laws-policies/crimeLevelIncrease.tres" type="Resource" id=7]
 [ext_resource path="res://resources/events/nature/cityGreening.tres" type="Resource" id=8]
-[ext_resource path="res://resources/events/non_interactive_events/manifestation.tres" type="Resource" id=9]
+[ext_resource path="res://resources/events/non_interactive_events/protest.tres" type="Resource" id=9]
 [ext_resource path="res://resources/events/non_interactive_events/vandalism.tres" type="Resource" id=10]
 [ext_resource path="res://resources/events/nature/civilSolarEnergy.tres" type="Resource" id=11]
 [ext_resource path="res://resources/events/non_interactive_events/toxicRain.tres" type="Resource" id=12]
@@ -17,6 +17,7 @@
 [ext_resource path="res://resources/events/construction-works/hospitalConstruction.tres" type="Resource" id=15]
 [ext_resource path="res://resources/events/non_interactive_events/letterToMayor.tres" type="Resource" id=16]
 [ext_resource path="res://resources/events/laws-policies/garbageSorting.tres" type="Resource" id=17]
+
 
 [resource]
 script = ExtResource( 1 )
