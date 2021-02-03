@@ -39,7 +39,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	#monthly citiznes satisfaction benefit from the improvement
 	var satisfaction_benefit = WeightChoice.randi_range(1, 3)
 	
-	description = ('Mayor, we need to ' + title + '. '
+	description = ('Mayor, we need to ' + title.to_lower() + '. '
 		+ event_title_description[event_chosen][1]
 		+ ' The necessary intervention will cost ' + str(improvement_monthly_cost * -1) 
 		+ 'K $ monthly')
