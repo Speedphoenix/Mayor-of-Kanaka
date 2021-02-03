@@ -60,6 +60,7 @@ var bottom_right_map_corner := Vector2(0, 0)
 onready var full_city: Node2D = $FullCity
 onready var background_city: TileMap = $FullCity/BackgroundCity
 onready var foreground_city: TileMap = $FullCity/ForegroundCity
+onready var traffic_layer: Node2D = $FullCity/Traffic
 
 onready var tile_set: TileSet = foreground_city.tile_set
 
@@ -134,7 +135,7 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 	
 	# Add initial cells
 	for coord in TaxiCabIterator.get_adjacent_coords(where, dims):
-		if _cell_is_road(coord.x, coord.y):
+		if cell_is_road(coord.x, coord.y):
 			return
 		if _cell_connects_to_city(coord.x, coord.y):
 			continue
@@ -182,17 +183,26 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 				add_road(coord.x, coord.y)
 				break
 
+func get_road_neighbours(x, y, must_be_connectable := false) -> Array:
+	var neighbours = [0, 0, 0, 0]
+	
+	if must_be_connectable:
+		neighbours[PathTilesManager.Direction.UP] = _get_neighbour_connectivity(x, y, 0, -1)
+		neighbours[PathTilesManager.Direction.LEFT] = _get_neighbour_connectivity(x, y, -1, 0)
+		neighbours[PathTilesManager.Direction.RIGHT] = _get_neighbour_connectivity(x, y, 1, 0)
+		neighbours[PathTilesManager.Direction.DOWN] = _get_neighbour_connectivity(x, y, 0, 1)
+	else:
+		neighbours[PathTilesManager.Direction.UP] = int(cell_is_road(x, y -1))
+		neighbours[PathTilesManager.Direction.LEFT] = int(cell_is_road(x -1, y))
+		neighbours[PathTilesManager.Direction.RIGHT] = int(cell_is_road(x + 1, y))
+		neighbours[PathTilesManager.Direction.DOWN] = int(cell_is_road(x, y + 1))
+	return neighbours
+
 # Will add a single road tile and connect it around
-# TODO: make it connect to nearby roads
 func add_road(x: int, y: int, neighbours_too := true) -> void:
 	_expand_city_dims(Vector2(x, y))
 	background_city.set_cell(x, y, tileid_background_filled)
-	var neighbours = [0, 0, 0, 0]
-	
-	neighbours[PathTilesManager.Direction.UP] = _get_neighbor_connectivity(x, y, 0, -1)
-	neighbours[PathTilesManager.Direction.LEFT] = _get_neighbor_connectivity(x, y, -1, 0)
-	neighbours[PathTilesManager.Direction.RIGHT] = _get_neighbor_connectivity(x, y, 1, 0)
-	neighbours[PathTilesManager.Direction.DOWN] = _get_neighbor_connectivity(x, y, 0, 1)
+	var neighbours := get_road_neighbours(x, y, true)
 	foreground_city.set_cell(x, y, path_tiles.get_tileid_from_neighbours(neighbours, alternative_road_probability))
 	
 	if neighbours_too:
@@ -246,10 +256,24 @@ func move_map(diff: Vector2) -> void:
 	if full_city.position.y + top_left.y > 0:
 		full_city.position.y = -1 * top_left.y
 
-func _get_neighbor_connectivity(x: int, y: int, xdiff: int, ydiff: int) -> int:
-	var target_id = foreground_city.get_cell(x + xdiff, y + ydiff)
+
+# Returns whether the cell contains a bit of road
+# TODO: rather if the cell is one of the possible road tiles
+func cell_is_road(x: int, y: int, to_ignore := []) -> bool:
+	return path_tiles.tile_is_path(foreground_city.get_cell(x, y), PathTilesManager.PathType.ANYPATH, to_ignore)
+
+func get_drivable_roads() -> Array:
+	var rep := []
+	for i in range(top_left_map_corner.x, bottom_right_map_corner.x):
+		for j in range(top_left_map_corner.y, bottom_right_map_corner.y):
+			if cell_is_road(i, j, [0, 0, 0, 0]):
+				rep.append(Vector2(i, j))
+	return rep
+
+func _get_neighbour_connectivity(x: int, y: int, xdiff: int, ydiff: int) -> int:
+	var target_id := foreground_city.get_cell(x + xdiff, y + ydiff)
 	return int(path_tiles.cell_can_connect_to(PathTilesManager.PathType.ROAD, target_id))
-			# Vector2(x, y), Vector2(x + xdiff, y + ydiff)))
+			# Vector2(x, y), Vector2(x + xdiff, y + ydiff))) 
 
 # Preferably do not use this, but rather receive the information from other sources...
 func _get_tile_size(tile_name: String) -> Vector2:
@@ -434,16 +458,11 @@ func _get_available_spots_bfs(
 					next_cells.push_back(to_add_cell)
 	return rep
 
-# Returns whether the cell contains a bit of road
-# TODO: rather if the cell is one of the possible road tiles
-func _cell_is_road(x: int, y: int) -> bool:
-	return path_tiles.tile_is_path(foreground_city.get_cell(x, y))
-
 # Returns whether the cell contains a bit of road that can be connected to more road
 # For example a bus stop might return false
 # TODO: use can_connect_to
 func _cell_is_connectable_road(x: int, y: int) -> bool:
-	return _cell_is_road(x, y)
+	return cell_is_road(x, y)
 
 
 # This will add roads leading to where, but not inside it
@@ -544,3 +563,4 @@ func _get_construction_work_tilename(width: int, height: int) -> String:
 
 func _on_DragInputArea_map_dragged(difference):
 	move_map(difference)
+

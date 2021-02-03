@@ -8,7 +8,7 @@ extends Reference
 
 # TODO: randomly use alt tiles
 
-enum Direction { UP = 0, LEFT = 1, RIGHT = 2, DOWN = 3}
+enum Direction { UP = 0, LEFT = 1, DOWN = 2, RIGHT = 3}
 enum PathType { ANYPATH, ROAD, WATERWAY }
 
 # I know this should be done in better fashions
@@ -21,11 +21,11 @@ var tiles := [
 	},
 	{
 		"tilename": "road_vertical",
-		"neighbours_array": [1, 0, 0, 1],
+		"neighbours_array": [1, 0, 1, 0],
 	},
 	{
 		"tilename": "road_horizontal",
-		"neighbours_array": [0, 1, 1, 0],
+		"neighbours_array": [0, 1, 0, 1],
 	},
 	{
 		"tilename": "crossroad",
@@ -37,7 +37,7 @@ var tiles := [
 	},
 	{
 		"tilename": "road_one_connection_right",
-		"neighbours_array": [0, 0, 1, 0],
+		"neighbours_array": [0, 0, 0, 1],
 	},
 	{
 		"tilename": "road_one_connection_left",
@@ -45,11 +45,11 @@ var tiles := [
 	},
 	{
 		"tilename": "road_one_connection_down",
-		"neighbours_array": [0, 0, 0, 1],
+		"neighbours_array": [0, 0, 1, 0],
 	},
 	{
 		"tilename": "road_corner_right_up",
-		"neighbours_array": [1, 0, 1, 0],
+		"neighbours_array": [1, 0, 0, 1],
 	},
 	{
 		"tilename": "road_corner_up_left",
@@ -57,7 +57,7 @@ var tiles := [
 	},
 	{
 		"tilename": "road_corner_left_down",
-		"neighbours_array": [0, 1, 0, 1],
+		"neighbours_array": [0, 1, 1, 0],
 	},
 	{
 		"tilename": "road_corner_down_right",
@@ -65,7 +65,7 @@ var tiles := [
 	},
 	{
 		"tilename": "road_triple_up",
-		"neighbours_array": [1, 1, 1, 0],
+		"neighbours_array": [1, 1, 0, 1],
 	},
 	{
 		"tilename": "road_triple_down",
@@ -73,7 +73,7 @@ var tiles := [
 	},
 	{
 		"tilename": "road_triple_left",
-		"neighbours_array": [1, 1, 0, 1],
+		"neighbours_array": [1, 1, 1, 0],
 	},
 	{
 		"tilename": "road_triple_right",
@@ -86,23 +86,23 @@ var alt_tiles := [
 	{
 		# pedestrian crossing
 		"tilename": "road_vertical_crossing",
-		"neighbours_array": [1, 0, 0, 1],
+		"neighbours_array": [1, 0, 1, 0],
 		"can_replace_default": true,
 	},
 	{
 		# pedestrian crossing
 		"tilename": "road_horizontal_crossing",
-		"neighbours_array": [0, 1, 1, 0],
+		"neighbours_array": [0, 1, 0, 1],
 		"can_replace_default": true,
 	},
 	{
 		"tilename": "bus_stop_horizontal",
-		"neighbours_array": [0, 1, 1, 0],
+		"neighbours_array": [0, 1, 0, 1],
 		"can_replace_default": false,
 	},
 	{
 		"tilename": "bus_stop_vertical",
-		"neighbours_array": [1, 0, 0, 1],
+		"neighbours_array": [1, 0, 1, 0],
 		"can_replace_default": false,
 	},
 ]
@@ -152,16 +152,16 @@ func get_tileid_from_neighbours(neighbours: Array, alt_probability := 0.0) -> in
 func cell_can_connect_to(current_tile: int, target_tileid: int) -> bool:
 	return (current_tile == PathType.ROAD || current_tile == PathType.ANYPATH) && target_tileid in road_tiles_list
 	
-func tile_is_path(tileid: int, path_type := PathType.ANYPATH) -> bool:
+func tile_is_path(tileid: int, path_type := PathType.ANYPATH, to_ignore := []) -> bool:
 	# TODO: implement waterways n stuff
 	if not (path_type in [PathType.ANYPATH, PathType.ROAD]):
 		return false
 	for el in tiles:
-		if el.tileid == tileid:
+		if el.tileid == tileid && el.neighbours_array != to_ignore:
 			return true
 	# TODO: specialize this?
 	for el in alt_tiles:
-		if el.tileid == tileid && el.can_replace_default:
+		if el.tileid == tileid && el.can_replace_default && el.neighbours_array != to_ignore:
 			return true
 	return false
 	

@@ -12,6 +12,7 @@
 
 [node name="GlobalObject" parent="." instance=ExtResource( 2 )]
 default_params = ExtResource( 6 )
+music_starts_immediatly = false
 
 [node name="TurnController" parent="GlobalObject" index="0"]
 inter_miniturn_delay = 0.2
