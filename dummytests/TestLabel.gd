@@ -12,7 +12,12 @@ func _ready():
 #		print(key)
 #	for i in range(0, 100):
 #		print(ease(float(i) / 100, 0.5))
+#	print(yield(test_func(), "completed"))
 	pass
+
+func test_func() -> float:
+	yield($"../Button", "button_down")
+	return 5
 
 func showmachin(newturn, newday = 1):
 	text = str(newturn) + " " + str(newday)

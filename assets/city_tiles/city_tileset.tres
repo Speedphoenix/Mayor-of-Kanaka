@@ -1,9 +1,10 @@
-[gd_resource type="TileSet" load_steps=5 format=2]
+[gd_resource type="TileSet" load_steps=6 format=2]
 
 [ext_resource path="res://assets/city_tiles/road_tiles.png" type="Texture" id=1]
 [ext_resource path="res://assets/dummyassets/dummycitytiles_scaled.png" type="Texture" id=2]
 [ext_resource path="res://assets/city_tiles/construction_works.png" type="Texture" id=3]
 [ext_resource path="res://assets/city_tiles/buildings.png" type="Texture" id=4]
+[ext_resource path="res://assets/city_tiles/forest.png" type="Texture" id=5]
 
 [resource]
 0/name = "grass"
@@ -804,3 +805,17 @@
 57/shape_one_way_margin = 0.0
 57/shapes = [  ]
 57/z_index = 0
+58/name = "forest"
+58/texture = ExtResource( 5 )
+58/tex_offset = Vector2( 0, 0 )
+58/modulate = Color( 1, 1, 1, 1 )
+58/region = Rect2( 0, 0, 82, 82 )
+58/tile_mode = 0
+58/occluder_offset = Vector2( 0, 0 )
+58/navigation_offset = Vector2( 0, 0 )
+58/shape_offset = Vector2( 0, 0 )
+58/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+58/shape_one_way = false
+58/shape_one_way_margin = 0.0
+58/shapes = [  ]
+58/z_index = 0

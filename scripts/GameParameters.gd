@@ -50,6 +50,9 @@ export(Dictionary) var gauge_limits: Dictionary = {
 	"NATURE": PERCENT,
 	"STRESS": PERCENT,
 }
+export(Dictionary) var new_turn_diffs := {
+	"BUDGET": 50,
+}
 
 
 func apply(scene_tree: SceneTree) -> void:
@@ -76,6 +79,7 @@ func apply(scene_tree: SceneTree) -> void:
 	gauge_controller.set_gauges(initial_gauges, true)
 	
 	game_state_controller.game_can_end = self.game_can_end
+	game_state_controller.new_turn_diffs = self.new_turn_diffs
 	
 	# Instructions after this line rely on every node having had their _ready() called
 	yield(scene_tree, "idle_frame")

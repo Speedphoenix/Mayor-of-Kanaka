@@ -2,12 +2,7 @@ class_name EventController
 extends Node
 # Controls the flow of event throughout a single game
 
-# TODO: make a robust next-event chooser:
-#	So that we don't get them too many miniturns in a row
-#	So we don't get the same event many times in a row
-#		Careful about ending up at the last turns of a game with many of the same!
-# if the number of miniturns left isn't enough, machine gun the events?
-#	or rather make variable probas depending on that
+# TODO: Avoid getting events too many miniturns in a row
 
 # Events to pop up on the screen right now
 # The parameter is an array of BaseEvent resources
@@ -25,7 +20,6 @@ signal active_events_changed(new_active_events)
 # This is triggered even if the new triggerable event has a weight of 0
 signal new_triggerable_event_added(new_triggerable)
 
-# TODO: rename to "on turn start" and "on miniturn"
 # When a new turn/month starts, how many events can be triggered at once
 export(int) var events_per_turn_start := 1
 export(int) var max_events_per_miniturn := 1

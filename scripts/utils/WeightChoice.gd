@@ -14,18 +14,19 @@ static func choose_by_weight(tab: Array, count := 1) -> Array:
 	for el in tab_dup:
 		assert(el >= 0)
 		full_weight += el
-	for _i in range(count):
-		var rand_pos: int = randi() % full_weight
-		var index: int = 0
-		while rand_pos > 0 && index < tab_dup.size():
-			rand_pos -= tab_dup[index]
-			if rand_pos >= 0:
-				index += 1
-		if index > tab_dup.size():
-			break
-		rep.append(index)
-		full_weight -= tab_dup[index]
-		tab_dup[index] = 0
+	if full_weight > 0:
+		for _i in range(count):
+			var rand_pos: int = randi() % full_weight
+			var index: int = 0
+			while index < tab_dup.size() && (tab_dup[index] == 0 || rand_pos > 0):
+				rand_pos -= tab_dup[index]
+				if rand_pos >= 0:
+					index += 1
+			if index > tab_dup.size():
+				break
+			rep.append(index)
+			full_weight -= tab_dup[index]
+			tab_dup[index] = 0
 	return rep
 
 # Takes an array of dicts containing a weight attribute
