@@ -97,7 +97,6 @@ func _inhabitant_per_size(size: int) -> int:
 		return inhabitants_per_house_size[size]
 	return size * 2
 
-# TODO: add more randomness (don't always add a house, add a random amount...)
 func _on_miniturn_changed(_turn_number, _miniturn_number):
 	var added_size := _construct_delayed()
 	if randf() <= new_house_probability:

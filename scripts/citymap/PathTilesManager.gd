@@ -6,7 +6,6 @@ extends Reference
 # for corners, the directions indicate which sides are connected
 # for triple, the direction indicates the middle connection (NOT the empty side)
 
-# TODO: randomly use alt tiles
 
 enum Direction { UP = 0, LEFT = 1, DOWN = 2, RIGHT = 3}
 enum PathType { ANYPATH, ROAD, WATERWAY }
@@ -153,7 +152,6 @@ func cell_can_connect_to(current_tile: int, target_tileid: int) -> bool:
 	return (current_tile == PathType.ROAD || current_tile == PathType.ANYPATH) && target_tileid in road_tiles_list
 	
 func tile_is_path(tileid: int, path_type := PathType.ANYPATH, to_ignore := []) -> bool:
-	# TODO: implement waterways n stuff
 	if not (path_type in [PathType.ANYPATH, PathType.ROAD]):
 		return false
 	for el in tiles:

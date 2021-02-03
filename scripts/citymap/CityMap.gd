@@ -1,13 +1,6 @@
 class_name CityMap
 extends Node2D
 
-# TODO:
-# keep the city's dimensions in memory somewhere?
-# add a add-road-here function (done)
-#	will add road n° 1
-#	check roads around it, update their tile and itself
-# when doing previews don't change the background tile until it's set in stone
-
 # Ignoring narrowing conversion warnings (unprotected float to int conversions)
 # This file uses a large amount of Vector2, and handles many of their values as ints 
 # warning-ignore-all:narrowing_conversion
@@ -243,8 +236,8 @@ func get_town_hall_center_position() -> Vector2:
 # Will attempt to move the map.
 func move_map(diff: Vector2) -> void:
 	full_city.position += diff
-	var top_left: Vector2 = top_left_map_corner * foreground_city.cell_size * full_city.transform.get_scale()
-	var bot_right: Vector2 = bottom_right_map_corner * foreground_city.cell_size * full_city.transform.get_scale()
+	var top_left: Vector2 = top_left_map_corner * cell_size * full_city.transform.get_scale()
+	var bot_right: Vector2 = bottom_right_map_corner * cell_size * full_city.transform.get_scale()
 
 	var viewport_size: Vector2 = get_viewport_rect().size
 	if full_city.position.x + bot_right.x < viewport_size.x:
@@ -258,7 +251,6 @@ func move_map(diff: Vector2) -> void:
 
 
 # Returns whether the cell contains a bit of road
-# TODO: rather if the cell is one of the possible road tiles
 func cell_is_road(x: int, y: int, to_ignore := []) -> bool:
 	return path_tiles.tile_is_path(foreground_city.get_cell(x, y), PathTilesManager.PathType.ANYPATH, to_ignore)
 
@@ -346,9 +338,10 @@ func _spot_touches_city(pos: Vector2, dims: Vector2) -> bool:
 	return false
 
 # Will return an array of available spots (Vector2) that include included_cell
-# TODO: find a better name for this func
-# TODO: optimize this with spot_is_available to not iterate n^2 times too many
-# TODO: get the first element to be the most centered around included_cell?
+# TODO:
+# 	find a better name for this func
+# 	optimize this with spot_is_available to not iterate n^2 times too many
+# 	get the first element to be the most centered around included_cell?
 func _find_available_spots(included_cell: Vector2, dims: Vector2) -> Array:
 	var rep := []
 	for i in range(included_cell.x - (dims.x - 1), included_cell.x + dims.x):
@@ -396,7 +389,7 @@ func _get_available_spots_manhattan(
 
 # around_where must be a full cell,
 # else the returned array will only contain spots icluding with that cell
-# TODO: implement the starting dims, as in start withall tiles of a rect
+# TODO: implement the starting dims, as in start with all tiles of a rect
 func _get_available_spots_bfs(
 	dims: Vector2,
 	around_where: Vector2,

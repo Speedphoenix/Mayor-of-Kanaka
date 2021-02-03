@@ -12,9 +12,9 @@
 
 [node name="GlobalObject" parent="." instance=ExtResource( 2 )]
 default_params = ExtResource( 6 )
-music_starts_immediatly = false
 
 [node name="TurnController" parent="GlobalObject" index="0"]
+days_in_a_month = 60
 inter_miniturn_delay = 0.2
 inter_turn_delay = 0.2
 

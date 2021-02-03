@@ -43,3 +43,6 @@ gauge_limits = {
 "UPPER": 100
 }
 }
+new_turn_diffs = {
+"BUDGET": 50
+}

@@ -4,8 +4,9 @@ extends Node
 # Parameters are subject to change, but well...
 signal game_ended(end_reason)
 
-# TODO: Have the game parameters set this
-export(float) var new_turn_budget_diff := 20
+var new_turn_diffs := {
+	"BUDGET": 20
+}
 
 # Will trigger game over if one of the 4 main gauges falls to zero
 export(bool) var end_on_empty_gauge := true
@@ -25,7 +26,7 @@ func _ready():
 	gauge_controller.connect("gauge_changed", self, "_on_gauge_changed")
 
 func _on_turn_changed(_turn_number, _miniturn_number):
-	gauge_controller.apply_to_gauge("BUDGET", new_turn_budget_diff)
+	gauge_controller.apply_to_gauges(new_turn_diffs)
 
 func _on_gauge_changed(gauge_name, new_value, _old_value):
 	if !game_can_end:
