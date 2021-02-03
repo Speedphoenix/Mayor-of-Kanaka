@@ -1,31 +1,32 @@
 extends ConstructionEvent
 
 # The name of the gauge that will be incremented when a building is erected
-const gauge_counter_name = "PARK"
-var park_type := ['park', 'forest']
+const gauge_counter_name = "POLICE_STATION"
 
 func _init():
 	#on accept
-	# Satisfaction & health goes up
+	# Satisfaction goes up, stress down
 	accept_effects = {
 		"on_gauges": {
 			#"BUDGET":added later
-			"SATISFACTION": WeightChoice.randi_range(1, 3),
-			"HEALTH": WeightChoice.randi_range(1, 3)
+			"SATISFACTION": WeightChoice.randi_range(10, 20),
+			"STRESS": WeightChoice.randi_range(-5, -3)
 		},
 	}
 	#on decline
-	#Satisfaction goes down
+	#Satisfaction goes down, stress goes up
 	refuse_or_expire_effects = {
 		"on_gauges": {
-			"SATISFACTION": WeightChoice.randi_range(-3, -1),
+			"SATISFACTION": WeightChoice.randi_range(-8, -3),
+			"STRESS": WeightChoice.randi_range(3, 5)
 		},
 	}
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	tile_name = WeightChoice.choose_random_from_array(park_type)
-	accept_effects['on_gauges']['BUDGET'] = WeightChoice.randi_range(-60, -30)
+	var cunstruction_cost := WeightChoice.randi_range(-550, -300)
+	description += str(cunstruction_cost * -1) + 'K $.'
+	accept_effects['on_gauges']['BUDGET'] = cunstruction_cost
 
 func on_accepted(scene_tree: SceneTree) -> void:
 	.on_accepted(scene_tree)
