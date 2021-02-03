@@ -14,6 +14,10 @@ max_city_length = 100
 map_size_padding = 10
 tilename_background_empty_tile = "dummy_grass"
 
+[node name="RoadDelayTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
 [node name="FullCity" type="Node2D" parent="."]
 scale = Vector2( 0.25, 0.25 )
 

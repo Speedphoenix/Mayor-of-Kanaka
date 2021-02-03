@@ -33,6 +33,7 @@ export(int) var max_city_length := 20000
 
 export(int) var max_road_connection_distance := 7
 export(float, 0, 1) var alternative_road_probability := 0.5
+export(float) var inter_road_delay := 0.1
 
 # Must be a positive value
 export(int, 0, 2e9) var map_size_padding := 0
@@ -67,10 +68,11 @@ static func get_instance(scene_tree: SceneTree) -> CityMap:
 
 func _ready():
 	assert(tile_set == foreground_city.tile_set && tile_set == background_city.tile_set)
+	$RoadDelayTimer.wait_time = inter_road_delay
 	path_tiles = PathTilesManager.new(tile_set)
 	townhall_dims = _get_tile_size(tilename_townhall)
+	
 	reset_map()
-
 
 func reset_map() -> void:
 	background_city.clear()
@@ -166,7 +168,12 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 						break
 	if found_road:
 		var last_empty: Vector2 = passed_already[closest_road]
-		var end_road := _trace_back_road_bfs(last_empty, passed_already)
+		var end_road: Vector2
+		var trace_back_ret = _trace_back_road_bfs(last_empty, passed_already)
+		if trace_back_ret is GDScriptFunctionState:
+			end_road = yield(trace_back_ret, "completed")
+		else:
+			end_road = trace_back_ret
 		_connect_roads(end_road)
 	elif found_building:
 		_trace_back_road_bfs(passed_already[closest_building], passed_already)
@@ -175,6 +182,7 @@ func construct_road_to(where: Vector2, dims: Vector2) -> void:
 			if _can_build_on_cell(coord.x, coord.y):
 				add_road(coord.x, coord.y)
 				break
+	
 
 func get_road_neighbours(x, y, must_be_connectable := false) -> Array:
 	var neighbours = [0, 0, 0, 0]
@@ -549,6 +557,7 @@ func _trace_back_road_bfs(start: Vector2, passed_already: Dictionary) -> Vector2
 		current = passed_already[current]
 		if _can_build_on_cell(current.x, current.y):
 			add_road(current.x, current.y)
+			yield($RoadDelayTimer, "timeout")
 	return current
 
 func _get_construction_work_tilename(width: int, height: int) -> String:
