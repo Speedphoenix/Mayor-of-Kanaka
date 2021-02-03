@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-title = "Manifestation"
+title = "Protests"
 description = ""
 active_duration = 0
 accept_msg = "Accept"

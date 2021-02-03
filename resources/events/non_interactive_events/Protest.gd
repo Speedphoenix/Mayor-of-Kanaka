@@ -14,7 +14,7 @@ func _init():
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
-	description = ("Mayor, people are manifestating on "
+	description = ("Mayor, people are protesting on "
 	+ WeightChoice.choose_random_from_array(square_names) + " square"
 	+ ". The reason is Kanaka's " + WeightChoice.choose_random_from_array(manif_reasons) + '.')
 	#yield(turn_controller, "turn_changed")
