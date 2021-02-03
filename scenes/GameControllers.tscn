@@ -34,4 +34,4 @@ script = ExtResource( 4 )
 
 [node name="TrafficController" type="Node" parent="."]
 script = ExtResource( 5 )
-car_scene = ExtResource( 6 )
+car_scenes = [ ExtResource( 6 ) ]
