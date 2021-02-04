@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource( 1 )
 title = "Hospital construction"
-description = "In order to improve overall health situation in the city, we suggest constructing a new hospital. 
-This will cost us "
+description = "In order to improve the overall health and sanitary situation in the city, we suggest constructing a new hospital. 
+This would cost us "
 active_duration = 0
 accept_msg = "Accept"
 refuse_msg = "Refuse"

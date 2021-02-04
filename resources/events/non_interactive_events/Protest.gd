@@ -1,6 +1,6 @@
 extends EventNonInteractive
 
-var manif_reasons := ['Energy consumption', 'Ecological situation']
+var manif_reasons := ['energy consumption', 'ecological situation']
 var square_names := ['Bariko', 'Zuula', 'General', 'Zaebumba']
 var trigger_effects
 
@@ -15,7 +15,7 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	description = ("Mayor, people are protesting on "
-	+ WeightChoice.choose_random_from_array(square_names) + " square"
-	+ ". The reason is Kanaka's " + WeightChoice.choose_random_from_array(manif_reasons) + '.')
+	+ WeightChoice.choose_random_from_array(square_names) + " square.\n"
+	+ "The reason is Kanaka's " + WeightChoice.choose_random_from_array(manif_reasons) + '.')
 	#yield(turn_controller, "turn_changed")
 	gauge_controller.apply_to_gauges(trigger_effects.on_gauges)

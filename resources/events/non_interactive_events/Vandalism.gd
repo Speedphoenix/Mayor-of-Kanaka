@@ -1,7 +1,7 @@
 extends EventNonInteractive
 
 var vandal_action = ['turned over hundreds of trash cans all over the city',
-	'left graffiti on the windows of many city shops. All saying: deceitful eco-friendly']
+	"left graffiti on the windows of many city shops. All saying: 'deceitful eco-friendly'"]
 var trigger_effects
 
 func _init():

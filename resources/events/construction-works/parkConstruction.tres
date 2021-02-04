@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 title = "Citizens need more parks"
-description = "Mayor, we suggest financing a park construction. For a little price we can improve our citizens life condition"
+description = "Mayor, we suggest financing a park construction. For a little price we can improve our citizens life conditions"
 active_duration = 0
 accept_msg = "Accept"
 refuse_msg = "Refuse"

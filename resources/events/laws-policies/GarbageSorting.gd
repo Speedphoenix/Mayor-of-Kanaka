@@ -27,11 +27,11 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	#will be payed once
 	accept_effects['on_gauges']["BUDGET"] = cost
 	description = (
-		"Mayor, we suggest to conduct the city garbage sorting project."
+		"Mayor, we suggest to conduct a city garbage sorting project."
 		+ " Our initial investment will be "
-		+ str(cost * -1) + "K $."
+		+ str(cost * -1) + "K $.\n"
 		+ "This will certainly help us with garbage recycling."
-		)
+	)
 	monthyl_effects = {
 		"on_gauges": {
 			"NATURE": 1

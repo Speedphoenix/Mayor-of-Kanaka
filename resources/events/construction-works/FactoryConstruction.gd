@@ -25,9 +25,9 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	description = (
-		'Mayor, ' + WeightChoice.choose_random_from_array(company_names) 
-		+ ' Company is willing to construct a factory in the city.' 
-		+ ' This will bring a huge profit to the budget.'
+		'Mayor, the ' + WeightChoice.choose_random_from_array(company_names) 
+		+ ' company is willing to construct a factory in the city.' 
+		+ " This will greatly increase the city's income."
 	)
 
 func on_accepted(scene_tree: SceneTree) -> void:

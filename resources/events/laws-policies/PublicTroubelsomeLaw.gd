@@ -2,10 +2,10 @@
 extends DecisionSimple
 
 export(Array, Array, String) var possible_title_and_description := [
-	['Implement a curfew', 'Restrict citizen mobility between 8PM and 6AM' ],
+	[ 'Implement a curfew', 'Restrict citizen mobility between 8PM and 6AM' ],
 	[
-		'Add restrictions in order to limit CO2 emissions',
-		'Only vehicles having a licence plate with even numbers should be allowed to move in the city (concerns only civilian private transport)',
+		'Add restrictions in order to limit CO2 emissions.',
+		'Only vehicles having a licence plate with even numbers should be allowed to move in the city. (Concerns only civilian private transport)',
 	],
 ]
 

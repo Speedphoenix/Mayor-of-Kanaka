@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 title = "Letters received"
-description = "Mayor we have treated a bunch of letters received from our citizens. For the monment people seem to be "
+description = "Mayor we have received a batch of letters from our citizens. For the moment people seem to be "
 active_duration = 0
 accept_msg = "Accept"
 refuse_msg = "Refuse"

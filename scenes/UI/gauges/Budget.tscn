@@ -14,19 +14,19 @@ texture = ExtResource( 1 )
 custom_colors/font_color = Color( 0.00392157, 0.603922, 0, 1 )
 
 [node name="ScaleUnit" parent="MainContainer" index="2"]
-margin_right = 352.0
+margin_right = 359.0
 custom_colors/font_color = Color( 0.00392157, 0.603922, 0, 1 )
-text = "k"
+text = "K"
 
 [node name="ArrowContainer" parent="MainContainer" index="3"]
-margin_left = 356.0
-margin_right = 447.0
+margin_left = 363.0
+margin_right = 454.0
 
 [node name="Arrow" parent="MainContainer/ArrowContainer" index="0"]
 texture = ExtResource( 3 )
 
 [node name="Unit" parent="MainContainer" index="4"]
-margin_left = 451.0
-margin_right = 502.0
+margin_left = 458.0
+margin_right = 509.0
 custom_colors/font_color = Color( 0.00392157, 0.603922, 0, 1 )
 text = "$"

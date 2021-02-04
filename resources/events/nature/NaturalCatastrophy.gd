@@ -34,7 +34,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	title = WeightChoice.choose_random_from_array(catastrophy_title)
 	#Amount of money to spent if we want to softeh crisis concsequences
 	var preventive_measures_cost = WeightChoice.randi_range(-400, -100)
-	description = ('Nature is rebelling, Mayor. We must act immiditealy, or face unpleasant consequences.'
-		+ ' It will cost ' + str(preventive_measures_cost * -1) + 'K $ for the city budget.' 
+	description = ('Nature is rebelling, Mayor. We must act immediately, or face unpleasant consequences.\n'
+		+ 'It will cost ' + str(preventive_measures_cost * -1) + 'K $ on the city budget.' 
 		+ ' The economic damage is yet unknown.')
 	accept_effects['on_gauges']['BUDGET'] = preventive_measures_cost

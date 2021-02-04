@@ -40,7 +40,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	description = (
 		'Loan amount: ' + str(loan_amount) + 'K $ \n' + 
 		'Loan term: ' + str(loan_month_term) + ' month \n' + 
-		'Loan percentage: ' + str(loan_percent * 100) + '%'
+		'Interest rates: ' + str(loan_percent * 100) + '%'
 	)
 
 func on_accepted(scene_tree: SceneTree) -> void:

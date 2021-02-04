@@ -2,8 +2,10 @@
 extends DecisionSimple
 
 var trouble_name := ['A pipe has been severed', 'A power outage has occurred', 'There has been a car accident']
-export (Array, String) var street_name := ['Bukovski', 'Dupont', 'Smith', 'Bugaga', 'Sezam', 
-'Meisters', 'Wagner', 'Nihon', 'Chingpo']
+export (Array, String) var street_name := [
+	'Bukovski', 'Dupont', 'Smith', 'Bugaga', 'Sezam', 
+	'Meisters', 'Wagner', 'Nihon', 'Chingpo',
+]
 
 func _init():
 	#on accept
@@ -28,7 +30,7 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	title = WeightChoice.choose_random_from_array(trouble_name)
 	#Amount of money to spent r repairs
 	var work_cost = WeightChoice.randi_range(-60, -10)
-	description = ('Mayor, a trouble has occurred on '
+	description = ('Mayor, trouble has occurred on '
 		+ WeightChoice.choose_random_from_array(street_name) 
 		+ ' Street.'
 		+ ' The necessary intervention will cost ' + str(work_cost * -1) + 'K $')

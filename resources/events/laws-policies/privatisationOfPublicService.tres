@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 title = "Privatisation Event"
-description = "Privatisation event description"
+description = ""
 active_duration = 3
 accept_msg = "Accept"
 refuse_msg = "Refuse"

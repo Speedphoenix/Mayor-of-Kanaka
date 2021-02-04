@@ -24,9 +24,10 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	description = (
-		'Mayor, crime level in ' 
+		'Mayor, the crime level in ' 
 		+ WeightChoice.choose_random_from_array(district_name)
-		+' District has severly increased.\nWe must act in order to protect our citizens.'
+		+ ' district has severly increased.\n'
+		+ 'We must act in order to protect our citizens.'
 	)
 
 func on_refused(scene_tree: SceneTree) -> void:

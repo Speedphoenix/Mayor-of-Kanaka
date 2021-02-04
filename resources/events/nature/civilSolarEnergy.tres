@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 title = "Civil Solar Energy Project"
-description = "Mayor, we suggest to finance the equipment of civil solar panels in the city. This will help to significantly improve the ecological situation.
+description = "Mayor, we suggest to finance solar panel installation in the city. This will help to significantly improve the ecological situation.
 The total investment will be "
 active_duration = 0
 accept_msg = "Accept"

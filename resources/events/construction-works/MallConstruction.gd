@@ -23,8 +23,8 @@ func _init():
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
 	description = (
-		'Mayor, ' + WeightChoice.choose_random_from_array(company_names) 
-		+ ' Company is willing to construct a shopping mall in the city.' 
+		'Mayor, the ' + WeightChoice.choose_random_from_array(company_names) 
+		+ ' company is willing to construct a shopping mall in the city.' 
 		+ ' This will bring a profit to the city budget.'
 	)
 

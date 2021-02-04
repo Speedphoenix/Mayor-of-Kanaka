@@ -28,9 +28,9 @@ func on_triggered(scene_tree: SceneTree) -> void:
 	#Supposing it's a long term decision, the effects will take place for 12 to 36 months
 	greening_duration = WeightChoice.randi_range(12, 36)
 	description = ('Mayor, we suggest to launch a global city greening project in order to' 
-		+ ' reduce cancer risk and imrpove overall the ecological situation.\n'
-		+ 'This project will cost us ' + str(monthly_cost * -1)+ 'K $ per month.\n'
-		+ 'The duration is estimated to ' + str(greening_duration) + ' month.')
+		+ ' reduce cancer risks and improve the overall ecological situation.\n'
+		+ 'This project will cost us ' + str(monthly_cost * -1) + 'K $ per month.\n'
+		+ 'It is estimated to last ' + str(greening_duration) + ' months.')
 	accept_effects['on_gauges']['BUDGET'] = monthly_cost
 
 func on_accepted(_scene_tree: SceneTree) -> void:

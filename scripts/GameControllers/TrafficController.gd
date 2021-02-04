@@ -4,7 +4,7 @@ extends Node
 export(Array, PackedScene) var car_scenes := []
 
 export(float) var min_roads_per_car := 10.0
-export(int) var min_population_per_car := 10
+export(float) var min_population_per_car := 10.0
 
 var current_vehicles := []
 
