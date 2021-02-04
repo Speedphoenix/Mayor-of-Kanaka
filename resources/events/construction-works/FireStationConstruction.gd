@@ -1,7 +1,7 @@
 extends ConstructionEvent
 
 # The name of the gauge that will be incremented when a building is erected
-const gauge_counter_name = "POLICE_STATION"
+const gauge_counter_name = "FIRE_STATION"
 
 func _init():
 	#on accept
@@ -36,5 +36,5 @@ func on_accepted(scene_tree: SceneTree) -> void:
 			gauge_controller.create_gauge(gauge_counter_name, 0, { "LOWER": 0 })
 		gauge_controller.apply_to_gauge(gauge_counter_name, 1)
 
-func police_car() -> void:
+func fire_fighters_car() -> void:
 	pass
