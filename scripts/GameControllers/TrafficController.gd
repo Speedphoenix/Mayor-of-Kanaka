@@ -27,8 +27,10 @@ func add_traffic_element(what: PackedScene, force := true) -> void:
 	if !force && float(possible_roads.size()) / current_car_count < min_roads_per_car:
 		return
 	var instanced = what.instance()
+	
 	city_map.traffic_layer.add_child(instanced)
-	instanced.initialize(WeightChoice.choose_random_from_array(possible_roads))
+	var chosen_pos: Vector2 = WeightChoice.choose_random_from_array(possible_roads)
+	instanced.initialize(chosen_pos)
 	current_vehicles.append(instanced)
 
 func _on_gauge_changed(gauge_name: String, new_value: float, _old_value):

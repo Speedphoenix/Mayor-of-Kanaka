@@ -101,16 +101,16 @@ func _use_pos():
 	match current_direction:
 		Direction.RIGHT:
 			position_in_cell = Vector2(advance_in_cell, cell_size.y / 2 + offset_to_road_center.y)
-			$Sprite.rotation_degrees = -90
+			$AnimatedSprite.rotation_degrees = -90
 		Direction.LEFT:
 			position_in_cell = Vector2(cell_size.x - advance_in_cell, cell_size.y / 2 - offset_to_road_center.y)
-			$Sprite.rotation_degrees = 90
+			$AnimatedSprite.rotation_degrees = 90
 		Direction.DOWN:
 			position_in_cell = Vector2(cell_size.x / 2 - offset_to_road_center.x, advance_in_cell)
-			$Sprite.rotation_degrees = 0
+			$AnimatedSprite.rotation_degrees = 0
 		Direction.UP, _:
 			position_in_cell = Vector2(cell_size.x / 2 + offset_to_road_center.x, cell_size.y - advance_in_cell)
-			$Sprite.rotation_degrees = 180
+			$AnimatedSprite.rotation_degrees = 180
 	self.position = (cell_position * cell_size) + position_in_cell
 	
 	

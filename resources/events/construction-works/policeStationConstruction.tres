@@ -1,12 +1,13 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://resources/events/construction-works/PoliceStationConstruction.gd" type="Script" id=1]
 [ext_resource path="res://resources/events/dependable-events/BankLoan.gd" type="Script" id=2]
+[ext_resource path="res://scenes/traffic_elements/PoliceCar.tscn" type="PackedScene" id=3]
 
 [resource]
 script = ExtResource( 1 )
-title = "Police Station constructio "
-description = "Mayor, in order to improve an overall city security, we suggest to construct a new police station. 
+title = "Police Station construction"
+description = "Mayor, in order to improve an overall city safety, we suggest to construct a new police station. 
 This will cost "
 active_duration = 0
 accept_msg = "Accept"
@@ -21,3 +22,4 @@ tile_dimensions = Vector2( 3, 2 )
 tile_name = "police_station"
 possibility_count = 1
 possibilities_can_touch = true
+policecar = ExtResource( 3 )

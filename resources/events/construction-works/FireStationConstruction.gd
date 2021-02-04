@@ -3,6 +3,10 @@ extends ConstructionEvent
 # The name of the gauge that will be incremented when a building is erected
 const gauge_counter_name = "FIRE_STATION"
 
+export(PackedScene) var firetruck
+
+var traffic_controller: TrafficController
+
 func _init():
 	#on accept
 	# Satisfaction goes up, stress down
@@ -24,6 +28,7 @@ func _init():
 
 func on_triggered(scene_tree: SceneTree) -> void:
 	.on_triggered(scene_tree)
+	traffic_controller = TrafficController.get_instance(scene_tree)
 	var cunstruction_cost := WeightChoice.randi_range(-550, -300)
 	description += str(cunstruction_cost * -1) + 'K $.'
 	accept_effects['on_gauges']['BUDGET'] = cunstruction_cost
@@ -35,6 +40,9 @@ func on_accepted(scene_tree: SceneTree) -> void:
 		if !gauge_controller.gauge_exists(gauge_counter_name):
 			gauge_controller.create_gauge(gauge_counter_name, 0, { "LOWER": 0 })
 		gauge_controller.apply_to_gauge(gauge_counter_name, 1)
+		add_vehicle()
 
-func fire_fighters_car() -> void:
-	pass
+func add_vehicle() -> void:
+	if not firetruck is PackedScene || !firetruck.can_instance():
+		return
+	traffic_controller.add_traffic_element(firetruck)

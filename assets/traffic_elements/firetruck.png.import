@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/car.png-978be4e0538dcffc5b19e83997e27f8c.stex"
+path="res://.import/firetruck.png-4654b2c0ece58ea1e831915b76972e87.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/city_tiles/car.png"
-dest_files=[ "res://.import/car.png-978be4e0538dcffc5b19e83997e27f8c.stex" ]
+source_file="res://assets/traffic_elements/firetruck.png"
+dest_files=[ "res://.import/firetruck.png-4654b2c0ece58ea1e831915b76972e87.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
