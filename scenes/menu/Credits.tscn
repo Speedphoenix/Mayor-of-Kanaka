@@ -41,7 +41,9 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
+margin_top = -0.5
 margin_right = -10.0
+margin_bottom = -0.5
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
@@ -71,25 +73,30 @@ valign = 1
 [node name="text" type="Label" parent="VBoxContainer"]
 margin_top = 97.0
 margin_right = 780.0
-margin_bottom = 283.0
+margin_bottom = 304.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.941176, 0.886275, 0.815686, 1 )
-text = "Mayor of Kanaka                      Version 1.0
+text = "Mayor of Kanaka
+Version 1.0
 
 PFE n°43
-                  Leonardo Jeanteur
-                  Maxime Billette
-                  Artemii Lazovskii
-                  Sarah Lehuby
-                  Amir Messedi
-                  Philippe Hubert"
+Leonardo Jeanteur
+Maxime Billette
+Artemii Lazovskii
+Sarah Lehuby
+Amir Messedi
+Philippe Hubert"
+align = 1
 valign = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ExitContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.625
-anchor_top = 0.477
+anchor_top = 0.496
 anchor_right = 0.625
-anchor_bottom = 0.477
+anchor_bottom = 0.496
 margin_left = -2.5
 margin_top = 132.0
 margin_right = 197.5
