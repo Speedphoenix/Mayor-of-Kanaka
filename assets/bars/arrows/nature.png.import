@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/satisfaction.png-c6848a273f319324841d2e04eca3abf9.stex"
+path="res://.import/nature.png-54c140c7eb624ba92639761a2f78fcef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bars/Arrows/satisfaction.png"
-dest_files=[ "res://.import/satisfaction.png-c6848a273f319324841d2e04eca3abf9.stex" ]
+source_file="res://assets/bars/arrows/nature.png"
+dest_files=[ "res://.import/nature.png-54c140c7eb624ba92639761a2f78fcef.stex" ]
 
 [params]
 

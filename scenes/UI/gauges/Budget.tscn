@@ -2,7 +2,8 @@
 
 [ext_resource path="res://assets/bars/icons/Argent.png" type="Texture" id=1]
 [ext_resource path="res://scenes/UI/gauges/Stress.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/bars/Arrows/budget.png" type="Texture" id=3]
+[ext_resource path="res://assets/bars/arrows/budget.png" type="Texture" id=3]
+
 
 [node name="Budget" instance=ExtResource( 2 )]
 step = 1.0

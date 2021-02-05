@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/bars/Arrows/health.png" type="Texture" id=1]
+[ext_resource path="res://assets/bars/arrows/health.png" type="Texture" id=1]
 [ext_resource path="res://assets/bars/icons/Sante.png" type="Texture" id=2]
 [ext_resource path="res://scenes/UI/gauges/Stress.tscn" type="PackedScene" id=3]
+
 
 [node name="Health" instance=ExtResource( 3 )]
 

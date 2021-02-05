@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-export(bool) var gaugesAsBars := false
-
 onready var gauge_controller := GaugeController.get_instance(get_tree())
 onready var turn_controller := TurnController.get_instance(get_tree())
 onready var global_object := GlobalObject.get_instance(get_tree())

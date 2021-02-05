@@ -11,9 +11,6 @@ onready var interface_controller : InterfaceController = get_parent()
 # Event that has to be displayed and handled
 var event: BaseEvent
 
-# If an event is displayed, the time is freezed until the window is closed
-var stop_time: bool = false
-
 var hover_window: bool = false
 var holding_window: bool = false
 

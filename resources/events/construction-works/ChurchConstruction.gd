@@ -2,7 +2,6 @@ extends ConstructionEvent
 
 # The name of the gauge that will be incremented when a building is erected
 const gauge_counter_name = "CHURCH"
-var company_names := ['Barker', 'Zabinski', 'Rockdock', 'Sternfild']
 
 func _init():
 	#on accept

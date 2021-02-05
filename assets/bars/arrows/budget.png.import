@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/satisfaction.png-5a5a87576ccbd7b3eca01c93c38b9e78.stex"
+path="res://.import/budget.png-299058509e67b0d2c3431b554310cf0e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bars/satisfaction.png"
-dest_files=[ "res://.import/satisfaction.png-5a5a87576ccbd7b3eca01c93c38b9e78.stex" ]
+source_file="res://assets/bars/arrows/budget.png"
+dest_files=[ "res://.import/budget.png-299058509e67b0d2c3431b554310cf0e.stex" ]
 
 [params]
 

@@ -8,9 +8,6 @@ var new_turn_diffs := {
 	"BUDGET": 20
 }
 
-# Will trigger game over if one of the 4 main gauges falls to zero
-export(bool) var end_on_empty_gauge := true
-
 # If set to false (through the game parameters),
 # a gauge reaching critical values will not trigger game_ended
 var game_can_end := true

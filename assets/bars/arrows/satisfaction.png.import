@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hold.png-35ef082ce2100aa4f74a4e36e74d36ae.stex"
+path="res://.import/satisfaction.png-94a48ac3f335aa38ce3bf2340f61824b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/events/hold.png"
-dest_files=[ "res://.import/hold.png-35ef082ce2100aa4f74a4e36e74d36ae.stex" ]
+source_file="res://assets/bars/arrows/satisfaction.png"
+dest_files=[ "res://.import/satisfaction.png-94a48ac3f335aa38ce3bf2340f61824b.stex" ]
 
 [params]
 
