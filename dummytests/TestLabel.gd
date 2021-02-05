@@ -27,12 +27,4 @@ func pauseit():
 
 func resumeit():
 	get_node("../GlobalObject/TurnController").resume_turns()
-
-func _on_GaugeController_gauge_changed(gauge_name: String, new_value: int, old_value: int):
-	pass
-#	print("gauge ", gauge_name, " has now this value ", new_value)
-
-
-func _on_GaugeController_gauges_changed(new_gauges: Dictionary, old_gauges: Dictionary):
-	pass
-#	print("the gauges as a whole have changed")
+	

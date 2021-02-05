@@ -11,7 +11,7 @@ func _ready():
 #	print($"../GlobalObject/EventController".triggerable_events.size())
 
 
-func _on_EventController_events_arrived(events: Array):
+func _on_EventController_events_arrived(_events: Array):
 	pass
 #	print("received an event!")
 #	print(events[0].title)
