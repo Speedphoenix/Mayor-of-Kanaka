@@ -4,4 +4,4 @@
 - [Maxime Billette](https://github.com/Billette)
 - [Sarah Lehuby](https://github.com/SarahL24)
 - Amir Messedi
-- Philippe Hubert
+- [Philippe Hubert](https://www.linkedin.com/in/philippe-hubert-/)
